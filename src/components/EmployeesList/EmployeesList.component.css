@@ -1,0 +1,39 @@
+.Table-area {
+    margin-top: 20px;
+    overflow: hidden;
+    min-height: 50px;
+    padding: 10px;
+}
+
+table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 14px;
+    text-align: center;
+    border-collapse: collapse;
+    border-radius: 20px;
+    box-shadow: 0 0 0 10px rgba(240, 240, 16, 0.557);
+    color: #452F21;
+    width: 600px;
+    margin: 0 auto;
+    }
+    th {
+    padding: 10px 8px;
+    background: white;
+    }
+    table th:first-child {
+        border-top-left-radius: 20px;
+    }
+    table th:last-child {
+    border-top-right-radius: 20px;
+    }
+    td {
+    border-top: 10px solid  rgba(240, 240, 16, 0.557);
+    padding: 8px;
+    background: white;
+    }
+    table td:first-child {
+    border-bottom-left-radius: 20px;
+    }
+    table td:last-child {
+    border-bottom-right-radius: 20px;
+    }
