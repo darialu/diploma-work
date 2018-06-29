@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './SearchInput.component.css';
 
 class SearchInput extends Component {
-  render() {
+  render () {
     const { onChange } = this.props;
 
     return (
@@ -10,8 +10,7 @@ class SearchInput extends Component {
         <input
           className="search-field"
           placeholder="Search contacts"
-          onChange={onChange}
-        />
+          onChange={onChange}/>
       </div>
     );
   }

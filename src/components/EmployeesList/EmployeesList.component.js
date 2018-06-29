@@ -1,66 +1,45 @@
 import React, { Component } from 'react';
 import './EmployeesList.component.css';
-import EmployeeItem from '../EmployeeItem/EmployeeItem.component';
 
-
-// const EmployeesList = function({ employees }) {
-//   let result = <div>
-    
-//     {employees.map((employee, index) =>
-    
-//       <EmployeeItem
-//         {...employee}
-//         id={index}
-//         key={index}
-//       />
-//     )}
-   
-//     {employees.length === 0 &&
-//       <p>nothing found</p>
-//     }
-//   </div>
-
-//   return result;
-// };
-
-
+// import EmployeeItem from '../EmployeeItem/EmployeeItem.component';
 
 class EmployeesList extends Component {
 
-  render() {
-    
-
+  render () {
     let tableTemplate;
+    let position = this.props.position;
 
-    function makeColumns(row) {
+    function makeColumns (row, rowId) {
+     
+      let positionId = row.positionId;
+      let rowPosition = position[positionId].name;
+      
       let result = 
-        <tr>
-          <td>{row.name}</td> 
-          <td>{row.surname}</td>
-          <td>{row.position}</td>
-        </tr>
+        <tr id={rowId}>
+          <td>{row.name + ' ' + row.surName}</td> 
+          <td>{rowPosition}</td>
+        </tr>;
+
       return result;
     }
 
+    let employees = this.props.employees;
 
-    let employees = this.props.employees
     tableTemplate = employees.map((row, i) => {
-      return makeColumns(row)
-    })
+      return makeColumns(row, i);
+    }); 
 
     return (
       <div className='Table-area'>
         <table>
           <tr>
             <th>NAME</th>
-            <th>SURNAME</th>
             <th>POSITION</th>
           </tr>
-
-            {tableTemplate}
+          {tableTemplate}
         </table>
-        </div>
-    )
+      </div>
+    );
   }
 }
 

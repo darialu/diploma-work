@@ -1,0 +1,56 @@
+env:
+  browser: true
+  es6: true
+  node: true
+  mocha: true
+extends: eslint:recommended
+parserOptions:
+  ecmaVersion: 8
+  sourceType: module
+  ecmaFeatures:
+    experimentalObjectRestSpread: true
+    jsx: true
+parser: babel-eslint
+plugins:
+  - react
+rules:
+  react/jsx-uses-react: error
+  react/jsx-uses-vars: error
+  react/jsx-closing-bracket-location:
+    - 1
+    - after-props
+  react/jsx-indent-props:
+    - error
+    - 2
+  react/jsx-first-prop-new-line:
+    - error
+    - multiline
+  space-infix-ops: error
+  array-bracket-spacing:
+    - error
+    - never
+  object-curly-spacing:
+    - error
+    - always
+  keyword-spacing:
+    - error
+  space-before-function-paren:
+    - error
+  no-unused-vars:
+    - 1
+  no-console:
+    - 1
+  newline-after-var:
+    - error
+  indent:
+    - error
+    - 2
+    - SwitchCase: 1
+  linebreak-style:
+    - off
+    - windows
+  quotes:
+    - error
+    - single
+  semi:
+    - 1

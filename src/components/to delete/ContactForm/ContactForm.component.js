@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './ContactForm.component.css'
-import { Link } from 'react-router-dom'
+import './ContactForm.component.css';
+import { Link } from 'react-router-dom';
 
 class ContactForm extends Component {
   onSubmit = event => {
@@ -12,25 +12,23 @@ class ContactForm extends Component {
     this.props.onSubmit(nameValue, phoneValue);
   }
 
-  render() {
+  render () {
     return (
       <form onSubmit={this.onSubmit}>
         <input
           className="field"
           type="text"
           name="name"
-          placeholder="Enter name"
-        />
+          placeholder="Enter name"/>
         <input
           className="field"
           type="text"
           name="phone"
-          placeholder="Enter number"
-        />
+          placeholder="Enter number"/>
         <button type="submit">Submit</button>
         <Link to="/">CANCEL</Link>
       </form>
-    )
+    );
   }
 }
 
