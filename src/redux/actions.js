@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { 
   SET_EMPLOYEES,
-  SET_POSITIONS
+  SET_POSITIONS,
+  SET_CARRENTID
 } from './actionTypes';
 import { employeesListUrl, positionsListUrl } from '../urls';
 
@@ -19,7 +20,10 @@ export const setEmployees = employees => ({
   data: { employees }
 });
 
-
+export const changeCarrentId = id => ({
+  type: SET_CARRENTID,
+  data: { id: id }
+});
 
 
 

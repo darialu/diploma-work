@@ -37,3 +37,9 @@ table {
     table td:last-child {
     border-bottom-right-radius: 20px;
     }
+
+    .Link {
+        color: black;
+        text-decoration: none;
+    }
+    

@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import EmployeesList from './components/EmployeesList/EmployeesList.component';
 import {
   fetchEmployees,
-  fetchPositions
+  fetchPositions,
+  changeCarrentId
 } from './redux/actions';
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
@@ -39,6 +40,11 @@ class App extends Component {
       });
   }
 
+  emplClicked = id => {
+    this.props.dispatch(changeCarrentId(id));
+  };
+  
+
 
   render () {
     return (
@@ -56,7 +62,8 @@ class App extends Component {
                 <div className='EmployeesList-area'>
                   <EmployeesList
                     employees={this.props.employees} 
-                    position={this.props.position}/>
+                    position={this.props.position}
+                    viewEmplPage={this.emplClicked}/>
                   <input type='file' onChange={this.fileSelectedHendler}  />
                   <button onClick={this.fileUploadHendler}>Upload</button>
 
@@ -66,9 +73,8 @@ class App extends Component {
             
               </div>
             } />
-          <Route path='/add' render={this.renderContactForm} />
+          <Route path='/employee' render={this.renderEmployee} />
           
-          <Route path='/edit' render={this.renderContactEditForm} />
         </Switch>
       </div>
     );
@@ -78,7 +84,8 @@ class App extends Component {
 function mapStateToProps (state) {
   return {
     employees: state.employees,
-    position: state.position
+    position: state.position,
+    carrentEmployeeId: state.carrentEmployeeId
   };
 }
 

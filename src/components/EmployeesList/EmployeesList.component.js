@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './EmployeesList.component.css';
-
+import { Link } from 'react-router-dom';
 // import EmployeeItem from '../EmployeeItem/EmployeeItem.component';
 
 class EmployeesList extends Component {
@@ -9,6 +9,10 @@ class EmployeesList extends Component {
     let tableTemplate;
     let position = this.props.position;
 
+    const handleClick = id => {
+      this.props.viewEmplPage(id);
+    }
+
     function makeColumns (row, rowId) {
      
       let positionId = row.positionId;
@@ -16,7 +20,8 @@ class EmployeesList extends Component {
       
       let result = 
         <tr id={rowId}>
-          <td>{row.name + ' ' + row.surName}</td> 
+          {/* <td onClick={handleClick(rowId)}>{row.name + ' ' + row.surName}</td>  */}
+          <td><Link to="/employee" onClick={handleClick(rowId)} className='Link'>{row.name + ' ' + row.surName}</Link></td> 
           <td>{rowPosition}</td>
         </tr>;
 
