@@ -2,11 +2,13 @@ import './App.css';
 import React, { Component } from 'react';
 import EmployeesList from './components/EmployeesList/EmployeesList.component';
 import EmployeePage from './components/EmployeePage/EmployeePage.component';
+import ProjectsList from './components/ProjectsList/ProjectsList.component';
 import {
   fetchEmployees,
-  fetchPositions,
+  // fetchPositions,
+  fetchProjects,
   changeCarrentId,
-  eddEmployee
+  // eddEmployee
 } from './redux/actions';
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
@@ -22,17 +24,13 @@ class App extends Component {
   componentDidMount () {
     // this.props.dispatch(fetchPositions());
     this.props.dispatch(fetchEmployees());
+    this.props.dispatch(fetchProjects());
   }
 
   // getPosition = id => {
   //   this.props.dispatch(fetchPositions(id));
   // }
 
-  fileSelectedHendler = event => {
-    this.setState({
-      selecterFile: event.target.files[0]
-    });
-  }
   
   fileUploadHendler = () => {
     axios.get('http://localhost:8000/employees')
@@ -55,11 +53,20 @@ class App extends Component {
           employees={this.props.employees}/>
       }
     </div>
+
+  renderPtojectList = () =>
+    <div>
+      { !this.props.projects.length
+        ? <p>loading...</p>
+        : <ProjectsList
+          projects={this.props.projects}/>
+      }
+    </div>
   
 
-  eddEmpl = (name) => {
-    this.props.dispatch(eddEmployee(name));
-  }
+  // eddEmpl = (name) => {
+  //   this.props.dispatch(eddEmployee(name));
+  // }
   
   
 
@@ -80,7 +87,7 @@ class App extends Component {
                 <div className='EmployeesList-area'>
                   <EmployeesList
                     employees={this.props.employees} 
-                    position={this.props.position}
+                    
                     viewEmplPage={this.emplClicked}
                     onEddEmpl={this.eddEmpl}/>
                   
@@ -95,6 +102,7 @@ class App extends Component {
               </div>
             } />
           <Route path='/employee' render={this.renderEmployee} />
+          <Route path='/projects' render={this.renderPtojectList} />
           
         </Switch>
       </div>
@@ -105,7 +113,7 @@ class App extends Component {
 function mapStateToProps (state) {
   return {
     employees: state.employees,
-    position: state.position,
+    projects: state.projects,
     carrentEmployeeId: state.carrentEmployeeId
   };
 }

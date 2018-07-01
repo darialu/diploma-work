@@ -23,11 +23,15 @@ class EmployeePage extends Component {
             <Link to='/' className='Link'>Employees</Link>
           </div>
           <div className='toProjList'>
-            <Link to='/' className='Link'>Projects</Link>
+            <Link to='/projects' className='Link'>Projects</Link>
           </div>
         </div>
         <div className='Content'>
-          <div className='avatar'></div>
+          <div>
+            <div className='avatar'></div>
+            <input type='file'/>
+            <button>Upload</button>
+          </div>
           <div className='aboutAmployee'>
             <p className='employeeName'>{name + ' ' + surname}</p>
             <p className='employeePosition'>{position}</p>

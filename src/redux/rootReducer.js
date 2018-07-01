@@ -2,24 +2,13 @@
 import { 
   SET_EMPLOYEES,
   SET_POSITIONS,
+  SET_PROJECTS,
   SET_CARRENTID
 } from './actionTypes';
 
 const initialState = {
   employees: [],
-  position: [{
-    id: 0,
-    name: 'PM'
-  },{
-    id: 1,
-    name: 'Developer'
-  },{
-    id: 2,
-    name: 'QA'
-  },{
-    id: 3,
-    name: 'Solution Architect'
-  }],
+  projects: [],
   carrentEmployeeId: 0
 };
 
@@ -29,6 +18,12 @@ export default (state = initialState, action) => {
       const employees = action.data.employees;
 
       return { ...state, employees };
+    }
+
+    case SET_PROJECTS: {
+      const projects = action.data.projects;
+
+      return { ...state, projects };
     }
 
     case SET_CARRENTID: {
