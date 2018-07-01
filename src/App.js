@@ -12,6 +12,8 @@ import { connect } from 'react-redux';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import axios from 'axios';
+import Moment from 'react-moment';
+import 'moment-timezone';
 import './App.css';
 
 
@@ -80,8 +82,7 @@ class App extends Component {
                     employees={this.props.employees} 
                     position={this.props.position}
                     viewEmplPage={this.emplClicked}
-                    onEddEmpl={this.eddEmpl}
-                  />
+                    onEddEmpl={this.eddEmpl}/>
                   
                   <input type='file' onChange={this.fileSelectedHendler}  />
                   <button onClick={this.fileUploadHendler}>Upload</button>

@@ -2,10 +2,48 @@
     margin: 0;
     border: 0;
     padding: 0;
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     text-align: left;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
     overflow: hidden;
+}
+
+.Header {
+    width: 100%;
+    /* background-color: blueviolet; */
+}
+
+.toEmplList {
+    /* background-color: brown; */
+    width: 120px;
+    height: 40px;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 20px;
+    float: left;
+    border-bottom: 5px solid yellow;
+}
+
+.toProjList {
+    /* background-color: brown; */
+    margin-left: 5px;
+    width: 120px;
+    height: 40px;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 20px;
+    float: left;
+    border-bottom: 5px solid yellow;
+}
+
+.Link {
+    text-decoration: none;
+    color: black;
+}
+
+.Content {
+    padding-top: 10px;
+    clear: both;
 }
 
 .avatar {
@@ -23,9 +61,17 @@
     width: 40%;
 }
 
+.employeePosition {
+    font-size: 16px;
+    width: 180px;
+    margin: 0px;
+    padding: 0px;
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.796);
+}
+
 .employeeName {
     font-size: 20px;
-    padding: 0;
     width: 180px;
     margin: 0px;
     padding: 0px;

@@ -43,7 +43,7 @@ export const eddEmployee = (name) => dispatch => {
     .then(({ data }) => {
       return dispatch(setPositions(data));
     });
-}
+};
 
 
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './EmployeePage.component.css';
+import Moment from 'react-moment';
+import 'moment-timezone';
 import { Link } from 'react-router-dom';
 
 class EmployeePage extends Component {
@@ -11,15 +13,27 @@ class EmployeePage extends Component {
     let name = employees[id].name;
     let surname = employees[id].surName;
     let position = employees[id].position.name;
-    let birthday = employees[id].birthday;
+    let dateToFormat = employees[id].birthday;
+    let location = employees[id].location.name;
 
     return (
       <div className='EmployeePageArea'>
-        <div className='avatar'></div>
-        <div className='aboutAmployee'>
-          <p className='employeeName'>{name + ' ' + surname}</p>
-          <p className='employeeName'>{position}</p>
-          <p>{birthday}</p>
+        <div className='Header'>
+          <div className='toEmplList'>
+            <Link to='/' className='Link'>Employees</Link>
+          </div>
+          <div className='toProjList'>
+            <Link to='/' className='Link'>Projects</Link>
+          </div>
+        </div>
+        <div className='Content'>
+          <div className='avatar'></div>
+          <div className='aboutAmployee'>
+            <p className='employeeName'>{name + ' ' + surname}</p>
+            <p className='employeePosition'>{position}</p>
+            <p>Birthday: <Moment format="DD.MM.YYYY">{dateToFormat}</Moment></p>
+            <p>{'Location: ' + location}</p>         
+          </div>
         </div>
       </div>
     );
