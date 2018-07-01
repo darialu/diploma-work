@@ -1,0 +1,33 @@
+.EmployeePageArea {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    background-color: aquamarine;
+    text-align: left;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+    overflow: hidden;
+}
+
+.avatar {
+    background-color: blue;
+    height: 150px;
+    width:150px;
+    float: left;
+    margin: 20px;
+}
+
+.aboutAmployee {
+    margin-top: 20px; 
+    background-color: bisque;
+    overflow: hidden;
+    width: 40%;
+}
+
+.employeeName {
+    font-size: 20px;
+    padding: 0;
+    width: 180px;
+    margin: 0px;
+    padding: 0px;
+    /* overflow: hidden; */
+}

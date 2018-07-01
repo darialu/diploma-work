@@ -7,22 +7,22 @@ class EmployeesList extends Component {
 
   render () {
     let tableTemplate;
-    let position = this.props.position;
+    // let position = this.props.position;
 
     const handleClick = id => {
       this.props.viewEmplPage(id);
-    }
+    };
 
     function makeColumns (row, rowId) {
      
-      let positionId = row.positionId;
-      let rowPosition = position[positionId].name;
+      // let positionId = row.positionId;
+      // let rowPosition = position[positionId].name;
       
       let result = 
         <tr id={rowId}>
-          {/* <td onClick={handleClick(rowId)}>{row.name + ' ' + row.surName}</td>  */}
           <td><Link to="/employee" onClick={handleClick(rowId)} className='Link'>{row.name + ' ' + row.surName}</Link></td> 
-          <td>{rowPosition}</td>
+          <td>{row.position.name}</td>
+          <td>{row.location.name}</td>
         </tr>;
 
       return result;
@@ -40,9 +40,11 @@ class EmployeesList extends Component {
           <tr>
             <th>NAME</th>
             <th>POSITION</th>
+            <th>LOCATION</th>
           </tr>
           {tableTemplate}
         </table>
+        {/* <button onClick={this.props.onEddEmpl('vasya')}>add</button> */}
       </div>
     );
   }

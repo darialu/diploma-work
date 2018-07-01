@@ -1,10 +1,12 @@
 import './App.css';
 import React, { Component } from 'react';
 import EmployeesList from './components/EmployeesList/EmployeesList.component';
+import EmployeePage from './components/EmployeePage/EmployeePage.component';
 import {
   fetchEmployees,
   fetchPositions,
-  changeCarrentId
+  changeCarrentId,
+  eddEmployee
 } from './redux/actions';
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
@@ -16,10 +18,8 @@ import './App.css';
 class App extends Component {
 
   componentDidMount () {
-    console.log('mounted');
-    console.info('fetchEmployees', fetchEmployees);
+    // this.props.dispatch(fetchPositions());
     this.props.dispatch(fetchEmployees());
-    console.log(this.props.positions);
   }
 
   // getPosition = id => {
@@ -33,7 +33,7 @@ class App extends Component {
   }
   
   fileUploadHendler = () => {
-    axios.get('http://localhost:8000/positions')
+    axios.get('http://localhost:8000/employees')
       .then(({ data }) => {
       
         return console.log(data);
@@ -43,6 +43,22 @@ class App extends Component {
   emplClicked = id => {
     this.props.dispatch(changeCarrentId(id));
   };
+
+  renderEmployee = () => 
+    <div>
+      { !this.props.employees.length
+        ? <p>loading...</p>
+        : <EmployeePage
+          id={this.props.carrentEmployeeId}
+          employees={this.props.employees}/>
+      }
+    </div>
+  
+
+  eddEmpl = (name) => {
+    this.props.dispatch(eddEmployee(name));
+  }
+  
   
 
 
@@ -63,11 +79,15 @@ class App extends Component {
                   <EmployeesList
                     employees={this.props.employees} 
                     position={this.props.position}
-                    viewEmplPage={this.emplClicked}/>
+                    viewEmplPage={this.emplClicked}
+                    onEddEmpl={this.eddEmpl}
+                  />
+                  
                   <input type='file' onChange={this.fileSelectedHendler}  />
                   <button onClick={this.fileUploadHendler}>Upload</button>
 
                 </div>
+                
             
             
             

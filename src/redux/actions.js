@@ -20,10 +20,30 @@ export const setEmployees = employees => ({
   data: { employees }
 });
 
+export const fetchPositions = () => dispatch => {
+  return axios.get(positionsListUrl())
+    .then(({ data }) => {
+      return dispatch(setPositions(data));
+    });
+};
+
+  
+export const setPositions = positions => ({
+  type: SET_POSITIONS,
+  data: { positions }
+});
+
 export const changeCarrentId = id => ({
   type: SET_CARRENTID,
   data: { id: id }
 });
+
+export const eddEmployee = (name) => dispatch => {
+  return axios.post(employeesListUrl(), { data: name })
+    .then(({ data }) => {
+      return dispatch(setPositions(data));
+    });
+}
 
 
 
