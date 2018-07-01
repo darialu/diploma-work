@@ -8,7 +8,7 @@ import {
   // fetchPositions,
   fetchProjects,
   changeCarrentId,
-  // eddEmployee
+  eddEmployee
 } from './redux/actions';
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
@@ -64,9 +64,9 @@ class App extends Component {
     </div>
   
 
-  // eddEmpl = (name) => {
-  //   this.props.dispatch(eddEmployee(name));
-  // }
+  eddEmpl = (id, name, avatar, email, birthday, password, surName, positionId) => {
+    this.props.dispatch(eddEmployee(id, name, avatar, email, birthday, password, surName, positionId));
+  }
   
   
 
@@ -85,15 +85,14 @@ class App extends Component {
                 </div>
 
                 <div className='EmployeesList-area'>
-                  <EmployeesList
-                    employees={this.props.employees} 
-                    
-                    viewEmplPage={this.emplClicked}
-                    onEddEmpl={this.eddEmpl}/>
-                  
-                  <input type='file' onChange={this.fileSelectedHendler}  />
-                  <button onClick={this.fileUploadHendler}>Upload</button>
-
+                  { !this.props.employees.length
+                    ? <p>loading...</p>
+                    : <EmployeesList
+                      employees={this.props.employees} 
+                      
+                      viewEmplPage={this.emplClicked}
+                      onEddEmpl={this.eddEmpl}/>
+                  }
                 </div>
                 
             

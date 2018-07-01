@@ -47,16 +47,15 @@ export const setProjects = projects => ({
 //   data: { positions }
 // });
 
+export const eddEmployee = (id, name, avatar, email, birthday, password, surName, positionId) => dispatch => {
+  const employee = { id, name, avatar, email, birthday, password, surName, positionId };
+  
+  return axios.post(employeesListUrl(), employee ); 
+};
+
 export const changeCarrentId = id => ({
   type: SET_CARRENTID,
   data: { id: id }
 });
-
-// export const eddEmployee = (name) => dispatch => {
-//   return axios.post(employeesListUrl(), { data: name })
-//     .then(({ data }) => {
-//       return dispatch(setPositions(data));
-//     });
-// };
 
 

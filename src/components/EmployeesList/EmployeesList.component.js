@@ -4,12 +4,30 @@ import { Link } from 'react-router-dom';
 // import EmployeeItem from '../EmployeeItem/EmployeeItem.component';
 
 class EmployeesList extends Component {
+  edd = event => {
+    event.preventDefault();
+
+    let newEmpl = {};
+
+    let id = 0;
+    let name = 'Andy';
+    let avatar = '';
+    let email = 'andy_wallcroft@mail.uk';
+    let birthday = '1995-04-23T18:25:43.511Z';
+    let password = '12345';
+    let surName = 'Wallcroft';
+    let positionId = 0;
+  
+
+    return (this.props.onEddEmpl(id, name, avatar, email, birthday, password, surName, positionId));
+  };
 
   render () {
     let tableTemplate;
     // let position = this.props.position;
 
-    const handleClick = id => {
+    const handleClick = (event, id) => {
+      event.preventDefault;
       this.props.viewEmplPage(id);
     };
 
@@ -22,7 +40,7 @@ class EmployeesList extends Component {
         <tr id={rowId}>
           <td><Link to="/employee" onClick={handleClick(rowId)} className='Link'>{row.name + ' ' + row.surName}</Link></td> 
           <td>{row.position.name}</td>
-          <td>{row.location.name}</td>
+          {/* <td>{row.location.name}</td> */}
         </tr>;
 
       return result;
@@ -34,6 +52,8 @@ class EmployeesList extends Component {
       return makeColumns(row, i);
     }); 
 
+
+
     return (
       <div className='Table-area'>
         <table>
@@ -44,7 +64,7 @@ class EmployeesList extends Component {
           </tr>
           {tableTemplate}
         </table>
-        {/* <button onClick={this.props.onEddEmpl('vasya')}>add</button> */}
+        <button onClick={this.edd}>add</button>
       </div>
     );
   }
