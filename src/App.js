@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import EmployeesList from './components/EmployeesList/EmployeesList.component';
 import EmployeePage from './components/EmployeePage/EmployeePage.component';
 import ProjectsList from './components/ProjectsList/ProjectsList.component';
+import EddEmplForm from './components/EddEmplForm/EddEmplForm.component';
 import {
   fetchEmployees,
   // fetchPositions,
@@ -54,6 +55,11 @@ class App extends Component {
       }
     </div>
 
+  renderEddEmplForm = () =>
+    <div>
+      <EddEmplForm/>
+    </div>
+
   renderPtojectList = () =>
     <div>
       { !this.props.projects.length
@@ -64,9 +70,9 @@ class App extends Component {
     </div>
   
 
-  eddEmpl = (id, name, avatar, email, birthday, password, surName, positionId) => {
-    this.props.dispatch(eddEmployee(id, name, avatar, email, birthday, password, surName, positionId));
-  }
+  // eddEmpl = (id, name, avatar, email, birthday, password, surName, positionId, locationId) => {
+  //   this.props.dispatch(eddEmployee(id, name, avatar, email, birthday, password, surName, positionId, locationId));
+  // }
   
   
 
@@ -87,11 +93,13 @@ class App extends Component {
                 <div className='EmployeesList-area'>
                   { !this.props.employees.length
                     ? <p>loading...</p>
-                    : <EmployeesList
-                      employees={this.props.employees} 
-                      
-                      viewEmplPage={this.emplClicked}
-                      onEddEmpl={this.eddEmpl}/>
+                    : <div>
+                      <EmployeesList
+                        employees={this.props.employees} 
+                        viewEmplPage={this.emplClicked}
+                        onEddEmpl={this.eddEmpl}/>
+                      <button><Link to="/eddEmployeeForm">add employee</Link></button>
+                    </div>
                   }
                 </div>
                 
@@ -101,6 +109,7 @@ class App extends Component {
               </div>
             } />
           <Route path='/employee' render={this.renderEmployee} />
+          <Route path='/eddEmployeeForm' render={this.renderEddEmplForm} />
           <Route path='/projects' render={this.renderPtojectList} />
           
         </Switch>
