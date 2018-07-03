@@ -57,7 +57,8 @@ class App extends Component {
 
   renderEddEmplForm = () =>
     <div>
-      <EddEmplForm/>
+      <EddEmplForm
+        val='qwerty'/>
     </div>
 
   renderPtojectList = () =>
