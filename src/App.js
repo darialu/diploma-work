@@ -45,6 +45,13 @@ class App extends Component {
     this.props.dispatch(changeCarrentId(id));
   };
 
+  eddEmployee = data => {
+    // let id = this.props.employees.length + 1;
+
+    // data.id = id;
+    this.props.dispatch(eddEmployee(data));
+  }
+
   renderEmployee = () => 
     <div>
       { !this.props.employees.length
@@ -58,7 +65,9 @@ class App extends Component {
   renderEddEmplForm = () =>
     <div>
       <EddEmplForm
-        val='qwerty'/>
+        locations={this.props.locations}
+        positions={this.props.positions}
+        EddEmplSubmit={this.eddEmployee}/>
     </div>
 
   renderPtojectList = () =>
@@ -97,8 +106,7 @@ class App extends Component {
                     : <div>
                       <EmployeesList
                         employees={this.props.employees} 
-                        viewEmplPage={this.emplClicked}
-                        onEddEmpl={this.eddEmpl}/>
+                        viewEmplPage={this.emplClicked}/>
                       <button><Link to="/eddEmployeeForm">add employee</Link></button>
                     </div>
                   }
@@ -123,7 +131,9 @@ function mapStateToProps (state) {
   return {
     employees: state.employees,
     projects: state.projects,
-    carrentEmployeeId: state.carrentEmployeeId
+    carrentEmployeeId: state.carrentEmployeeId,
+    locations: state.locations,
+    positions: state.positions
   };
 }
 

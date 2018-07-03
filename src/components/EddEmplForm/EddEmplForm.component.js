@@ -3,16 +3,49 @@ import './EddEmplForm.component.css';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import 'moment-timezone';
-import { Form, Text } from 'react-form';
+import { Form, Text, Select } from 'react-form';
 // import EmployeeItem from '../EmployeeItem/EmployeeItem.component';
 
 class EddEmplForm extends Component {
     onSubmit = values => {
-      console.info(values);
+      this.props.EddEmplSubmit(values);
     };
 
     render () {
-      let name = 'llllll';
+      const locations = this.props.locations;
+
+      let locationsArr = locations.map(location => {
+        return location.name;
+      });
+
+      let locationsOptions = locationsArr.map((city, i) => {
+        let item = {
+          label: '',
+          value: '',
+        };
+
+        item.label = city;
+        item.value = i;
+        return item;
+      });
+
+      const positions = this.props.positions;
+
+      let positionsArr = positions.map(position => {
+        return position.name;
+      });
+
+      let positionOptions = positionsArr.map((position, i) => {
+        let item = {
+          label: '',
+          value: '',
+        };
+
+        item.label = position;
+        item.value = i;
+        return item;
+      });
+
 
       return (
         <div className='EddEmplForm' >
@@ -27,10 +60,10 @@ class EddEmplForm extends Component {
                     <label for="name">Name:</label>
                     <Text field="name" defaultValue='' placeholder="John"/>
                   </li>
-                  <li>
+                  {/* <li>
                     <label for="avatar">Avatar:</label>
-                    <Text field="name" defaultValue='' placeholder=""/>
-                  </li>
+                    <Text field="name" value='' placeholder=""/>
+                  </li> */}
                   <li>
                     <label for="email">Email:</label>
                     <Text field="email" placeholder="john@gmail.com" defaultValue=''/>
@@ -40,8 +73,24 @@ class EddEmplForm extends Component {
                     <Text field="birthday" defaultValue='' placeholder='YYYY-MM-DD'/>
                   </li>
                   <li>
-                    <label for="surname">Surname:</label>
-                    <Text field="surname" defaultValue='' placeholder='Doie'/>
+                    <label for="surName">Surname:</label>
+                    <Text field="surName" defaultValue='' placeholder='Doie'/>
+                  </li>
+                  <li>
+                    <label for="location">Location:</label>
+                    <Select 
+                      field="locationId" 
+                      id="select-input-location" 
+                      options={locationsOptions} 
+                      className='select'/>
+                  </li>
+                  <li>
+                    <label for="position">Position:</label>
+                    <Select 
+                      field="positionId" 
+                      id="select-input-position" 
+                      options={positionOptions} 
+                      className='select'/>
                   </li>
 
                   <li>

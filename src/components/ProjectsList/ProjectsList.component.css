@@ -11,7 +11,7 @@ table {
     text-align: center;
     border-collapse: collapse;
     border-radius: 20px;
-    box-shadow: 0 0 0 10px rgba(240, 240, 16, 0.557);
+    box-shadow: 0 0 0 10px (66, 85, 135, 0.81);
     color: #452F21;
     width: 600px;
     margin: 0 auto;
@@ -27,7 +27,7 @@ table {
     border-top-right-radius: 20px;
     }
     td {
-    border-top: 10px solid  rgba(240, 240, 16, 0.557);
+    border-top: 10px solid  rgba(66, 85, 135, 0.81);
     padding: 8px;
     background: white;
     }
