@@ -1,73 +1,93 @@
 import React, { Component } from 'react';
 import './EmployeesList.component.css';
 import { Link } from 'react-router-dom';
-// import EmployeeItem from '../EmployeeItem/EmployeeItem.component';
+import EmployeeItem from '../EmployeeItem/EmployeeItem.component';
 
-class EmployeesList extends Component {
-  // edd = event => {
-  //   event.preventDefault();
 
-  //   let newEmpl = {};
+// class EmployeesList extends Component {
 
-  //   let id = 0;
-  //   let name = 'Andy';
-  //   let avatar = '';
-  //   let email = 'andy_wallcroft@mail.uk';
-  //   let birthday = '1995-04-23T18:25:43.511Z';
-  //   let password = '12345';
-  //   let surName = 'Wallcroft';
-  //   let positionId = 0;
-  //   let locationId = 1;
-  
 
-  //   return (this.props.onEddEmpl(id, name, avatar, email, birthday, password, surName, positionId, locationId));
-  // };
+//   render () {
+//     let tableTemplate;
 
-  render () {
-    let tableTemplate;
-    // let position = this.props.position;
+// const handleClick = (event, id) => {
+//   event.preventDefault;
+//   console.log('i am working');
+//   this.props.viewEmplPage(id);
+// };
 
-    const handleClick = (event, id) => {
-      event.preventDefault;
-      this.props.viewEmplPage(id);
-    };
+//     function makeColumns (row, rowId) {
+    
+//       let result = 
+//         <tr id={rowId}>
+//           <td><Link to="/employee" onClick={handleClick(1)} className='Link'>{row.name + ' ' + row.surName}</Link></td> 
+//           <td>{row.position.name}</td>
+//           <td>{row.location.name}</td>
+//         </tr>;
 
-    function makeColumns (row, rowId) {
-     
-      // let positionId = row.positionId;
-      // let rowPosition = position[positionId].name;
+//       return result;
+//     }
+
+//     let employees = this.props.employees;
+
+//     tableTemplate = employees.map((row, index) => {
+//       return makeColumns(row, index);
+//     }); 
+
+//     return (
+//       <div className='Table-area'>
+//         <table>
+//           <tr>
+//             <th>NAME</th>
+//             <th>POSITION</th>
+//             <th>LOCATION</th>
+//           </tr>
+//           {tableTemplate}
+//         </table>
+//       </div>
+//     );
+//   }
+// }
+
+// export default EmployeesList;
+
+const EmployeesList = function ({ employees, viewEmplPage }) {
+  let tableTemplate = employees.map((employee, index) => {
+    return <EmployeeItem
+      employee={employee}
+      viewEmplPage={viewEmplPage}
+      id={index}
+      key={index}/>;
+    
+  }
+  )
+  let result = <div className='Table-area'>
+    <table>
+      <tr>
+        <th>NAME</th>
+        <th>POSITION</th>
+        <th>LOCATION</th>
+      </tr>
+      {tableTemplate}
+    </table>
+    {/* {employees.map((employee, index) => {
+      <EmployeeItem
+        employee={employee}
+        id={index}
+        key={index}/>;
       
-      let result = 
-        <tr id={rowId}>
-          <td><Link to="/employee" onClick={handleClick(rowId)} className='Link'>{row.name + ' ' + row.surName}</Link></td> 
-          <td>{row.position.name}</td>
-          <td>{row.location.name}</td>
-        </tr>;
+    }
+    )} */}
 
-      return result;
+
+
+    {employees.length === 0 &&
+      <p>nothing found</p>
     }
 
-    let employees = this.props.employees;
+  </div>;
 
-    tableTemplate = employees.map((row, i) => {
-      return makeColumns(row, i);
-    }); 
-
-
-
-    return (
-      <div className='Table-area'>
-        <table>
-          <tr>
-            <th>NAME</th>
-            <th>POSITION</th>
-            <th>LOCATION</th>
-          </tr>
-          {tableTemplate}
-        </table>
-      </div>
-    );
-  }
-}
+  return result;
+};
 
 export default EmployeesList;

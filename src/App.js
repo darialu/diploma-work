@@ -43,6 +43,7 @@ class App extends Component {
 
   emplClicked = id => {
     this.props.dispatch(changeCarrentId(id));
+    console.log('i am id',id);
   };
 
   eddEmployee = data => {

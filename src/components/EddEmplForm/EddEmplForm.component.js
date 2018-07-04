@@ -94,7 +94,7 @@ class EddEmplForm extends Component {
                   </li>
 
                   <li>
-                    <button className="submit" type="submit">Submit Form</button>
+                    <button className="submit" type="submit">Edd employee</button>
                   </li>
                 </ul>
               </form>
