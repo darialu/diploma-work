@@ -51,11 +51,17 @@ import EmployeeItem from '../EmployeeItem/EmployeeItem.component';
 
 // export default EmployeesList;
 
-const EmployeesList = function ({ employees, viewEmplPage }) {
+const EmployeesList = function (
+  { employees, 
+    viewEmplPage, 
+    deleteEmployee, 
+    editEmployee }) {
   let tableTemplate = employees.map((employee, index) => {
     return <EmployeeItem
       employee={employee}
       viewEmplPage={viewEmplPage}
+      deleteEmployee={deleteEmployee}
+      editEmployee={editEmployee}
       id={index}
       key={index}/>;
     
@@ -67,6 +73,7 @@ const EmployeesList = function ({ employees, viewEmplPage }) {
         <th>NAME</th>
         <th>POSITION</th>
         <th>LOCATION</th>
+        <th>BIRTHDAY</th>
       </tr>
       {tableTemplate}
     </table>

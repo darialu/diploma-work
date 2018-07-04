@@ -9,7 +9,9 @@ import {
   // fetchPositions,
   fetchProjects,
   changeCarrentId,
-  eddEmployee
+  eddEmployee,
+  deleteEmployee,
+  editEmployee
 } from './redux/actions';
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
@@ -43,14 +45,27 @@ class App extends Component {
 
   emplClicked = id => {
     this.props.dispatch(changeCarrentId(id));
-    console.log('i am id',id);
   };
+
+  editEmployeeClicked = id => {
+    this.props.dispatch(changeCarrentId(id));
+  }
 
   eddEmployee = data => {
     // let id = this.props.employees.length + 1;
 
     // data.id = id;
     this.props.dispatch(eddEmployee(data));
+  }
+
+  editEmployee = (data) => {
+    let id = this.props.carrentEmployeeId;
+
+    this.props.dispatch(editEmployee(id, data));
+  }
+
+  deleteEmployee = id => {
+    this.props.dispatch(deleteEmployee(id));
   }
 
   renderEmployee = () => 
@@ -68,8 +83,16 @@ class App extends Component {
       <EddEmplForm
         locations={this.props.locations}
         positions={this.props.positions}
-        EddEmplSubmit={this.eddEmployee}/>
+        employeeFormSubmit={this.eddEmployee}/>
     </div>
+
+    renderEditEmployeeForm = () =>
+      <div>
+        <EddEmplForm
+          locations={this.props.locations}
+          positions={this.props.positions}
+          employeeFormSubmit={this.editEmployee}/>
+      </div>
 
   renderPtojectList = () =>
     <div>
@@ -107,7 +130,9 @@ class App extends Component {
                     : <div>
                       <EmployeesList
                         employees={this.props.employees} 
-                        viewEmplPage={this.emplClicked}/>
+                        viewEmplPage={this.emplClicked}
+                        deleteEmployee={this.deleteEmployee}
+                        editEmployee={this.editEmployeeClicked}/>
                       <button><Link to="/eddEmployeeForm">add employee</Link></button>
                     </div>
                   }
@@ -120,6 +145,7 @@ class App extends Component {
             } />
           <Route path='/employee' render={this.renderEmployee} />
           <Route path='/eddEmployeeForm' render={this.renderEddEmplForm} />
+          <Route path='/editEmployeeForm' render={this.renderEditEmployeeForm} />
           <Route path='/projects' render={this.renderPtojectList} />
           
         </Switch>

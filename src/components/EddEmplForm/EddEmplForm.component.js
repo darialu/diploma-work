@@ -8,7 +8,7 @@ import { Form, Text, Select } from 'react-form';
 
 class EddEmplForm extends Component {
     onSubmit = values => {
-      this.props.EddEmplSubmit(values);
+      this.props.employeeFormSubmit(values);
     };
 
     render () {
@@ -94,7 +94,7 @@ class EddEmplForm extends Component {
                   </li>
 
                   <li>
-                    <button className="submit" type="submit">Edd employee</button>
+                    <button className="submit" type="submit">SUBMIT</button>
                   </li>
                 </ul>
               </form>

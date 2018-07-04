@@ -5,7 +5,7 @@ import {
   SET_POSITIONS,
   SET_CARRENTID
 } from './actionTypes';
-import { employeesListUrl, positionsListUrl, projectsListUrl } from '../urls';
+import { employeesListUrl, positionsListUrl, projectsListUrl, employeesUrl } from '../urls';
 
 
 export const fetchEmployees = () => dispatch => {
@@ -54,8 +54,15 @@ export const setProjects = projects => ({
 // };
 
 export const eddEmployee =  data => {
-  
   return axios.post(employeesListUrl(), data ); 
+};
+
+export const editEmployee = (id, data) => {
+  return axios.put(employeesUrl(id), data ); 
+};
+
+export const deleteEmployee = id => dispatch => {
+  return axios.delete(employeesUrl(id));  
 };
 
 export const changeCarrentId = id => ({
