@@ -4,106 +4,124 @@ import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { Form, Text, Select } from 'react-form';
+import EmployeeForm from '../EmployeeForm/EmployeeForm.component';
 // import EmployeeItem from '../EmployeeItem/EmployeeItem.component';
 
-class EddEmplForm extends Component {
-    onSubmit = values => {
-      this.props.employeeFormSubmit(values);
-    };
+// class EddEmplForm extends Component {
+//     onSubmit = values => {
+//       this.props.employeeFormSubmit(values);
+//     };
 
-    render () {
-      const locations = this.props.locations;
+//     render () {
+//       const locations = this.props.locations;
 
-      let locationsArr = locations.map(location => {
-        return location.name;
-      });
+//       let locationsArr = locations.map(location => {
+//         return location.name;
+//       });
 
-      let locationsOptions = locationsArr.map((city, i) => {
-        let item = {
-          label: '',
-          value: '',
-        };
+//       let locationsOptions = locationsArr.map((city, i) => {
+//         let item = {
+//           label: '',
+//           value: '',
+//         };
 
-        item.label = city;
-        item.value = i.toString();
-        return item;
-      });
+//         item.label = city;
+//         item.value = i.toString();
+//         return item;
+//       });
 
-      const positions = this.props.positions;
+//       const positions = this.props.positions;
 
-      let positionsArr = positions.map(position => {
-        return position.name;
-      });
+//       let positionsArr = positions.map(position => {
+//         return position.name;
+//       });
 
-      let positionOptions = positionsArr.map((position, i) => {
-        let item = {
-          label: '',
-          value: '',
-        };
+//       let positionOptions = positionsArr.map((position, i) => {
+//         let item = {
+//           label: '',
+//           value: '',
+//         };
 
-        item.label = position;
-        item.value = i.toString();
-        return item;
-      });
+//         item.label = position;
+//         item.value = i.toString();
+//         return item;
+//       });
 
 
-      return (
-        <div className='EddEmplForm' >
-          <Form onSubmit={submittedValues => this.onSubmit(submittedValues)}>
-            { formApi => (
-              <form onSubmit={formApi.submitForm}>
-                <ul>
-                  <li>
-                    <h2>Fill in the form</h2>
-                  </li>
-                  <li>
-                    <label for="name">Name:</label>
-                    <Text field="name" defaultValue='' placeholder="John"/>
-                  </li>
-                  {/* <li>
-                    <label for="avatar">Avatar:</label>
-                    <Text field="name" value='' placeholder=""/>
-                  </li> */}
-                  <li>
-                    <label for="email">Email:</label>
-                    <Text field="email" placeholder="john@gmail.com" defaultValue=''/>
-                  </li>
-                  <li>
-                    <label for="birthday">Date of birthday:</label>
-                    <Text field="birthday" defaultValue='' placeholder='YYYY-MM-DD'/>
-                  </li>
-                  <li>
-                    <label for="surName">Surname:</label>
-                    <Text field="surName" defaultValue='' placeholder='Doie'/>
-                  </li>
-                  <li>
-                    <label for="location">Location:</label>
-                    <Select 
-                      field="locationId" 
-                      id="select-input-location" 
-                      options={locationsOptions} 
-                      className='select'/>
-                  </li>
-                  <li>
-                    <label for="position">Position:</label>
-                    <Select 
-                      field="positionId" 
-                      id="select-input-position" 
-                      options={positionOptions} 
-                      className='select'/>
-                  </li>
+//       return (
+//         <div className='EddEmplForm' >
+//           <Form onSubmit={submittedValues => this.onSubmit(submittedValues)}>
+//             { formApi => (
+//               <form onSubmit={formApi.submitForm}>
+//                 <ul>
+//                   <li>
+//                     <h2>Fill in the form</h2>
+//                   </li>
+//                   <li>
+//                     <label for="name">Name:</label>
+//                     <Text field="name" defaultValue='' placeholder="John"/>
+//                   </li>
+//                   {/* <li>
+//                     <label for="avatar">Avatar:</label>
+//                     <Text field="name" value='' placeholder=""/>
+//                   </li> */}
+//                   <li>
+//                     <label for="email">Email:</label>
+//                     <Text field="email" placeholder="john@gmail.com" defaultValue=''/>
+//                   </li>
+//                   <li>
+//                     <label for="birthday">Date of birthday:</label>
+//                     <Text field="birthday" defaultValue='' placeholder='YYYY-MM-DD'/>
+//                   </li>
+//                   <li>
+//                     <label for="surName">Surname:</label>
+//                     <Text field="surName" defaultValue='' placeholder='Doie'/>
+//                   </li>
+//                   <li>
+//                     <label for="location">Location:</label>
+//                     <Select 
+//                       field="locationId" 
+//                       id="select-input-location" 
+//                       options={locationsOptions} 
+//                       className='select'/>
+//                   </li>
+//                   <li>
+//                     <label for="position">Position:</label>
+//                     <Select 
+//                       field="positionId" 
+//                       id="select-input-position" 
+//                       options={positionOptions} 
+//                       className='select'/>
+//                   </li>
 
-                  <li>
-                    <button className="submit" type="submit">SUBMIT</button>
-                  </li>
-                </ul>
-              </form>
-            )}
-          </Form>
-        </div>
+//                   <li>
+//                     <button className="submit" type="submit">SUBMIT</button>
+//                   </li>
+//                 </ul>
+//               </form>
+//             )}
+//           </Form>
+//         </div>
 
-      );
-    }
-}
+//       );
+//     }
+// }
 
+// export default EddEmplForm;
+
+const EddEmplForm = function ({
+  employeeFormSubmit,
+  locations,
+  positions
+}){
+  let result = <div>
+    <EmployeeForm
+      employeeFormSubmit={employeeFormSubmit}
+      locations={locations}
+      positions={positions}/>
+  </div>;
+
+  return result;
+};
+  
 export default EddEmplForm;

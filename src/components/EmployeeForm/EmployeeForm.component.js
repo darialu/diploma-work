@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './EmployeeForm.component.css';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
+import { Form, Text, Select } from 'react-form';
 import 'moment-timezone';
 
 class EmployeeForm extends Component {
@@ -56,7 +57,10 @@ class EmployeeForm extends Component {
                   </li>
                   <li>
                     <label for="name">Name:</label>
-                    <Text field="name" defaultValue='' placeholder="John"/>
+                    <Text 
+                      field="name" 
+                      defaultValue={this.props.defaultName} 
+                      placeholder="John"/>
                   </li>
                   {/* <li>
                       <label for="avatar">Avatar:</label>
@@ -64,15 +68,24 @@ class EmployeeForm extends Component {
                     </li> */}
                   <li>
                     <label for="email">Email:</label>
-                    <Text field="email" placeholder="john@gmail.com" defaultValue=''/>
+                    <Text 
+                      field="email" 
+                      placeholder="john@gmail.com" 
+                      defaultValue={this.props.defaultEmail}/>
                   </li>
                   <li>
                     <label for="birthday">Date of birthday:</label>
-                    <Text field="birthday" defaultValue='' placeholder='YYYY-MM-DD'/>
+                    <Text 
+                      field="birthday" 
+                      defaultValue={this.props.defaultBirthday}
+                      placeholder='YYYY-MM-DD'/>
                   </li>
                   <li>
                     <label for="surName">Surname:</label>
-                    <Text field="surName" defaultValue='' placeholder='Doie'/>
+                    <Text 
+                      field="surName" 
+                      defaultValue={this.props.defaultSurName} 
+                      placeholder='Doie'/>
                   </li>
                   <li>
                     <label for="location">Location:</label>
@@ -80,6 +93,7 @@ class EmployeeForm extends Component {
                       field="locationId" 
                       id="select-input-location" 
                       options={locationsOptions} 
+                      defaultValue={this.props.defaultLocationId} 
                       className='select'/>
                   </li>
                   <li>
@@ -87,7 +101,8 @@ class EmployeeForm extends Component {
                     <Select 
                       field="positionId" 
                       id="select-input-position" 
-                      options={positionOptions} 
+                      options={positionOptions}
+                      defaultValue={this.props.defaultPositionId}  
                       className='select'/>
                   </li>
   

@@ -86,8 +86,6 @@ const EmployeesList = function (
     }
     )} */}
 
-
-
     {employees.length === 0 &&
       <p>nothing found</p>
     }
