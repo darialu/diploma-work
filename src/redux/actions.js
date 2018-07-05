@@ -54,7 +54,7 @@ export const setProjects = projects => ({
 //   return axios.post(employeesListUrl(), employee ); 
 // };
 
-export const eddEmployee =  data => {
+export const addEmployee =  data => {
   return axios.post(employeesListUrl(), data ); 
 };
 

@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import EmployeesList from './components/EmployeesList/EmployeesList.component';
 import EmployeePage from './components/EmployeePage/EmployeePage.component';
 import ProjectsList from './components/ProjectsList/ProjectsList.component';
-import EddEmplForm from './components/EddEmplForm/EddEmplForm.component';
+import AddEmplForm from './components/AddEmplForm/AddEmplForm.component';
+import EditEmplForm from './components/EditEmplForm/EditEmplForm.component';
 import {
   fetchEmployees,
   // fetchPositions,
   fetchProjects,
   changeCarrentId,
-  eddEmployee,
+  addEmployee,
   deleteEmployee,
   editEmployee
 } from './redux/actions';
@@ -51,15 +52,15 @@ class App extends Component {
     this.props.dispatch(changeCarrentId(id));
   }
 
-  eddEmployee = data => {
-    // let id = this.props.employees.length + 1;
-
-    // data.id = id;
-    this.props.dispatch(eddEmployee(data));
+  addEmployee = data => {
+    this.props.dispatch(addEmployee(data));
   }
 
   editEmployee = (data) => {
-    let id = this.props.carrentEmployeeId;
+    let currentId = this.props.carrentEmployeeId;
+    let id = this.props.employees[currentId].id.toString();
+
+    console.log(id);
 
     this.props.dispatch(editEmployee(id, data));
   }
@@ -79,20 +80,23 @@ class App extends Component {
       }
     </div>
 
-  renderEddEmplForm = () =>
+  renderAddEmplForm = () =>
     <div>
-      <EddEmplForm
+      <AddEmplForm
         locations={this.props.locations}
         positions={this.props.positions}
-        employeeFormSubmit={this.eddEmployee}/>
+        employeeFormSubmit={this.addEmployee}/>
     </div>
 
     renderEditEmployeeForm = () =>
+    
       <div>
-        <EddEmplForm
+        <EditEmplForm
           locations={this.props.locations}
           positions={this.props.positions}
-          employeeFormSubmit={this.editEmployee}/>
+          employeeFormSubmit={this.editEmployee}
+          employees={this.props.employees}
+          id={this.props.carrentEmployeeId}/>
       </div>
 
   renderPtojectList = () =>
@@ -134,7 +138,7 @@ class App extends Component {
                         viewEmplPage={this.emplClicked}
                         deleteEmployee={this.deleteEmployee}
                         editEmployee={this.editEmployeeClicked}/>
-                      <button><Link to="/eddEmployeeForm">add employee</Link></button>
+                      <button><Link to="/addEmployeeForm">add employee</Link></button>
                     </div>
                   }
                 </div>
@@ -145,7 +149,7 @@ class App extends Component {
               </div>
             } />
           <Route path='/employee' render={this.renderEmployee} />
-          <Route path='/eddEmployeeForm' render={this.renderEddEmplForm} />
+          <Route path='/addEmployeeForm' render={this.renderAddEmplForm} />
           <Route path='/editEmployeeForm' render={this.renderEditEmployeeForm} />
           <Route path='/projects' render={this.renderPtojectList} />
           

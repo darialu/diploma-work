@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './EddEmplForm.component.css';
+import './AddEmplForm.component.css';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import 'moment-timezone';
@@ -109,7 +109,7 @@ import EmployeeForm from '../EmployeeForm/EmployeeForm.component';
 
 // export default EddEmplForm;
 
-const EddEmplForm = function ({
+const AddEmplForm = function ({
   employeeFormSubmit,
   locations,
   positions
@@ -124,4 +124,4 @@ const EddEmplForm = function ({
   return result;
 };
   
-export default EddEmplForm;
+export default AddEmplForm;
