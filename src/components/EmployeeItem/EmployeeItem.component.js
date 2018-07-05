@@ -12,7 +12,7 @@ class EmployeeItem extends Component {
 
   deleteEmployee = (event) => {
     event.preventDefault;
-    this.props.deleteEmployee(this.props.id);
+    this.props.deleteEmployee(this.props.employee.id);
   }
 
   editEmployee = (event) => {
@@ -22,7 +22,8 @@ class EmployeeItem extends Component {
 
   render () {
     let employee = this.props.employee;
-    let id = this.props.id;
+    // let id = this.props.id;
+    let id = employee.id;
     let name = employee.name;
     let surname = employee.surName;
     let position = employee.position.name;

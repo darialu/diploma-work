@@ -66,7 +66,7 @@ const EmployeesList = function (
       key={index}/>;
     
   }
-  )
+  );
   let result = <div className='Table-area'>
     <table>
       <tr>

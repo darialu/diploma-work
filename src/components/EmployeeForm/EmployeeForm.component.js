@@ -1,52 +1,50 @@
 import React, { Component } from 'react';
-import './EddEmplForm.component.css';
+import './EmployeeForm.component.css';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import 'moment-timezone';
-import { Form, Text, Select } from 'react-form';
-// import EmployeeItem from '../EmployeeItem/EmployeeItem.component';
 
-class EddEmplForm extends Component {
+class EmployeeForm extends Component {
     onSubmit = values => {
       this.props.employeeFormSubmit(values);
     };
-
+  
     render () {
       const locations = this.props.locations;
-
+  
       let locationsArr = locations.map(location => {
         return location.name;
       });
-
+  
       let locationsOptions = locationsArr.map((city, i) => {
         let item = {
           label: '',
           value: '',
         };
-
+  
         item.label = city;
         item.value = i.toString();
         return item;
       });
-
+  
       const positions = this.props.positions;
-
+  
       let positionsArr = positions.map(position => {
         return position.name;
       });
-
+  
       let positionOptions = positionsArr.map((position, i) => {
         let item = {
           label: '',
           value: '',
         };
-
+  
         item.label = position;
         item.value = i.toString();
         return item;
       });
-
-
+  
+  
       return (
         <div className='EddEmplForm' >
           <Form onSubmit={submittedValues => this.onSubmit(submittedValues)}>
@@ -61,9 +59,9 @@ class EddEmplForm extends Component {
                     <Text field="name" defaultValue='' placeholder="John"/>
                   </li>
                   {/* <li>
-                    <label for="avatar">Avatar:</label>
-                    <Text field="name" value='' placeholder=""/>
-                  </li> */}
+                      <label for="avatar">Avatar:</label>
+                      <Text field="name" value='' placeholder=""/>
+                    </li> */}
                   <li>
                     <label for="email">Email:</label>
                     <Text field="email" placeholder="john@gmail.com" defaultValue=''/>
@@ -92,7 +90,7 @@ class EddEmplForm extends Component {
                       options={positionOptions} 
                       className='select'/>
                   </li>
-
+  
                   <li>
                     <button className="submit" type="submit">SUBMIT</button>
                   </li>
@@ -101,9 +99,9 @@ class EddEmplForm extends Component {
             )}
           </Form>
         </div>
-
+  
       );
     }
 }
 
-export default EddEmplForm;
+export default EmployeeForm;

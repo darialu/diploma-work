@@ -65,6 +65,7 @@ class App extends Component {
   }
 
   deleteEmployee = id => {
+
     this.props.dispatch(deleteEmployee(id));
   }
 

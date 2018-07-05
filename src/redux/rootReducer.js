@@ -3,7 +3,8 @@ import {
   SET_EMPLOYEES,
   SET_POSITIONS,
   SET_PROJECTS,
-  SET_CARRENTID
+  SET_CARRENTID,
+  ONCONTACTDELETE
 } from './actionTypes';
 
 const initialState = {
@@ -88,6 +89,14 @@ export default (state = initialState, action) => {
       const projects = action.data.projects;
 
       return { ...state, projects };
+    }
+
+    case ONCONTACTDELETE: {
+      let employees = state.employees.slice();
+
+      employees.splice(action.data.id, 1);
+
+      return { ...state, employees };
     }
 
     case SET_CARRENTID: {

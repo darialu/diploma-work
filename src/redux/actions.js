@@ -3,7 +3,8 @@ import {
   SET_EMPLOYEES,
   SET_PROJECTS,
   SET_POSITIONS,
-  SET_CARRENTID
+  SET_CARRENTID,
+  ONCONTACTDELETE
 } from './actionTypes';
 import { employeesListUrl, positionsListUrl, projectsListUrl, employeesUrl } from '../urls';
 
@@ -62,7 +63,16 @@ export const editEmployee = (id, data) => {
 };
 
 export const deleteEmployee = id => dispatch => {
-  return axios.delete(employeesUrl(id));  
+  return axios.delete(employeesUrl(id));
+  // .then(({ data }) => {
+  //   dispatch({
+  //     type: ONCONTACTDELETE,
+  //     data: {
+  //       id: id
+  //     }
+  //   });
+  //   dispatch(setEmployees(data));
+  // }); 
 };
 
 export const changeCarrentId = id => ({
