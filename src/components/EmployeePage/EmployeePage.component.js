@@ -18,7 +18,7 @@ class EmployeePage extends Component {
 
     return (
       <div className='EmployeePageArea'>
-        <div className='Header'>
+        <div className='TopMenu'>
           <div className='toEmplList'>
             <Link to='/' className='Link'>Employees</Link>
           </div>
@@ -28,9 +28,8 @@ class EmployeePage extends Component {
         </div>
         <div className='Content'>
           <div>
-            <div className='avatar'></div>
-            <input type='file'/>
-            <button>Upload</button>
+            <div className='avatar'>
+            </div>
           </div>
           <div className='aboutAmployee'>
             <p className='employeeName'>{name + ' ' + surname}</p>
@@ -38,6 +37,10 @@ class EmployeePage extends Component {
             <p>Birthday: <Moment format="DD.MM.YYYY">{dateToFormat}</Moment></p>
             <p>{'Location: ' + location}</p>         
           </div>
+        </div>
+        <div className='uploadArea'>
+          <input type='file' placeholder='d'/>
+          <button>Upload</button>
         </div>
       </div>
     );

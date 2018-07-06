@@ -8,7 +8,7 @@
     overflow: hidden;
 }
 
-.Header {
+.TopMenu {
     width: 100%;
     /* background-color: blueviolet; */
 }
@@ -21,7 +21,7 @@
     padding-top: 10px;
     font-size: 20px;
     float: left;
-    border-bottom: 5px solid yellow;
+    border-bottom: 5px solid rgb(48, 91, 156);
 }
 
 .toProjList {
@@ -33,7 +33,7 @@
     padding-top: 10px;
     font-size: 20px;
     float: left;
-    border-bottom: 5px solid yellow;
+    border-bottom: 5px solid rgb(48, 91, 156);
 }
 
 .Link {
@@ -54,11 +54,17 @@
     margin: 20px;
 }
 
+.uploadArea {
+    clear: both;
+    float: left;
+}
+
 .aboutAmployee {
     margin-top: 20px; 
     background-color: bisque;
     overflow: hidden;
     width: 40%;
+    height: 150px;
 }
 
 .employeePosition {

@@ -133,6 +133,7 @@ class App extends Component {
                   { !this.props.employees.length
                     ? <p>loading...</p>
                     : <div>
+                      <p>EMPLOYEES:</p>
                       <EmployeesList
                         employees={this.props.employees} 
                         viewEmplPage={this.emplClicked}

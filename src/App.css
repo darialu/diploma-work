@@ -48,3 +48,7 @@
   overflow: hidden;
 }
 
+.Link {
+  color: black;
+  text-decoration: none;
+}

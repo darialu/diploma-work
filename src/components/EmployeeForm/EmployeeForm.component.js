@@ -7,7 +7,32 @@ import 'moment-timezone';
 
 class EmployeeForm extends Component {
     onSubmit = values => {
-      this.props.employeeFormSubmit(values);
+      let avatar = document.getElementById('file-id').files[0].name; 
+      
+      function toDataURL (url, callback) {
+        var xhr = new XMLHttpRequest();
+
+        xhr.onload = function () {
+          var reader = new FileReader();
+
+          reader.onloadend = function () {
+            callback(reader.result);
+          }
+          reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url);
+        xhr.responseType = 'blob';
+        xhr.send();
+      }
+      
+      toDataURL(avatar, function (dataUrl) {
+        console.log('RESULT:', dataUrl)
+      });
+      values.avatar = avatar;
+
+      console.log(values);
+     
+    
     };
   
     render () {
@@ -62,10 +87,28 @@ class EmployeeForm extends Component {
                       defaultValue={this.props.defaultName} 
                       placeholder="John"/>
                   </li>
+                  <li>
+                    <label for="surName">Surname:</label>
+                    <Text 
+                      field="surName" 
+                      defaultValue={this.props.defaultSurName} 
+                      placeholder='Doie'/>
+                  </li>
                   {/* <li>
-                      <label for="avatar">Avatar:</label>
-                      <Text field="name" value='' placeholder=""/>
-                    </li> */}
+                    <label for="avatar">Avatar:</label>
+                    <Text 
+                      field="avatar" 
+                      type='file'
+                      defaultValue={this.props.defaultAvatar} />
+                  </li> */}
+                  <li>
+                    <label for="avatar">Avatar:</label>
+                    <input 
+                      // field="avatar" 
+                      id='file-id'
+                      type='file'
+                      defaultValue={this.props.defaultAvatar} />
+                  </li>
                   <li>
                     <label for="email">Email:</label>
                     <Text 
@@ -79,13 +122,6 @@ class EmployeeForm extends Component {
                       field="birthday" 
                       defaultValue={this.props.defaultBirthday}
                       placeholder='YYYY-MM-DD'/>
-                  </li>
-                  <li>
-                    <label for="surName">Surname:</label>
-                    <Text 
-                      field="surName" 
-                      defaultValue={this.props.defaultSurName} 
-                      placeholder='Doie'/>
                   </li>
                   <li>
                     <label for="location">Location:</label>

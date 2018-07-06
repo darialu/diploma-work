@@ -47,7 +47,7 @@ class EmployeeItem extends Component {
             Delete
           </button>
           <button onClick={this.editEmployee}>
-            <Link to='/editEmployeeForm'>
+            <Link className='linkComponent' to='/editEmployeeForm'>
               Edit
             </Link>
           </button>
