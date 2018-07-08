@@ -1,10 +1,18 @@
-.EmployeePageArea {
+/* .EmployeePageArea {
     margin: 0;
     border: 0;
     padding: 0;
-    /* background-color: aquamarine; */
+    background-color: rgba(9, 63, 240, 0.159);
     text-align: left;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+    overflow: hidden;
+} */
+
+.EmployeePageContent {
+    width: 85%;
+    margin: 0 auto;
+    height: 100vh;
+    background-color: white;
     overflow: hidden;
 }
 
@@ -46,12 +54,32 @@
     clear: both;
 }
 
+.avatarArea {
+    float: left;
+    overflow: hidden;
+    height: 150px;
+    width:150px;
+    margin-left: 5px;
+}
+
 .avatar {
-    background-color: blue;
+    background-color: rgba(47, 47, 49, 0.07);
     height: 150px;
     width:150px;
     float: left;
-    margin: 20px;
+}
+
+.NoPhotoMessage {
+    margin: 0 auto;
+    width: 100px;
+    margin-top: 60px;
+    color: rgba(0, 0, 0, 0.495);
+}
+
+img {
+    height: 150px;
+    width:150px;
+    margin-top: 20px;
 }
 
 .uploadArea {
@@ -61,10 +89,12 @@
 
 .aboutAmployee {
     margin-top: 20px; 
-    background-color: bisque;
+    /* background-color: bisque; */
     overflow: hidden;
-    width: 40%;
-    height: 150px;
+    /* width: 800; */
+    height: 130px;
+    float: left;
+    padding-left: 10px;
 }
 
 .employeePosition {
@@ -81,5 +111,28 @@
     width: 180px;
     margin: 0px;
     padding: 0px;
+    font-weight: bold;
     /* overflow: hidden; */
 }
+
+.skillsArea {
+    /* margin-left: 120px; */
+    /* padding: 20px; */
+    margin-top: 10px; 
+    /* background-color: rgb(196, 255, 247); */
+    overflow: hidden;
+    width: 400px;
+    text-align: center;
+    /* height: 110px; */
+}
+
+.selectArea {
+    font-weight: bold;
+    display: block;
+    float: left;
+    width: 200px;
+}
+.selectEmployeePage {
+    width: 120px;
+}
+

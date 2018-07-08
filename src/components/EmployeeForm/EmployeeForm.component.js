@@ -6,33 +6,10 @@ import { Form, Text, Select } from 'react-form';
 import 'moment-timezone';
 
 class EmployeeForm extends Component {
-    onSubmit = values => {
-      let avatar = document.getElementById('file-id').files[0].name; 
-      
-      function toDataURL (url, callback) {
-        var xhr = new XMLHttpRequest();
+    onSubmit = values => { 
+      values.avatar = document.getElementById('file-id').files;
 
-        xhr.onload = function () {
-          var reader = new FileReader();
-
-          reader.onloadend = function () {
-            callback(reader.result);
-          }
-          reader.readAsDataURL(xhr.response);
-        };
-        xhr.open('GET', url);
-        xhr.responseType = 'blob';
-        xhr.send();
-      }
-      
-      toDataURL(avatar, function (dataUrl) {
-        console.log('RESULT:', dataUrl)
-      });
-      values.avatar = avatar;
-
-      console.log(values);
-     
-    
+      this.props.employeeFormSubmit(values);
     };
   
     render () {
@@ -72,83 +49,88 @@ class EmployeeForm extends Component {
   
   
       return (
-        <div className='EddEmplForm' >
-          <Form onSubmit={submittedValues => this.onSubmit(submittedValues)}>
-            { formApi => (
-              <form onSubmit={formApi.submitForm}>
-                <ul>
-                  <li>
-                    <h2>Fill in the form</h2>
-                  </li>
-                  <li>
-                    <label for="name">Name:</label>
-                    <Text 
-                      field="name" 
-                      defaultValue={this.props.defaultName} 
-                      placeholder="John"/>
-                  </li>
-                  <li>
-                    <label for="surName">Surname:</label>
-                    <Text 
-                      field="surName" 
-                      defaultValue={this.props.defaultSurName} 
-                      placeholder='Doie'/>
-                  </li>
-                  {/* <li>
-                    <label for="avatar">Avatar:</label>
-                    <Text 
-                      field="avatar" 
-                      type='file'
-                      defaultValue={this.props.defaultAvatar} />
-                  </li> */}
-                  <li>
-                    <label for="avatar">Avatar:</label>
-                    <input 
-                      // field="avatar" 
-                      id='file-id'
-                      type='file'
-                      defaultValue={this.props.defaultAvatar} />
-                  </li>
-                  <li>
-                    <label for="email">Email:</label>
-                    <Text 
-                      field="email" 
-                      placeholder="john@gmail.com" 
-                      defaultValue={this.props.defaultEmail}/>
-                  </li>
-                  <li>
-                    <label for="birthday">Date of birthday:</label>
-                    <Text 
-                      field="birthday" 
-                      defaultValue={this.props.defaultBirthday}
-                      placeholder='YYYY-MM-DD'/>
-                  </li>
-                  <li>
-                    <label for="location">Location:</label>
-                    <Select 
-                      field="locationId" 
-                      id="select-input-location" 
-                      options={locationsOptions} 
-                      defaultValue={this.props.defaultLocationId} 
-                      className='select'/>
-                  </li>
-                  <li>
-                    <label for="position">Position:</label>
-                    <Select 
-                      field="positionId" 
-                      id="select-input-position" 
-                      options={positionOptions}
-                      defaultValue={this.props.defaultPositionId}  
-                      className='select'/>
-                  </li>
+        <div className='Logo-area'>
+          <div className='Wrapper'>
+            <div className='EddEmplForm' >
+              <Form onSubmit={submittedValues => this.onSubmit(submittedValues)}>
+                { formApi => (
+                  <form onSubmit={formApi.submitForm}>
+                    <ul>
+                      <li>
+                        <h2>Fill out the form</h2>
+                      </li>
+                      <li>
+                        <label for="name">Name:</label>
+                        <Text 
+                          field="name" 
+                          required
+                          defaultValue={this.props.defaultName} 
+                          placeholder="John"/>
+                      </li>
+                      <li>
+                        <label for="surName">Surname:</label>
+                        <Text 
+                          field="surName" 
+                          defaultValue={this.props.defaultSurName} 
+                          placeholder='Doie'
+                          required/>
+                      </li>
+                      <li>
+                        <label for="avatar">Avatar:</label>
+                        <input
+                          field="avatar" 
+                          id='file-id'
+                          type='file'
+                          defaultValue={this.props.defaultAvatar}
+                          required/>
+                      </li>
+                      <li>
+                        <label for="email">Email:</label>
+                        <Text 
+                          field="email" 
+                          placeholder="john@gmail.com" 
+                          defaultValue={this.props.defaultEmail}
+                          required/>
+                      </li>
+                      <li>
+                        <label for="birthday">Date of birthday:</label>
+                        <Text 
+                          field="birthday" 
+                          defaultValue={this.props.defaultBirthday}
+                          placeholder='YYYY-MM-DD'
+                          required/>
+                      </li>
+                      <li>
+                        <label for="location">Location:</label>
+                        <Select 
+                          field="locationId" 
+                          id="select-input-location" 
+                          options={locationsOptions} 
+                          defaultValue={this.props.defaultLocationId} 
+                          className='select'
+                          required/>
+                      </li>
+                      <li>
+                        <label for="position">Position:</label>
+                        <Select 
+                          field="positionId" 
+                          id="select-input-position" 
+                          options={positionOptions}
+                          defaultValue={this.props.defaultPositionId}  
+                          className='select'
+                          required/>
+                      </li>
   
-                  <li>
-                    <button className="submit" type="submit">SUBMIT</button>
-                  </li>
-                </ul>
-              </form>
-            )}
-          </Form>
+                      <li>
+                        <button className="formButton" type="submit">SUBMIT</button>
+                        <buton className="formButton"><Link to="/" className='linkComponent'>CANCEL</Link></buton>
+                      </li>
+                    </ul>
+                  </form>
+                )}
+              </Form>
+            </div>
+          </div>
         </div>
   
       );

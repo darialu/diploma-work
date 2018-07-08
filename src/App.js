@@ -7,10 +7,13 @@ import AddEmplForm from './components/AddEmplForm/AddEmplForm.component';
 import EditEmplForm from './components/EditEmplForm/EditEmplForm.component';
 import {
   fetchEmployees,
-  // fetchPositions,
+  fetchPositions,
   fetchProjects,
+  fetchSkills,
+  fetchLevels,
   changeCarrentId,
   addEmployee,
+  fetchLocations,
   deleteEmployee,
   editEmployee
 } from './redux/actions';
@@ -18,7 +21,6 @@ import { connect } from 'react-redux';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import axios from 'axios';
-import Moment from 'react-moment';
 import 'moment-timezone';
 import './App.css';
 
@@ -26,9 +28,12 @@ import './App.css';
 class App extends Component {
 
   componentDidMount () {
-    // this.props.dispatch(fetchPositions());
+    this.props.dispatch(fetchPositions());
     this.props.dispatch(fetchEmployees());
     this.props.dispatch(fetchProjects());
+    this.props.dispatch(fetchLocations());
+    this.props.dispatch(fetchSkills());
+    this.props.dispatch(fetchLevels());
   }
 
   // getPosition = id => {
@@ -53,6 +58,7 @@ class App extends Component {
   }
 
   addEmployee = data => {
+    
     this.props.dispatch(addEmployee(data));
   }
 
@@ -76,7 +82,9 @@ class App extends Component {
         ? <p>loading...</p>
         : <EmployeePage
           id={this.props.carrentEmployeeId}
-          employees={this.props.employees}/>
+          employees={this.props.employees}
+          skills={this.props.skills}
+          levels={this.props.levels}/>
       }
     </div>
 
@@ -139,7 +147,14 @@ class App extends Component {
                         viewEmplPage={this.emplClicked}
                         deleteEmployee={this.deleteEmployee}
                         editEmployee={this.editEmployeeClicked}/>
-                      <button><Link to="/addEmployeeForm">add employee</Link></button>
+                      <button
+                        className="formButton">
+                        <Link 
+                          className='linkComponent' 
+                          to="/addEmployeeForm">
+                        add employee
+                        </Link>
+                      </button>
                     </div>
                   }
                 </div>
@@ -164,6 +179,8 @@ function mapStateToProps (state) {
   return {
     employees: state.employees,
     projects: state.projects,
+    skills: state.skills,
+    levels: state.levels,
     carrentEmployeeId: state.carrentEmployeeId,
     locations: state.locations,
     positions: state.positions

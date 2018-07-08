@@ -3,78 +3,21 @@ import {
   SET_EMPLOYEES,
   SET_POSITIONS,
   SET_PROJECTS,
+  SET_SKILLS,
   SET_CARRENTID,
-  ONCONTACTDELETE
+  ON_CONTACT_DELETE,
+  SET_LEVELS,
+  SET_LOCATIONS
 } from './actionTypes';
 
 const initialState = {
   employees: [],
   projects: [],
   carrentEmployeeId: 0,
-  locations:[
-    {
-      id: 0,
-      name: 'New York'
-    },
-    {
-      id: 1,
-      name: 'Kyiv'
-    },
-    {
-      id: 2,
-      name: 'Warsaw'
-    },
-    {
-      id: 3,
-      name: 'Berlin'
-    },
-    {
-      id: 4,
-      name: 'London'
-    },
-    {
-      id: 5,
-      name: 'Moscow'
-    },
-    {
-      id: 6,
-      name: 'Lviv'
-    },
-    {
-      id: 7,
-      name: 'Kherson'
-    },
-    {
-      id: 8,
-      name: 'Kharkiv'
-    },
-    {
-      id: 9,
-      name: 'Odessa'
-    },
-    {
-      id: 10,
-      name: 'Dnipro'
-    }
-  ],
-  positions:[
-    {
-      id: 0,
-      name: 'PM'
-    },
-    {
-      id: 1,
-      name: 'Developer'
-    },
-    {
-      id: 2,
-      name: 'QA'
-    },
-    {
-      id: 3,
-      name: 'Solution Architect'
-    }
-  ]
+  locations:[],
+  positions:[],
+  skills: [],
+  levels: []
 };
 
 export default (state = initialState, action) => {
@@ -91,7 +34,19 @@ export default (state = initialState, action) => {
       return { ...state, projects };
     }
 
-    case ONCONTACTDELETE: {
+    case SET_SKILLS: {
+      const skills = action.data.skills;
+
+      return { ...state, skills };
+    }
+
+    case SET_LEVELS: {
+      const levels = action.data.levels;
+
+      return { ...state, levels };
+    }
+
+    case ON_CONTACT_DELETE: {
       let employees = state.employees.slice();
 
       employees.splice(action.data.id, 1);
@@ -106,9 +61,15 @@ export default (state = initialState, action) => {
     }
 
     case SET_POSITIONS: {
-      const position = action.data.positions;
+      const positions = action.data.positions;
 
-      return { ...state, position };
+      return { ...state, positions };
+    }
+
+    case SET_LOCATIONS: {
+      const locations = action.data.locations;
+
+      return { ...state, locations };
     }
       
     default:

@@ -3,6 +3,15 @@
     font: 14px/21px "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode", sans-serif;
     margin: 0 auto;
     width:550px;
+    background-color: white;
+    
+}
+
+.Wrapper {
+    width: 75%;
+    height: 100vh;
+    margin: 0 auto;
+    background-color: white;
 }
 
 .EddEmplForm h2, .EddEmplForm label {
@@ -22,7 +31,6 @@
    .EddEmplForm li{
     padding-bottom:  12px;
     padding-top:  12px;
-    /* border-bottom:1px solid rgba(240, 240, 16, 0.557); */
     position:relative;
    }
 
@@ -52,7 +60,8 @@
        width: 240px;
    }
 
-    button.submit {
+    .formButton {
+        font-size: 12px;
         background-color: white;
         border: 3px solid rgba(66, 85, 135, 0.81);
         /* border-bottom: 1px solid #5b992b; */
@@ -62,5 +71,6 @@
         font-weight: bold;
         padding: 6px 20px;
         text-align: center;
+        margin: 5px;    
         /* text-shadow: 0 -1px 0 #396715; */
     }

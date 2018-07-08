@@ -36,7 +36,8 @@ class EmployeeItem extends Component {
           <Link 
             to="/employee" 
             onClick={this.handleClick} 
-            className='Link'>{name + ' ' + surname}
+            className='Link'>
+            {name + ' ' + surname}
           </Link>
         </td> 
         <td>{position}</td>
