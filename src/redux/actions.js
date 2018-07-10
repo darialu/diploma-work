@@ -134,9 +134,11 @@ export const deleteEmployee = id => dispatch => {
     }); 
 };
 
-export const changeCarrentId = id => ({
-  type: SET_CARRENTID,
-  data: { id: id }
-});
+export const currentId = id => dispatch => {
+  return axios.get(employeesUrl(id))
+    .then(({ data }) => {
+      return dispatch(setEmployees(data));
+    });
+};
 
 

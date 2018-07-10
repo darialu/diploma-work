@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './EmployeeItem.component.css';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
+import { employeesUrl } from '../../urls';
 import 'moment-timezone';
 
 class EmployeeItem extends Component {
@@ -29,12 +30,13 @@ class EmployeeItem extends Component {
     let position = employee.position.name;
     let location = employee.location.name;
     let birthday = employee.birthday;
+    
 
     return (
-      <tr id={id}>
-        <td>
+      <tr>
+        <td key={id}>
           <Link 
-            to="/employee" 
+            to={`${'/employee'}/${id}`} 
             onClick={this.handleClick} 
             className='Link'>
             {name + ' ' + surname}

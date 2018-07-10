@@ -3,14 +3,37 @@ import './EmployeePage.component.css';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { Link } from 'react-router-dom';
+import Avatar from '@material-ui/core/Avatar';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { Form, Text, Select } from 'react-form';
 
 class EmployeePage extends Component {
+  
 
   render () {
+
+    console.log('props are',  this.props);
+    const styles = {
+      avatar: {
+        width: 140,
+        height: 140
+      }
+    };
     
     let employees = this.props.employees;
-    let id = this.props.id;
+
+    function getEmployee (array, value) {
+      var obj = array.filter(function (arr, i){
+        return arr.id === value ? arr.value : '';
+      });
+
+      return obj;
+    }
+
+    console.log (getEmployee(employees, this.props.match.params.ids));
+
+    let id = this.props.match.params.id;
     let name = employees[id].name;
     let surname = employees[id].surName;
     let position = employees[id].position.name;
@@ -19,7 +42,7 @@ class EmployeePage extends Component {
     let avatar = employees[id].avatar;
     let skills = this.props.skills;
     let levels = this.props.levels;
-  
+
     let skillsArr = skills.map(skill => {
       return skill.name;
     });
@@ -65,9 +88,9 @@ class EmployeePage extends Component {
             <div className='avatarArea'>
               {!avatar.length
                 ? <div className='avatar'>
-                  <p className='NoPhotoMessage'>NO PHOTO</p>
+                  <Avatar style={styles.avatar} src={require('../../images/default-avatar.png')}/>
                 </div>
-                : <img src={'data:image/jpeg;' + avatar} alt='NO AVATAR'/>
+                : <Avatar style={styles.avatar} src={'data:image/jpeg;' + avatar} alt='NO AVATAR'/>
               }
             </div>
             <div className='aboutAmployee'>
@@ -97,17 +120,16 @@ class EmployeePage extends Component {
                         options={levelsOptions} 
                         // defaultValue={this.props.defaultLocationId} 
                         className='selectEmployeePage'/>
-                      {/* <button className="submit" type="submit">SUBMIT</button> */}
+                      <button className="submit" type="submit">SUBMIT</button>
                     </div>
                   </form>
                 )}
               </Form>
             </div>
             <div className='uploadArea'>
-         
             </div>
           </div>
-        </div> 
+        </div>  
       </div>
     );
   }

@@ -11,23 +11,27 @@ import {
   fetchProjects,
   fetchSkills,
   fetchLevels,
-  changeCarrentId,
+  currentId,
   addEmployee,
   fetchLocations,
   deleteEmployee,
   editEmployee
 } from './redux/actions';
+import { employeesUrl } from './urls';
 import { connect } from 'react-redux';
 import { Switch, Route, Redirect, Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import 'moment-timezone';
+import 'typeface-roboto';
+import Button from '@material-ui/core/Button';
 import './App.css';
 
 
 class App extends Component {
 
   componentDidMount () {
+    
     this.props.dispatch(fetchPositions());
     this.props.dispatch(fetchEmployees());
     this.props.dispatch(fetchProjects());
@@ -49,12 +53,12 @@ class App extends Component {
       });
   }
 
-  emplClicked = id => {
-    this.props.dispatch(changeCarrentId(id));
-  };
+  // emplClicked = id => {
+  //   this.props.dispatch(currentId(id));
+  // };
 
   editEmployeeClicked = id => {
-    this.props.dispatch(changeCarrentId(id));
+    this.props.dispatch(currentId(id));
   }
 
   addEmployee = data => {
@@ -81,7 +85,8 @@ class App extends Component {
       { !this.props.employees.length
         ? <p>loading...</p>
         : <EmployeePage
-          id={this.props.carrentEmployeeId}
+          // id={this.props.params.employeeId}
+          
           employees={this.props.employees}
           skills={this.props.skills}
           levels={this.props.levels}/>
@@ -157,6 +162,9 @@ class App extends Component {
                       </button>
                     </div>
                   }
+                  <Button variant="contained" color="primary">
+                    Hello World
+                  </Button>
                 </div>
                 
             
@@ -164,7 +172,14 @@ class App extends Component {
             
               </div>
             } />
-          <Route path='/employee' render={this.renderEmployee} />
+          {/* <Route path='/employee/:employeeId' render={this.renderEmployee} /> */}
+          <Route 
+            path={`${'/employee'}/:id`}
+            render={(props) => (
+              <EmployeePage 
+                employees={this.props.employees}
+                skills={this.props.skills}
+                levels={this.props.levels} {...props}/>)}  />
           <Route path='/addEmployeeForm' render={this.renderAddEmplForm} />
           <Route path='/editEmployeeForm' render={this.renderEditEmployeeForm} />
           <Route path='/projects' render={this.renderPtojectList} />
