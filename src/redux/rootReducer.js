@@ -12,6 +12,7 @@ import {
 
 const initialState = {
   employees: [],
+  employeesSkills: [],
   projects: [],
   carrentEmployeeId: 0,
   locations:[],

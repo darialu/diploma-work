@@ -80,6 +80,24 @@ class App extends Component {
     this.props.dispatch(deleteEmployee(id));
   }
 
+  changeSkill = (indexOfCurrentEmployee, skillName, levelName, emplId) => {
+    let currentEmployee = this.props.employees[indexOfCurrentEmployee];
+    let skillObj = {};
+
+    skillObj.skill = skillName;
+    skillObj.level = levelName;
+    if (currentEmployee.skills == undefined){
+      currentEmployee.skills = [];
+      currentEmployee.skills.push(skillObj);
+      // console.log('defined!!', currentEmployee.skills);
+    } 
+    else {
+      currentEmployee.skills.push(skillObj);
+    }
+    console.log('current empl', currentEmployee );
+    this.props.dispatch(editEmployee(emplId, currentEmployee));
+  }
+
   renderEmployee = () => 
     <div>
       { !this.props.employees.length
@@ -175,11 +193,23 @@ class App extends Component {
           {/* <Route path='/employee/:employeeId' render={this.renderEmployee} /> */}
           <Route 
             path={`${'/employee'}/:id`}
-            render={(props) => (
-              <EmployeePage 
-                employees={this.props.employees}
-                skills={this.props.skills}
-                levels={this.props.levels} {...props}/>)}  />
+            render={(props) => 
+              <div>
+                { !this.props.employees.length 
+                  ? <p>loading...</p>
+                  : !this.props.skills.length 
+                    ? <p>loading...</p>
+                    : !this.props.levels.length 
+                      ? <p>loading...</p>
+                      : <EmployeePage 
+                        {...props}
+                        employees={this.props.employees}
+                        skills={this.props.skills}
+                        levels={this.props.levels}
+                        changeSkill={this.changeSkill}/>
+                }
+              </div>
+            }/>
           <Route path='/addEmployeeForm' render={this.renderAddEmplForm} />
           <Route path='/editEmployeeForm' render={this.renderEditEmployeeForm} />
           <Route path='/projects' render={this.renderPtojectList} />
@@ -193,6 +223,7 @@ class App extends Component {
 function mapStateToProps (state) {
   return {
     employees: state.employees,
+    employeesSkills: state.employeesSkills,
     projects: state.projects,
     skills: state.skills,
     levels: state.levels,

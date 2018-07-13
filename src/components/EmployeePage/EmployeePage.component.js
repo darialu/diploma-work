@@ -7,13 +7,24 @@ import Avatar from '@material-ui/core/Avatar';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Form, Text, Select } from 'react-form';
+import { getEmployee } from '../../utils';
 
 class EmployeePage extends Component {
   
+  onSubmit = values => {
+    let skillId = values.SkillId; //skill id in array
+    let levelId = values.LevelId;
+    let indexOfCurrentEmployee = this.props.employees.indexOf(getEmployee(this.props.employees, this.props.match.params.id));
+    // console.log('id!',skillId);
+    let skillName = getEmployee(this.props.skills, skillId).name;
+    let levelName = getEmployee(this.props.levels, levelId).name;
+
+    // console.log(' index', indexOfCurrentEmployee, skillName);
+    this.props.changeSkill(indexOfCurrentEmployee, skillName, levelName, this.props.match.params.id);
+  }
 
   render () {
 
-    console.log('props are',  this.props);
     const styles = {
       avatar: {
         width: 140,
@@ -23,23 +34,16 @@ class EmployeePage extends Component {
     
     let employees = this.props.employees;
 
-    function getEmployee (array, value) {
-      var obj = array.filter(function (arr, i){
-        return arr.id === value ? arr.value : '';
-      });
-
-      return obj;
-    }
-
-    console.log (getEmployee(employees, this.props.match.params.ids));
+    console.log ('get array', getEmployee(employees, this.props.match.params.id));
 
     let id = this.props.match.params.id;
-    let name = employees[id].name;
-    let surname = employees[id].surName;
-    let position = employees[id].position.name;
-    let dateToFormat = employees[id].birthday;
-    let location = employees[id].location.name;
-    let avatar = employees[id].avatar;
+    let currentEmployee = getEmployee(employees, id);
+    let name = currentEmployee.name;
+    let surname = currentEmployee.surName;
+    let position = currentEmployee.position.name;
+    let dateToFormat = currentEmployee.birthday;
+    let location = currentEmployee.location.name;
+    let avatar = currentEmployee.avatar;
     let skills = this.props.skills;
     let levels = this.props.levels;
 
@@ -74,6 +78,7 @@ class EmployeePage extends Component {
     });
 
     return (
+      
       <div className='Logo-area'>
         <div className='EmployeePageContent'>
           <div className='TopMenu'>
@@ -109,7 +114,7 @@ class EmployeePage extends Component {
                         field="SkillId" 
                         id="select-skill" 
                         options={skillsOptions} 
-                        // defaultValue={this.props.defaultLocationId} 
+                        // onChange={this.onChangeSkill}
                         className='selectEmployeePage'/>
                     </div>
                     <div className='selectArea'>
@@ -117,11 +122,10 @@ class EmployeePage extends Component {
                       <Select 
                         field="LevelId" 
                         id="select-level" 
-                        options={levelsOptions} 
-                        // defaultValue={this.props.defaultLocationId} 
+                        options={levelsOptions}  
                         className='selectEmployeePage'/>
-                      <button className="submit" type="submit">SUBMIT</button>
                     </div>
+                    <button type='submit'>ADD SKILL</button>
                   </form>
                 )}
               </Form>
@@ -131,6 +135,7 @@ class EmployeePage extends Component {
           </div>
         </div>  
       </div>
+  
     );
   }
 }
