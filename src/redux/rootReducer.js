@@ -1,20 +1,27 @@
 
 import { 
+  SET_TOKEN,
   SET_EMPLOYEES,
   SET_POSITIONS,
   SET_PROJECTS,
   SET_SKILLS,
-  SET_CARRENTID,
+  SET_CURRENTID,
   ON_CONTACT_DELETE,
+  ON_EDIT_EMPL,
   SET_LEVELS,
-  SET_LOCATIONS
+  SET_LOCATIONS,
+  SET_TASKS
 } from './actionTypes';
 
 const initialState = {
+  token: '',
   employees: [],
   employeesSkills: [],
   projects: [],
-  carrentEmployeeId: 0,
+  currentTasks: [{
+    name: 'no tasks'
+  }],
+  currentEmployeeId: 0,
   locations:[],
   positions:[],
   skills: [],
@@ -23,6 +30,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case SET_TOKEN: {
+      const token = action.data.token;
+
+      return { ...state, token };
+    }
+
     case SET_EMPLOYEES: {
       const employees = action.data.employees;
 
@@ -45,6 +58,12 @@ export default (state = initialState, action) => {
       const levels = action.data.levels;
 
       return { ...state, levels };
+    }  
+
+    case SET_TASKS: {
+      const currentTasks = action.data.tasks;
+
+      return { ...state, currentTasks };
     }
 
     case ON_CONTACT_DELETE: {
@@ -55,10 +74,19 @@ export default (state = initialState, action) => {
       return { ...state, employees };
     }
 
-    case SET_CARRENTID: {
-      const carrentEmployeeId = action.data.id;
+    case ON_EDIT_EMPL: {
+      let employees = state.employees.slice();
+      let index = action.data.index;
 
-      return { ...state, carrentEmployeeId };
+      employees.splice(index, 1, action.data.data);
+
+      return { ...state, employees };
+    }
+
+    case SET_CURRENTID: {
+      const currentEmployeeId = action.data.id;
+
+      return { ...state, currentEmployeeId };
     }
 
     case SET_POSITIONS: {

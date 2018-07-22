@@ -4,6 +4,7 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 import { Form, Text, Select } from 'react-form';
 import EmployeeForm from '../EmployeeForm/EmployeeForm.component';
+import { getEmployee } from '../../utils';
 
 const EditEmplForm = function ({
   employeeFormSubmit,
@@ -12,17 +13,23 @@ const EditEmplForm = function ({
   employees,
   id
 }){
+
+  let employee = getEmployee(employees, id);
+  let index = employees.indexOf(employee);
+
   let result = <div>
     <EmployeeForm
+      id={id}   
+      index = {index}
       employeeFormSubmit={employeeFormSubmit}
       locations={locations}
       positions={positions}
-      defaultName={employees[id].name}
-      defaultEmail={employees[id].email}
-      defaultBirthday={employees[id].birthday}
-      defaultSurName={employees[id].surName}
-      defaultLocationId={employees[id].locationId}
-      defaultPositionId={employees[id].ositionId}/>
+      defaultName={employee.name}
+      defaultEmail={employee.email}
+      defaultBirthday={employee.birthday}
+      defaultSurName={employee.surName}
+      defaultLocationId={employee.locationId}
+      defaultPositionId={employee.ositionId}/>
   </div>;
 
   return result;

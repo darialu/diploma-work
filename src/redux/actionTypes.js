@@ -1,8 +1,11 @@
+export const SET_TOKEN = 'SET_TOKEN';
 export const SET_EMPLOYEES = 'SET_EMPLOYEES';
 export const SET_POSITIONS = 'SET_POSITIONS';
-export const SET_CARRENTID = 'SET_CARRENTID';
+export const SET_CURRENTID = 'SET_CARRENTID';
 export const SET_PROJECTS = 'SET_PROJECTS';
 export const SET_SKILLS = 'SET_SKILLS';
 export const SET_LEVELS = 'SET_LEVELS';
 export const SET_LOCATIONS = 'SET_LOCATIONS';
 export const ON_CONTACT_DELETE = 'ON_CONTACT_DELETE';
+export const ON_EDIT_EMPL = 'ON_EDIT_EMPL';
+export const SET_TASKS = 'SET_TASKS';

@@ -5,17 +5,20 @@ import EmployeePage from './components/EmployeePage/EmployeePage.component';
 import ProjectsList from './components/ProjectsList/ProjectsList.component';
 import AddEmplForm from './components/AddEmplForm/AddEmplForm.component';
 import EditEmplForm from './components/EditEmplForm/EditEmplForm.component';
+import Auth from './components/Auth/Auth.component';
 import {
   fetchEmployees,
   fetchPositions,
   fetchProjects,
+  fetchTasks,
   fetchSkills,
   fetchLevels,
   currentId,
   addEmployee,
   fetchLocations,
   deleteEmployee,
-  editEmployee
+  editEmployee,
+  authUser
 } from './redux/actions';
 import { employeesUrl } from './urls';
 import { connect } from 'react-redux';
@@ -53,9 +56,10 @@ class App extends Component {
       });
   }
 
-  // emplClicked = id => {
-  //   this.props.dispatch(currentId(id));
-  // };
+  emplClicked = id => {
+    console.log('id for tasks', id);
+    this.props.dispatch(fetchTasks(id));
+  };
 
   editEmployeeClicked = id => {
     this.props.dispatch(currentId(id));
@@ -66,13 +70,8 @@ class App extends Component {
     this.props.dispatch(addEmployee(data));
   }
 
-  editEmployee = (data) => {
-    let currentId = this.props.carrentEmployeeId;
-    let id = this.props.employees[currentId].id.toString();
-
-    console.log(id);
-
-    this.props.dispatch(editEmployee(id, data));
+  editEmployee = (data, id, index) => {
+    this.props.dispatch(editEmployee(id, data, index));
   }
 
   deleteEmployee = id => {
@@ -98,18 +97,25 @@ class App extends Component {
     this.props.dispatch(editEmployee(emplId, currentEmployee));
   }
 
-  renderEmployee = () => 
-    <div>
-      { !this.props.employees.length
-        ? <p>loading...</p>
-        : <EmployeePage
-          // id={this.props.params.employeeId}
+  auth = data => {
+    this.props.dispatch(authUser(data));
+  }
+
+  // renderEmployee = () => 
+  //   <div>
+  //     { !this.props.employees.length
+  //       ? <p>loading...</p>
+  //       : !this.props.projects.length 
+  //         ? <p>loading...</p>
+  //         : <EmployeePage
+  //         // id={this.props.params.employeeId}
           
-          employees={this.props.employees}
-          skills={this.props.skills}
-          levels={this.props.levels}/>
-      }
-    </div>
+  //           projects={this.props.projects}
+  //           employees={this.props.employees}
+  //           skills={this.props.skills}
+  //           levels={this.props.levels}/>
+  //     }
+  //   </div>
 
   renderAddEmplForm = () =>
     <div>
@@ -127,7 +133,7 @@ class App extends Component {
           positions={this.props.positions}
           employeeFormSubmit={this.editEmployee}
           employees={this.props.employees}
-          id={this.props.carrentEmployeeId}/>
+          id={this.props.currentEmployeeId}/>
       </div>
 
   renderPtojectList = () =>
@@ -138,6 +144,10 @@ class App extends Component {
           projects={this.props.projects}/>
       }
     </div>
+
+  renderAuth = () =>
+    <Auth 
+      auth={this.auth}/>
   
 
   // eddEmpl = (id, name, avatar, email, birthday, password, surName, positionId, locationId) => {
@@ -170,19 +180,22 @@ class App extends Component {
                         viewEmplPage={this.emplClicked}
                         deleteEmployee={this.deleteEmployee}
                         editEmployee={this.editEmployeeClicked}/>
-                      <button
-                        className="formButton">
+                      <Button
+                        // className="formButton"
+                        className='addButt'
+                        variant="contained" 
+                        color="primary">
                         <Link 
                           className='linkComponent' 
                           to="/addEmployeeForm">
                         add employee
                         </Link>
-                      </button>
+                      </Button>
                     </div>
                   }
-                  <Button variant="contained" color="primary">
+                  {/* <Button variant="contained" color="primary">
                     Hello World
-                  </Button>
+                  </Button> */}
                 </div>
                 
             
@@ -201,18 +214,25 @@ class App extends Component {
                     ? <p>loading...</p>
                     : !this.props.levels.length 
                       ? <p>loading...</p>
-                      : <EmployeePage 
-                        {...props}
-                        employees={this.props.employees}
-                        skills={this.props.skills}
-                        levels={this.props.levels}
-                        changeSkill={this.changeSkill}/>
+                      // : !this.props.currentTasks.length 
+                      //   ? <p>loading...</p>
+                      : !this.props.projects.length 
+                        ? <p>loading...</p>
+                        : <EmployeePage 
+                          {...props}
+                          tasks={this.props.currentTasks}
+                          projects={this.props.projects}
+                          employees={this.props.employees}
+                          skills={this.props.skills}
+                          levels={this.props.levels}
+                          changeSkill={this.changeSkill}/>
                 }
               </div>
             }/>
           <Route path='/addEmployeeForm' render={this.renderAddEmplForm} />
           <Route path='/editEmployeeForm' render={this.renderEditEmployeeForm} />
           <Route path='/projects' render={this.renderPtojectList} />
+          <Route path='/auth' render={this.renderAuth} />
           
         </Switch>
       </div>
@@ -222,12 +242,14 @@ class App extends Component {
 
 function mapStateToProps (state) {
   return {
+    token: state.token,
     employees: state.employees,
     employeesSkills: state.employeesSkills,
     projects: state.projects,
+    currentTasks: state.currentTasks,
     skills: state.skills,
     levels: state.levels,
-    carrentEmployeeId: state.carrentEmployeeId,
+    currentEmployeeId: state.currentEmployeeId,
     locations: state.locations,
     positions: state.positions
   };

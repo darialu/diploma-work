@@ -8,7 +8,7 @@ import 'moment-timezone';
 class EmployeeItem extends Component {
   handleClick = (event) => {
     event.preventDefault;
-    this.props.viewEmplPage(this.props.id);
+    this.props.viewEmplPage(this.props.employee.id);
   };
 
   deleteEmployee = (event) => {
@@ -18,7 +18,8 @@ class EmployeeItem extends Component {
 
   editEmployee = (event) => {
     event.preventDefault;
-    this.props.editEmployee(this.props.id);
+    console.log('on click id', this.props.employee.id);
+    this.props.editEmployee(this.props.employee.id);
   }
 
   render () {

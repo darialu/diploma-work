@@ -1,18 +1,23 @@
 import axios from 'axios';
 import { 
+  SET_TOKEN,
   SET_EMPLOYEES,
   SET_PROJECTS,
   SET_POSITIONS,
   SET_SKILLS,
-  SET_CARRENTID,
+  SET_TASKS,
+  SET_CURRENTID,
   ON_CONTACT_DELETE,
+  ON_EDIT_EMPL,
   SET_LOCATIONS,
   SET_LEVELS
 } from './actionTypes';
 import { 
+  authUrl,
   employeesListUrl, 
   positionsListUrl, 
   projectsListUrl,
+  tasksUrl,
   locationsListUrl,
   skillsListUrl, 
   levelsListUrl,
@@ -31,6 +36,18 @@ let getBase64 = (file, callback) => {
     console.log('Error: ', error);
   };
 };
+
+export const authUser = data => dispatch => {
+  return axios.post(authUrl(), data)
+    .then(({ data }) => {
+      return dispatch(setToken(data));
+    });
+};
+
+export const setToken = token => ({
+  type: SET_TOKEN,
+  data: { token }
+});
 
 export const fetchEmployees = () => dispatch => {
   return axios.get(employeesListUrl())
@@ -55,6 +72,18 @@ export const fetchProjects = () => dispatch => {
 export const setProjects = projects => ({
   type: SET_PROJECTS,
   data: { projects }
+});
+
+export const fetchTasks = (id) => dispatch => {
+  return axios.get(tasksUrl(id))
+    .then(({ data }) => {
+      return dispatch(setTasks(data));
+    });
+};
+
+export const setTasks = tasks => ({
+  type: SET_TASKS,
+  data: { tasks }
 });
 
 export const fetchSkills = () => dispatch => {
@@ -117,8 +146,17 @@ export const addEmployee =  data => dispatch => {
   });
 };
 
-export const editEmployee = (id, data) => {
-  return axios.put(employeesUrl(id), data ); 
+export const editEmployee = (id, data, index) => dispatch => {
+  return axios.put(employeesUrl(id), data )
+    .then(({ data }) => {
+      dispatch({
+        type: ON_EDIT_EMPL,
+        data: {
+          data: data,
+          index: index
+        }
+      });
+    }); 
 };
 
 export const deleteEmployee = id => dispatch => {
@@ -134,11 +172,9 @@ export const deleteEmployee = id => dispatch => {
     }); 
 };
 
-export const currentId = id => dispatch => {
-  return axios.get(employeesUrl(id))
-    .then(({ data }) => {
-      return dispatch(setEmployees(data));
-    });
-};
+export const currentId = id =>({
+  type: SET_CURRENTID,
+  data: { id }
+});
 
 

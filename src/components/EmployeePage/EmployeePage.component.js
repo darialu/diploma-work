@@ -33,8 +33,11 @@ class EmployeePage extends Component {
     };
     
     let employees = this.props.employees;
+    let projects = this.props.projects;
 
-    console.log ('get array', getEmployee(employees, this.props.match.params.id));
+    if (this.props.tasks.length){
+      console.log ('tasks!!!', this.props.tasks);
+    }
 
     let id = this.props.match.params.id;
     let currentEmployee = getEmployee(employees, id);
@@ -46,6 +49,7 @@ class EmployeePage extends Component {
     let avatar = currentEmployee.avatar;
     let skills = this.props.skills;
     let levels = this.props.levels;
+    let currentProjects = getEmployee(projects, id);
 
     let skillsArr = skills.map(skill => {
       return skill.name;
@@ -77,8 +81,16 @@ class EmployeePage extends Component {
       return item;
     });
 
-    return (
+    const skillLevel = () => currentEmployee.skills.map((skill) => {
+      return <div className=''>
+        <p className='emplSkills'>{skill.skill}</p>
+        <p className='emplSkills'>{skill.level}</p>
+      </div>;
       
+    });
+
+
+    return (
       <div className='Logo-area'>
         <div className='EmployeePageContent'>
           <div className='TopMenu'>
@@ -126,6 +138,9 @@ class EmployeePage extends Component {
                         className='selectEmployeePage'/>
                     </div>
                     <button type='submit'>ADD SKILL</button>
+                    {currentEmployee.skills !== undefined
+                      ? skillLevel()
+                      : <p>no skills</p>}
                   </form>
                 )}
               </Form>
@@ -133,7 +148,21 @@ class EmployeePage extends Component {
             <div className='uploadArea'>
             </div>
           </div>
-        </div>  
+          <div className='projectsArea'>
+            <p>Projects:</p>
+            <div className='project'>
+              {currentProjects !== undefined
+                // ? getProjects()
+                ? <div>
+                  <p>{currentProjects.name}</p>
+                  <p>{this.props.tasks[0].name}</p>
+                </div>
+                : <p>no projects found</p>}
+              {/* <p>{this.props.tasks[0].name}</p> */}
+            </div>
+          </div>
+        </div> 
+        
       </div>
   
     );

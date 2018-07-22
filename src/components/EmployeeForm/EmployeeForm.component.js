@@ -8,11 +8,14 @@ import 'moment-timezone';
 class EmployeeForm extends Component {
     onSubmit = values => { 
       values.avatar = document.getElementById('file-id').files;
+      console.log('id on submit form', this.props.id);
 
-      this.props.employeeFormSubmit(values);
+      this.props.employeeFormSubmit(values, this.props.id, this.props.index);
     };
   
     render () {
+      console.log(this.props);
+
       const locations = this.props.locations;
   
       let locationsArr = locations.map(location => {
@@ -81,8 +84,7 @@ class EmployeeForm extends Component {
                           field="avatar" 
                           id='file-id'
                           type='file'
-                          defaultValue={this.props.defaultAvatar}
-                          required/>
+                          defaultValue={this.props.defaultAvatar}/>
                       </li>
                       <li>
                         <label for="email">Email:</label>
@@ -122,7 +124,7 @@ class EmployeeForm extends Component {
                       </li>
   
                       <li>
-                        <button className="formButton" type="submit">SUBMIT</button>
+                        <button className="formButton" type="submit"><Link to="/" className='linkComponent'>SUBMIT</Link></button>
                         <buton className="formButton"><Link to="/" className='linkComponent'>CANCEL</Link></buton>
                       </li>
                     </ul>
