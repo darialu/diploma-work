@@ -8,6 +8,7 @@ import {
   SET_TASKS,
   SET_CURRENTID,
   ON_CONTACT_DELETE,
+  ADD_EMPLOYEE,
   ON_EDIT_EMPL,
   SET_LOCATIONS,
   SET_LEVELS
@@ -137,23 +138,34 @@ export const setLocations = locations => ({
 });
 
 export const addEmployee =  data => dispatch => {
-  getBase64(data.avatar[0], function (dataUrl) {
-    data.avatar = dataUrl;
+  if (data.avatar.length != 0 ){
+    getBase64(data.avatar[0], function (dataUrl) {
+      data.avatar = dataUrl;
+      axios.post(employeesListUrl(), data)
+        .then(({ data }) => {
+          return dispatch(addEmpl(data));
+        });
+    });
+  } else {
     axios.post(employeesListUrl(), data)
       .then(({ data }) => {
-        return dispatch(setEmployees(data));
+        return dispatch(addEmpl(data));
       });
-  });
+  }
 };
 
-export const editEmployee = (id, data, index) => dispatch => {
+export const addEmpl = employee => ({
+  type: ADD_EMPLOYEE,
+  data: { employee }
+});
+
+export const editEmployee = (id, data) => dispatch => {
   return axios.put(employeesUrl(id), data )
     .then(({ data }) => {
-      dispatch({
+      return dispatch({
         type: ON_EDIT_EMPL,
         data: {
-          data: data,
-          index: index
+          data: data
         }
       });
     }); 

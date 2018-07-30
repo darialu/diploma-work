@@ -5,6 +5,7 @@ import EmployeePage from './components/EmployeePage/EmployeePage.component';
 import ProjectsList from './components/ProjectsList/ProjectsList.component';
 import AddEmplForm from './components/AddEmplForm/AddEmplForm.component';
 import EditEmplForm from './components/EditEmplForm/EditEmplForm.component';
+import EmployeeForm from './components/EmployeeForm/EmployeeForm.component';
 import Auth from './components/Auth/Auth.component';
 import {
   fetchEmployees,
@@ -34,26 +35,13 @@ import './App.css';
 class App extends Component {
 
   componentDidMount () {
-    
+    axios.defaults.headers.common['authtoken'] = '9bcdc42c-3b23-43fd-b21b-727f47b30b34';
     this.props.dispatch(fetchPositions());
     this.props.dispatch(fetchEmployees());
     this.props.dispatch(fetchProjects());
     this.props.dispatch(fetchLocations());
     this.props.dispatch(fetchSkills());
     this.props.dispatch(fetchLevels());
-  }
-
-  // getPosition = id => {
-  //   this.props.dispatch(fetchPositions(id));
-  // }
-
-  
-  fileUploadHendler = () => {
-    axios.get('http://localhost:8000/employees')
-      .then(({ data }) => {
-      
-        return console.log(data);
-      });
   }
 
   emplClicked = id => {
@@ -70,8 +58,8 @@ class App extends Component {
     this.props.dispatch(addEmployee(data));
   }
 
-  editEmployee = (data, id, index) => {
-    this.props.dispatch(editEmployee(id, data, index));
+  editEmployee = (data, id) => {
+    this.props.dispatch(editEmployee(id, data));
   }
 
   deleteEmployee = id => {
@@ -120,6 +108,7 @@ class App extends Component {
   renderAddEmplForm = () =>
     <div>
       <AddEmplForm
+        employees={this.props.employees}
         locations={this.props.locations}
         positions={this.props.positions}
         employeeFormSubmit={this.addEmployee}/>
@@ -128,12 +117,16 @@ class App extends Component {
     renderEditEmployeeForm = () =>
     
       <div>
-        <EditEmplForm
-          locations={this.props.locations}
-          positions={this.props.positions}
-          employeeFormSubmit={this.editEmployee}
-          employees={this.props.employees}
-          id={this.props.currentEmployeeId}/>
+        {!this.props.employees.length
+          ? <p>loading...</p>
+
+          : <EditEmplForm
+            locations={this.props.locations}
+            positions={this.props.positions}
+            employeeFormSubmit={this.editEmployee}
+            employees={this.props.employees}
+            id={this.props.currentEmployeeId}/>
+        }
       </div>
 
   renderPtojectList = () =>
@@ -149,13 +142,6 @@ class App extends Component {
     <Auth 
       auth={this.auth}/>
   
-
-  // eddEmpl = (id, name, avatar, email, birthday, password, surName, positionId, locationId) => {
-  //   this.props.dispatch(eddEmployee(id, name, avatar, email, birthday, password, surName, positionId, locationId));
-  // }
-  
-  
-
 
   render () {
     return (
@@ -230,7 +216,22 @@ class App extends Component {
               </div>
             }/>
           <Route path='/addEmployeeForm' render={this.renderAddEmplForm} />
-          <Route path='/editEmployeeForm' render={this.renderEditEmployeeForm} />
+          <Route 
+            path={`${'/editEmployeeForm'}/:id`}
+            render={(props) =>
+              <div>
+                {!this.props.employees.length
+                  ? <p>loading...</p>
+                  : <EditEmplForm
+                    props={props}
+                    locations={this.props.locations}
+                    positions={this.props.positions}
+                    employeeFormSubmit={this.editEmployee}
+                    employees={this.props.employees}/>
+                } 
+              </div>
+            }/>
+              
           <Route path='/projects' render={this.renderPtojectList} />
           <Route path='/auth' render={this.renderAuth} />
           

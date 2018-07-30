@@ -1,4 +1,3 @@
-
 import { 
   SET_TOKEN,
   SET_EMPLOYEES,
@@ -7,11 +6,13 @@ import {
   SET_SKILLS,
   SET_CURRENTID,
   ON_CONTACT_DELETE,
+  ADD_EMPLOYEE,
   ON_EDIT_EMPL,
   SET_LEVELS,
   SET_LOCATIONS,
   SET_TASKS
 } from './actionTypes';
+import { getEmployee } from '../utils';
 
 const initialState = {
   token: '',
@@ -74,11 +75,16 @@ export default (state = initialState, action) => {
       return { ...state, employees };
     }
 
-    case ON_EDIT_EMPL: {
+    case ADD_EMPLOYEE: {
       let employees = state.employees.slice();
-      let index = action.data.index;
 
-      employees.splice(index, 1, action.data.data);
+      employees.push(action.data.employee);
+
+      return { ...state, employees };
+    }
+
+    case ON_EDIT_EMPL: {
+      let employees = action.data.data;
 
       return { ...state, employees };
     }

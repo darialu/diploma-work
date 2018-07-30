@@ -7,27 +7,29 @@ import EmployeeForm from '../EmployeeForm/EmployeeForm.component';
 import { getEmployee } from '../../utils';
 
 const EditEmplForm = function ({
+  props,
   employeeFormSubmit,
   locations,
   positions,
   employees,
-  id
 }){
 
+  let id = props.match.params.id;
   let employee = getEmployee(employees, id);
-  let index = employees.indexOf(employee);
+  // let index = employees.indexOf(employee);
 
   let result = <div>
     <EmployeeForm
+      {...props}
       id={id}   
-      index = {index}
       employeeFormSubmit={employeeFormSubmit}
       locations={locations}
       positions={positions}
-      defaultName={employee.name}
       defaultEmail={employee.email}
+      defaultName={employee.name}
       defaultBirthday={employee.birthday}
       defaultSurName={employee.surName}
+      // defaultavatar={employee.avatar}
       defaultLocationId={employee.locationId}
       defaultPositionId={employee.ositionId}/>
   </div>;

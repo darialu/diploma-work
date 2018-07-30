@@ -7,5 +7,6 @@ export const SET_SKILLS = 'SET_SKILLS';
 export const SET_LEVELS = 'SET_LEVELS';
 export const SET_LOCATIONS = 'SET_LOCATIONS';
 export const ON_CONTACT_DELETE = 'ON_CONTACT_DELETE';
+export const ADD_EMPLOYEE = 'ADD_EMPLOYEE';
 export const ON_EDIT_EMPL = 'ON_EDIT_EMPL';
 export const SET_TASKS = 'SET_TASKS';

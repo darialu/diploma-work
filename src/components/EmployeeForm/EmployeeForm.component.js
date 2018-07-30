@@ -4,20 +4,18 @@ import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import { Form, Text, Select } from 'react-form';
 import 'moment-timezone';
+import { getEmployee } from '../../utils';
 
 class EmployeeForm extends Component {
     onSubmit = values => { 
       values.avatar = document.getElementById('file-id').files;
-      console.log('id on submit form', this.props.id);
-
-      this.props.employeeFormSubmit(values, this.props.id, this.props.index);
+      this.props.employeeFormSubmit(values, this.props.id);
     };
   
     render () {
-      console.log(this.props);
+      console.log('empl form props are', this.props);
 
       const locations = this.props.locations;
-  
       let locationsArr = locations.map(location => {
         return location.name;
       });
@@ -53,6 +51,7 @@ class EmployeeForm extends Component {
   
       return (
         <div className='Logo-area'>
+        
           <div className='Wrapper'>
             <div className='EddEmplForm' >
               <Form onSubmit={submittedValues => this.onSubmit(submittedValues)}>
@@ -83,8 +82,8 @@ class EmployeeForm extends Component {
                         <input
                           field="avatar" 
                           id='file-id'
-                          type='file'
-                          defaultValue={this.props.defaultAvatar}/>
+                          defaultValue={this.props.defaultavatar} 
+                          type='file'/>
                       </li>
                       <li>
                         <label for="email">Email:</label>
@@ -124,7 +123,7 @@ class EmployeeForm extends Component {
                       </li>
   
                       <li>
-                        <button className="formButton" type="submit"><Link to="/" className='linkComponent'>SUBMIT</Link></button>
+                        <button className="formButton" type="submit">SUBMIT</button>
                         <buton className="formButton"><Link to="/" className='linkComponent'>CANCEL</Link></buton>
                       </li>
                     </ul>
