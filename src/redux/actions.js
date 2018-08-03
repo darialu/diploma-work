@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { 
   SET_TOKEN,
+  SET_AUTH_DATA,
   SET_EMPLOYEES,
   SET_PROJECTS,
   SET_POSITIONS,
@@ -41,13 +42,24 @@ let getBase64 = (file, callback) => {
 export const authUser = data => dispatch => {
   return axios.post(authUrl(), data)
     .then(({ data }) => {
-      return dispatch(setToken(data));
+      return dispatch(setAuthData(data));
     });
 };
 
+export const setAuthData = data => ({
+  type: SET_AUTH_DATA,
+  data: { 
+    token: data.token,
+    // id: data.user.id
+    user: data.user
+  }
+});
+
 export const setToken = token => ({
   type: SET_TOKEN,
-  data: { token }
+  data: { 
+    token: token
+  }
 });
 
 export const fetchEmployees = () => dispatch => {

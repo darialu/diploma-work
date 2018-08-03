@@ -35,7 +35,7 @@
    }
 
    .EddEmplForm li:first-child, .EddEmplForm li:last-child {
-    border-bottom:3px solid rgba(66, 85, 135, 0.81);
+    border-bottom:3px solid #3f51b5;
    }
 
    .EddEmplForm h2 {
@@ -63,10 +63,10 @@
     .formButton {
         font-size: 12px;
         background-color: white;
-        border: 3px solid rgba(66, 85, 135, 0.81);
+        border: 3px solid #3f51b5;
         /* border-bottom: 1px solid #5b992b; */
         border-radius: 3px;
-        box-shadow: inset 0 1px 0 0 rgba(66, 85, 135, 0.81);
+        box-shadow: inset 0 1px 0 0 #3f51b5;
         color: black;
         font-weight: bold;
         padding: 6px 20px;

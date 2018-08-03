@@ -31,7 +31,7 @@ const EditEmplForm = function ({
       defaultSurName={employee.surName}
       // defaultavatar={employee.avatar}
       defaultLocationId={employee.locationId}
-      defaultPositionId={employee.ositionId}/>
+      defaultPositionId={employee.positionId}/>
   </div>;
 
   return result;

@@ -1,0 +1,33 @@
+.barButtonsArea {
+    /* clear: both; */
+    float: right;
+    /* background-color: transparent; */
+    width: 160px; 
+    margin-top: -50px;
+    margin-left: 80%;
+    height: 55px; 
+    text-transform: uppercase;
+}
+
+.userNameBut {
+    border-color: transparent;
+    float: left;
+    background-color: transparent;
+    width: 100px;
+    height: 55px; 
+    color: rgba(255, 255, 255, 0.714);
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 0.775rem;
+    text-transform: uppercase;
+}
+
+.logOutBut {
+    background-color: transparent;
+    border-color: transparent;
+    width: 60px;
+    height: 55px; 
+    color: rgba(255, 255, 255, 0.714); 
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+}

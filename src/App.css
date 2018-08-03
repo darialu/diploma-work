@@ -30,7 +30,7 @@
   left: 7%;
   border-radius: 10px;
   background: rgba(0, 0, 0, 0.66);
-  color: white;
+
 }
 
 .Wellcome {
@@ -49,4 +49,8 @@
   text-decoration: none;
 }
 
+.linkBut {
+  color: white;
+  text-decoration: none;
+}
 

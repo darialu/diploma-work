@@ -6,8 +6,10 @@ import ProjectsList from './components/ProjectsList/ProjectsList.component';
 import AddEmplForm from './components/AddEmplForm/AddEmplForm.component';
 import EditEmplForm from './components/EditEmplForm/EditEmplForm.component';
 import EmployeeForm from './components/EmployeeForm/EmployeeForm.component';
+import TabBar from './components/TabBar/TabBar.component';
 import Auth from './components/Auth/Auth.component';
 import {
+  setToken,
   fetchEmployees,
   fetchPositions,
   fetchProjects,
@@ -35,7 +37,16 @@ import './App.css';
 class App extends Component {
 
   componentDidMount () {
-    axios.defaults.headers.common['authtoken'] = '9bcdc42c-3b23-43fd-b21b-727f47b30b34';
+    const token = localStorage.getItem('TOKEN');
+
+    if (!token || token === 'null') {
+      // redirect
+      this.props.history.push('/auth');
+      return;
+    }
+
+    this.props.dispatch(setToken(token));
+    axios.defaults.headers.common['authtoken'] = token;
     this.props.dispatch(fetchPositions());
     this.props.dispatch(fetchEmployees());
     this.props.dispatch(fetchProjects());
@@ -45,7 +56,6 @@ class App extends Component {
   }
 
   emplClicked = id => {
-    console.log('id for tasks', id);
     this.props.dispatch(fetchTasks(id));
   };
 
@@ -89,22 +99,6 @@ class App extends Component {
     this.props.dispatch(authUser(data));
   }
 
-  // renderEmployee = () => 
-  //   <div>
-  //     { !this.props.employees.length
-  //       ? <p>loading...</p>
-  //       : !this.props.projects.length 
-  //         ? <p>loading...</p>
-  //         : <EmployeePage
-  //         // id={this.props.params.employeeId}
-          
-  //           projects={this.props.projects}
-  //           employees={this.props.employees}
-  //           skills={this.props.skills}
-  //           levels={this.props.levels}/>
-  //     }
-  //   </div>
-
   renderAddEmplForm = () =>
     <div>
       <AddEmplForm
@@ -144,74 +138,56 @@ class App extends Component {
   
 
   render () {
+    const styles = {
+      addButton: {
+        margin: 20,
+      }
+    };
+    
     return (
       <div className="App">
         <Switch>
           <Route
             exact path='/' render={() =>
               <div>
-                <div className="Logo-area">
-                  <div className='Dark-area'>
-                    <div className='Wellcome'>Welcome to our community!</div>
+                { !this.props.employees.length ||
+                  !this.props.skills.length ||
+                  !this.props.levels.length ||
+                  //!this.props.currentTasks.length 
+                  !this.props.projects.length 
+                  ? <p>loading...</p>
+                  : <div>
+                    <EmployeePage 
+                      userID={this.props.authId}
+                      tasks={this.props.currentTasks}
+                      projects={this.props.projects}
+                      employees={this.props.employees}
+                      skills={this.props.skills}
+                      levels={this.props.levels}
+                      changeSkill={this.changeSkill}/>
                   </div>
-                </div>
-
-                <div className='EmployeesList-area'>
-                  { !this.props.employees.length
-                    ? <p>loading...</p>
-                    : <div>
-                      <p>EMPLOYEES:</p>
-                      <EmployeesList
-                        employees={this.props.employees} 
-                        viewEmplPage={this.emplClicked}
-                        deleteEmployee={this.deleteEmployee}
-                        editEmployee={this.editEmployeeClicked}/>
-                      <Button
-                        // className="formButton"
-                        className='addButt'
-                        variant="contained" 
-                        color="primary">
-                        <Link 
-                          className='linkComponent' 
-                          to="/addEmployeeForm">
-                        add employee
-                        </Link>
-                      </Button>
-                    </div>
-                  }
-                  {/* <Button variant="contained" color="primary">
-                    Hello World
-                  </Button> */}
-                </div>
-                
-            
-            
-            
-              </div>
+                }
+              </div>    
             } />
           {/* <Route path='/employee/:employeeId' render={this.renderEmployee} /> */}
           <Route 
             path={`${'/employee'}/:id`}
             render={(props) => 
               <div>
-                { !this.props.employees.length 
+                { !this.props.employees.length ||
+                  !this.props.skills.length ||
+                  !this.props.levels.length ||
+                  //!this.props.currentTasks.length 
+                  !this.props.projects.length 
                   ? <p>loading...</p>
-                  : !this.props.skills.length 
-                    ? <p>loading...</p>
-                    : !this.props.levels.length 
-                      ? <p>loading...</p>
-                      // : !this.props.currentTasks.length 
-                      //   ? <p>loading...</p>
-                      : !this.props.projects.length 
-                        ? <p>loading...</p>
-                        : <EmployeePage 
-                          {...props}
-                          tasks={this.props.currentTasks}
-                          projects={this.props.projects}
-                          employees={this.props.employees}
-                          skills={this.props.skills}
-                          levels={this.props.levels}
-                          changeSkill={this.changeSkill}/>
+                  : <EmployeePage 
+                    {...props}
+                    tasks={this.props.currentTasks}
+                    projects={this.props.projects}
+                    employees={this.props.employees}
+                    skills={this.props.skills}
+                    levels={this.props.levels}
+                    changeSkill={this.changeSkill}/>
                 }
               </div>
             }/>
@@ -250,7 +226,7 @@ function mapStateToProps (state) {
     currentTasks: state.currentTasks,
     skills: state.skills,
     levels: state.levels,
-    currentEmployeeId: state.currentEmployeeId,
+    authId: state.authId,
     locations: state.locations,
     positions: state.positions
   };

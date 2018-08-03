@@ -1,5 +1,6 @@
 import { 
   SET_TOKEN,
+  SET_AUTH_DATA,
   SET_EMPLOYEES,
   SET_POSITIONS,
   SET_PROJECTS,
@@ -22,7 +23,7 @@ const initialState = {
   currentTasks: [{
     name: 'no tasks'
   }],
-  currentEmployeeId: 0,
+  authId: 0,
   locations:[],
   positions:[],
   skills: [],
@@ -31,9 +32,27 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case SET_AUTH_DATA: {
+      const token = action.data.token;
+      const user = action.data.user;
+
+      localStorage.setItem('TOKEN', token);
+      
+      if (action.data.user){
+        let authId = user.id;
+        
+
+        return { ...state, token, authId };
+      } else {
+        return { ...state, token };
+      }
+    }
+
     case SET_TOKEN: {
       const token = action.data.token;
-
+      
+      localStorage.setItem('TOKEN', token);
+      
       return { ...state, token };
     }
 

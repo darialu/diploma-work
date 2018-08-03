@@ -1,4 +1,5 @@
 export const SET_TOKEN = 'SET_TOKEN';
+export const SET_AUTH_DATA = 'SET_AUTH_DATA';
 export const SET_EMPLOYEES = 'SET_EMPLOYEES';
 export const SET_POSITIONS = 'SET_POSITIONS';
 export const SET_CURRENTID = 'SET_CARRENTID';

@@ -7,6 +7,7 @@ import Avatar from '@material-ui/core/Avatar';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Form, Text, Select } from 'react-form';
+import TabBar from '../TabBar/TabBar.component';
 import { getEmployee } from '../../utils';
 
 class EmployeePage extends Component {
@@ -15,7 +16,6 @@ class EmployeePage extends Component {
     let skillId = values.SkillId; //skill id in array
     let levelId = values.LevelId;
     let indexOfCurrentEmployee = this.props.employees.indexOf(getEmployee(this.props.employees, this.props.match.params.id));
-    // console.log('id!',skillId);
     let skillName = getEmployee(this.props.skills, skillId).name;
     let levelName = getEmployee(this.props.levels, levelId).name;
 
@@ -38,8 +38,9 @@ class EmployeePage extends Component {
     if (this.props.tasks.length){
       console.log ('tasks!!!', this.props.tasks);
     }
+    let id = this.props.userID.toString();
+    // let id = this.props.userID ? this.props.userID.toString() : this.props.match.params.id;
 
-    let id = this.props.match.params.id;
     let currentEmployee = getEmployee(employees, id);
     let name = currentEmployee.name;
     let surname = currentEmployee.surName;
@@ -93,14 +94,9 @@ class EmployeePage extends Component {
     return (
       <div className='Logo-area'>
         <div className='EmployeePageContent'>
-          <div className='TopMenu'>
-            <div className='toEmplList'>
-              <Link to='/' className='Link'>Employees</Link>
-            </div>
-            <div className='toProjList'>
-              <Link to='/projects' className='Link'>Projects</Link>
-            </div>
-          </div>
+          <TabBar 
+            userID={this.props.userID}
+            employees={this.props.employees}/>
           <div className='Content'>
             <div className='avatarArea'>
               {!avatar.length
