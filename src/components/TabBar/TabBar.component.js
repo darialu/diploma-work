@@ -4,24 +4,35 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { getEmployee } from '../../utils';
-import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import history from '../../history';
+
 
 class TabBar extends Component {
-  state = {
-    value: 0,
-  };
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
+  goToEmpl = () => {
+    history.push('/employeesList');
+  }
+
+  goToProj = () => {
+    history.push('/projects');
+  }
+
+  goToEmplPage = () =>{
+    history.push('/');
+  }
+
+  exitBut = () => {
+    localStorage.setItem('TOKEN', 'null');
+  }
 
   render () {
     const styles = {
-      tab:{
-        // color: 'red'
-        
+      barButtonsArea: {
+        color: 'rgba(255, 255, 255, 0.714)',
+        width: '60',
+        height: '55'
       }
-
     };
 
     let id = this.props.userID.toString();
@@ -32,20 +43,27 @@ class TabBar extends Component {
 
     return (
       <div>
-        <AppBar position="static" style={styles.appBar}>
-          <Tabs style={styles.tabs} onChange={this.handleChange}>
-            <Tab style={styles.tab} label="Employees" />
-            <Tab style={styles.tab} label="Projects" />
+        <AppBar position="static">
+          <Tabs>
+            <Tab onClick={this.goToEmpl} label="Employees" />
+            <Tab onClick={this.goToProj}label="Projects" />
           </Tabs>
           <div className='barButtonsArea'>
-            <button className='userNameBut'>{name + ' ' + surname}</button>
-            <button className='logOutBut'>Exit</button>
+            <Button 
+              style={styles.barButtonsArea} 
+              className='userNameBut'
+              onClick={this.goToEmplPage}>
+              {name + ' ' + surname}
+            </Button>
+            <Button 
+              style={styles.barButtonsArea} 
+              className='logOutBut'
+              onClick={this.exitBut}>
+              Exit
+            </Button>
           </div>  
           
         </AppBar>
-        {/* {value === 0 && <TabContainer>Item One</TabContainer>}
-        {value === 1 && <TabContainer>Item Two</TabContainer>}
-        {value === 2 && <TabContainer>Item Three</TabContainer>} */}
 
       </div>
     );

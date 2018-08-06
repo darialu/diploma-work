@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import './Auth.component.css';
-import { Link } from 'react-router-dom';
-import { Form, Text, Select } from 'react-form';
+// import { Link } from 'react-router-dom';
+import { Form, Text } from 'react-form';
+import history from '../../history';
 
 class Auth extends Component {
     onSubmit = values => { 
       this.props.auth(values);
+      history.push('/');
     };
   
     render () {

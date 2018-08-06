@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import './EmployeesList.component.css';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import EmployeeItem from '../EmployeeItem/EmployeeItem.component';
+import TabBar from '../TabBar/TabBar.component';
 
 const EmployeesList = function (
   { employees, 
     viewEmplPage, 
     deleteEmployee, 
-    editEmployee }) {
+    editEmployee,
+    buttonLabel,
+    userID }) {
   let tableTemplate = employees.map((employee, index) => {
     return <EmployeeItem
       employee={employee}
@@ -20,6 +24,9 @@ const EmployeesList = function (
   }
   );
   let result = <div className='Table-area'>
+    <TabBar
+      userID={userID}
+      employees={employees}/>
     <table>
       <tr>
         <th>NAME</th>
@@ -29,15 +36,16 @@ const EmployeesList = function (
       </tr>
       {tableTemplate}
     </table>
-    {/* {employees.map((employee, index) => {
-      <EmployeeItem
-        employee={employee}
-        id={index}
-        key={index}/>;
-      
-    }
-    )} */}
-
+    <Button
+      // className='addButt'
+      variant="contained"
+      color="primary">
+      <Link 
+        className='linkBut' 
+        to="/addEmployeeForm">
+        {buttonLabel}
+      </Link>
+    </Button>
     {employees.length === 0 &&
       <p>nothing found</p>
     }

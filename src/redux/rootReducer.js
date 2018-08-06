@@ -13,7 +13,7 @@ import {
   SET_LOCATIONS,
   SET_TASKS
 } from './actionTypes';
-import { getEmployee } from '../utils';
+// import { getEmployee } from '../utils';
 
 const initialState = {
   token: '',

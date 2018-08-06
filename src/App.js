@@ -30,7 +30,7 @@ import { withRouter } from 'react-router';
 import axios from 'axios';
 import 'moment-timezone';
 import 'typeface-roboto';
-import Button from '@material-ui/core/Button';
+import { getEmployee } from './utils';
 import './App.css';
 
 
@@ -77,8 +77,8 @@ class App extends Component {
     this.props.dispatch(deleteEmployee(id));
   }
 
-  changeSkill = (indexOfCurrentEmployee, skillName, levelName, emplId) => {
-    let currentEmployee = this.props.employees[indexOfCurrentEmployee];
+  changeSkill = (skillName, levelName, emplId) => {
+    let currentEmployee = getEmployee(this.props.employees, emplId);
     let skillObj = {};
 
     skillObj.skill = skillName;
@@ -91,13 +91,28 @@ class App extends Component {
     else {
       currentEmployee.skills.push(skillObj);
     }
-    console.log('current empl', currentEmployee );
+    console.log('add skill', currentEmployee );
     this.props.dispatch(editEmployee(emplId, currentEmployee));
   }
 
   auth = data => {
     this.props.dispatch(authUser(data));
   }
+
+  renderEmployeesList = () =>
+    <div>
+      { !this.props.projects.length
+        ? <p>loading...</p>
+        : 
+        <EmployeesList
+          employees={this.props.employees} 
+          viewEmplPage={this.emplClicked}
+          deleteEmployee={this.deleteEmployee}
+          editEmployee={this.editEmployeeClicked}
+          buttonLabel={'Edd employee'}
+          userID={this.props.authId}/>
+      }
+    </div>
 
   renderAddEmplForm = () =>
     <div>
@@ -191,6 +206,7 @@ class App extends Component {
                 }
               </div>
             }/>
+          <Route path='/employeesList' render={this.renderEmployeesList} />
           <Route path='/addEmployeeForm' render={this.renderAddEmplForm} />
           <Route 
             path={`${'/editEmployeeForm'}/:id`}

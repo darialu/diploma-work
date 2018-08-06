@@ -9,39 +9,11 @@
 } */
 
 .EmployeePageContent {
-    width: 85%;
+    width: 80%;
     margin: 0 auto;
     height: 100vh;
     background-color: white;
     overflow: hidden;
-}
-
-.TopMenu {
-    width: 100%;
-    /* background-color: blueviolet; */
-}
-
-.toEmplList {
-    /* background-color: brown; */
-    width: 120px;
-    height: 40px;
-    text-align: center;
-    padding-top: 10px;
-    font-size: 20px;
-    float: left;
-    border-bottom: 5px solid rgb(48, 91, 156);
-}
-
-.toProjList {
-    /* background-color: brown; */
-    margin-left: 5px;
-    width: 120px;
-    height: 40px;
-    text-align: center;
-    padding-top: 10px;
-    font-size: 20px;
-    float: left;
-    border-bottom: 5px solid rgb(48, 91, 156);
 }
 
 .Link {
@@ -52,6 +24,8 @@
 .Content {
     padding-top: 10px;
     clear: both;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .avatarArea {
@@ -63,52 +37,29 @@
     margin-top: 10px;
 }
 
-/* .avatar {
-    height: 350px;
-    width:350px;
-    float: left;
-} */
-
-/* .NoPhotoMessage {
-    margin: 0 auto;
-    width: 100px;
-    margin-top: 60px;
-    color: rgba(0, 0, 0, 0.495);
-} */
-
-/* img  */
-.employeesAvatar {
-    height: 750px;
-    width:750px;
-}
-
-.uploadArea {
-    clear: both;
-    float: left;
-}
-
 .aboutAmployee {
     margin-top: 20px; 
     /* background-color: bisque; */
     overflow: hidden;
-    /* width: 800; */
+    width: 250px;
     height: 130px;
     float: left;
     padding-left: 10px;
+    text-align: center;
+    padding-left: 20px;
 }
 
 .employeePosition {
     font-size: 16px;
-    width: 180px;
     margin: 0px;
     padding: 0px;
     font-style: italic;
-    color: rgba(0, 0, 0, 0.796);
+    color: rgba(0, 0, 0, 0.604);
 }
 
 .employeeName {
     font-size: 20px;
-    width: 180px;
+    /* width: 180px; */
     margin: 0px;
     padding: 0px;
     font-weight: bold;
@@ -138,6 +89,11 @@
     float: left;
     width: 200px;
 }
+
+.chipsArea {
+    background-color: blueviolet;
+}
+
 .selectEmployeePage {
     width: 120px;
 }
@@ -146,4 +102,6 @@
     background-color: rgb(48, 91, 156);
     width: 100%;
     text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
 }
