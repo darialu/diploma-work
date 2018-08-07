@@ -189,7 +189,7 @@ export const deleteEmployee = id => dispatch => {
       dispatch({
         type: ON_CONTACT_DELETE,
         data: {
-          id: id
+          employees: data
         }
       });
       dispatch(setEmployees(data));

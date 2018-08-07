@@ -20,10 +20,12 @@ class TabBar extends Component {
 
   goToEmplPage = () =>{
     history.push('/');
+    window.location.reload();
   }
 
   exitBut = () => {
     localStorage.setItem('TOKEN', 'null');
+    window.location.reload();
   }
 
   render () {
@@ -43,6 +45,7 @@ class TabBar extends Component {
 
     return (
       <div>
+        
         <AppBar position="static">
           <Tabs>
             <Tab onClick={this.goToEmpl} label="Employees" />

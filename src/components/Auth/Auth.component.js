@@ -8,6 +8,7 @@ class Auth extends Component {
     onSubmit = values => { 
       this.props.auth(values);
       history.push('/');
+      window.location.reload();
     };
   
     render () {
@@ -21,7 +22,7 @@ class Auth extends Component {
       };
   
       return (
-        <div className='Logo-area'>
+        <div className='LogoAuth'>
           <div className='Dark-area'>
             <div className='AuthWrapper'>
               <div className='EddEmplForm' style={styles.form}>
@@ -37,13 +38,14 @@ class Auth extends Component {
                           <Text 
                             field="email" 
                             required
+                            defaultValue='andy_wallcroft@mail.uk'
                             placeholder="email: john@gmail.com"/>
                         </li>
                         <li>
                           {/* <label for="password">Password: </label> */}
                           <Text 
                             field="password"
-                            placeholder='password (no less than 5 characters)'
+                            placeholder='password (12345)'
                             required/>
                         </li>
                         <li>

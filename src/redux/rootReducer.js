@@ -23,7 +23,7 @@ const initialState = {
   currentTasks: [{
     name: 'no tasks'
   }],
-  authId: 0,
+  authId: '10',
   locations:[],
   positions:[],
   skills: [],
@@ -35,17 +35,20 @@ export default (state = initialState, action) => {
     case SET_AUTH_DATA: {
       const token = action.data.token;
       const user = action.data.user;
+      const authId = user.id;
 
       localStorage.setItem('TOKEN', token);
+      localStorage.setItem('ID', authId);
       
-      if (action.data.user){
-        let authId = user.id;
+      // if (action.data.user){
+      //   let authId = user.id;
         
 
-        return { ...state, token, authId };
-      } else {
-        return { ...state, token };
-      }
+      //   return { ...state, token, authId };
+      // } else {
+      //   return { ...state, token };
+      // }
+      return { ...state, token };
     }
 
     case SET_TOKEN: {
@@ -87,9 +90,7 @@ export default (state = initialState, action) => {
     }
 
     case ON_CONTACT_DELETE: {
-      let employees = state.employees.slice();
-
-      employees.splice(action.data.id, 1);
+      let employees = action.data.employees;
 
       return { ...state, employees };
     }

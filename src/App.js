@@ -86,13 +86,20 @@ class App extends Component {
     if (currentEmployee.skills == undefined){
       currentEmployee.skills = [];
       currentEmployee.skills.push(skillObj);
-      // console.log('defined!!', currentEmployee.skills);
     } 
     else {
       currentEmployee.skills.push(skillObj);
     }
     console.log('add skill', currentEmployee );
     this.props.dispatch(editEmployee(emplId, currentEmployee));
+  }
+
+  deleteSkill = (currentEmployeeSkills, id) => {
+    let currentEmployee = getEmployee(this.props.employees, id);
+
+    currentEmployee.skills = currentEmployeeSkills;
+    this.props.dispatch(editEmployee(id, currentEmployee));
+    // console.log ('del empl skills', currentEmployee.skills);
   }
 
   auth = data => {
@@ -153,81 +160,94 @@ class App extends Component {
   
 
   render () {
-    const styles = {
-      addButton: {
-        margin: 20,
-      }
-    };
     
     return (
       <div className="App">
-        <Switch>
-          <Route
-            exact path='/' render={() =>
-              <div>
-                { !this.props.employees.length ||
+        <div className='Logo-area'>
+          <div className='pageContent'>
+            <div>
+              { !this.props.employees.length ||
+                  !this.props.skills.length ||
+                  !this.props.levels.length ||
+                  localStorage.getItem('TOKEN') === 'null' ||
+                  !this.props.projects.length 
+                ? <p></p>
+                :  <TabBar
+                  userID={localStorage.getItem('ID')}
+                  employees={this.props.employees}/>}
+            </div>
+            <Switch>
+              <Route
+                exact path='/' render={() =>
+                  <div>
+                    { !this.props.employees.length ||
+                  !this.props.skills.length ||
+                  !this.props.levels.length ||
+                  // this.props.authId === '10' ||
+                  //!this.props.currentTasks.length 
+                  !this.props.projects.length 
+                      ? <p>loading...</p>
+                      : <div>
+                        <EmployeePage 
+                          userID={localStorage.getItem('ID')}
+                          delSkill={this.deleteSkill}
+                          tasks={this.props.currentTasks}
+                          projects={this.props.projects}
+                          employees={this.props.employees}
+                          skills={this.props.skills}
+                          levels={this.props.levels}
+                          changeSkill={this.changeSkill}/>
+                      </div>
+                    }
+                  </div>    
+                } />
+              {/* <Route path='/employee/:employeeId' render={this.renderEmployee} /> */}
+              <Route 
+                path={`${'/employee'}/:id`}
+                render={(props) => 
+                  <div>
+                    { !this.props.employees.length ||
                   !this.props.skills.length ||
                   !this.props.levels.length ||
                   //!this.props.currentTasks.length 
                   !this.props.projects.length 
-                  ? <p>loading...</p>
-                  : <div>
-                    <EmployeePage 
-                      userID={this.props.authId}
-                      tasks={this.props.currentTasks}
-                      projects={this.props.projects}
-                      employees={this.props.employees}
-                      skills={this.props.skills}
-                      levels={this.props.levels}
-                      changeSkill={this.changeSkill}/>
+                      ? <p>loading...</p>
+                      : <EmployeePage 
+                        {...props}
+                        tasks={this.props.currentTasks}
+                        projects={this.props.projects}
+                        employees={this.props.employees}
+                        skills={this.props.skills}
+                        levels={this.props.levels}
+                        changeSkill={this.changeSkill}
+                        delSkill={this.deleteSkill}/>
+                    }
                   </div>
-                }
-              </div>    
-            } />
-          {/* <Route path='/employee/:employeeId' render={this.renderEmployee} /> */}
-          <Route 
-            path={`${'/employee'}/:id`}
-            render={(props) => 
-              <div>
-                { !this.props.employees.length ||
-                  !this.props.skills.length ||
-                  !this.props.levels.length ||
-                  //!this.props.currentTasks.length 
-                  !this.props.projects.length 
-                  ? <p>loading...</p>
-                  : <EmployeePage 
-                    {...props}
-                    tasks={this.props.currentTasks}
-                    projects={this.props.projects}
-                    employees={this.props.employees}
-                    skills={this.props.skills}
-                    levels={this.props.levels}
-                    changeSkill={this.changeSkill}/>
-                }
-              </div>
-            }/>
-          <Route path='/employeesList' render={this.renderEmployeesList} />
-          <Route path='/addEmployeeForm' render={this.renderAddEmplForm} />
-          <Route 
-            path={`${'/editEmployeeForm'}/:id`}
-            render={(props) =>
-              <div>
-                {!this.props.employees.length
-                  ? <p>loading...</p>
-                  : <EditEmplForm
-                    props={props}
-                    locations={this.props.locations}
-                    positions={this.props.positions}
-                    employeeFormSubmit={this.editEmployee}
-                    employees={this.props.employees}/>
-                } 
-              </div>
-            }/>
+                }/>
+              <Route path='/employeesList' render={this.renderEmployeesList} />
+              <Route path='/addEmployeeForm' render={this.renderAddEmplForm} />
+              <Route 
+                path={`${'/editEmployeeForm'}/:id`}
+                render={(props) =>
+                  <div>
+                    {!this.props.employees.length
+                      ? <p>loading...</p>
+                      : <EditEmplForm
+                        props={props}
+                        locations={this.props.locations}
+                        positions={this.props.positions}
+                        employeeFormSubmit={this.editEmployee}
+                        employees={this.props.employees}/>
+                    } 
+                  </div>
+                }/>
               
-          <Route path='/projects' render={this.renderPtojectList} />
-          <Route path='/auth' render={this.renderAuth} />
+              <Route path='/projects' render={this.renderPtojectList} />
+              <Route path='/auth' render={this.renderAuth} />
           
-        </Switch>
+            </Switch>
+          </div>
+        </div>
       </div>
     );
   }
@@ -235,7 +255,7 @@ class App extends Component {
 
 function mapStateToProps (state) {
   return {
-    token: state.token,
+    // token: state.token,
     employees: state.employees,
     employeesSkills: state.employeesSkills,
     projects: state.projects,

@@ -10,7 +10,6 @@ const EmployeesList = function (
     viewEmplPage, 
     deleteEmployee, 
     editEmployee,
-    buttonLabel,
     userID }) {
   let tableTemplate = employees.map((employee, index) => {
     return <EmployeeItem
@@ -23,11 +22,13 @@ const EmployeesList = function (
     
   }
   );
-  let result = <div className='Table-area'>
-    <TabBar
+  let result = 
+  <div>
+    {/* <TabBar
       userID={userID}
-      employees={employees}/>
-    <table>
+      employees={employees}/> */}
+    <h3>Our team:</h3>
+    <table  className='employeesTable'>
       <tr>
         <th>NAME</th>
         <th>POSITION</th>
@@ -43,13 +44,12 @@ const EmployeesList = function (
       <Link 
         className='linkBut' 
         to="/addEmployeeForm">
-        {buttonLabel}
+        Edd employee
       </Link>
     </Button>
     {employees.length === 0 &&
       <p>nothing found</p>
     }
-
   </div>;
 
   return result;

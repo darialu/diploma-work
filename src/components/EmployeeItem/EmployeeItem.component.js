@@ -7,7 +7,7 @@ import Moment from 'react-moment';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import { employeesUrl } from '../../urls';
+// import { employeesUrl } from '../../urls';
 import 'moment-timezone';
 
 class EmployeeItem extends Component {
@@ -17,6 +17,7 @@ class EmployeeItem extends Component {
   };
 
   deleteEmployee = (event) => {
+    console.log('del clicked');
     event.preventDefault;
     this.props.deleteEmployee(this.props.employee.id);
   }
@@ -64,7 +65,7 @@ class EmployeeItem extends Component {
           <Button 
             variant="fab" 
             mini
-            disabled aria-label="Delete" 
+            // disabled aria-label="Delete" 
             onClick={this.deleteEmployee}
             className={styles.button}>
             <DeleteIcon />

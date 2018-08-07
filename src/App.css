@@ -33,7 +33,7 @@
 
 }
 
-.Wellcome {
+/* .Wellcome {
   display: block; 
   width: 86%;
   height: 72%;
@@ -41,7 +41,15 @@
   top: 24%;
   left: 7%;
   font: 82px 'Arial',sans-serif;
-  /* background-color: aquamarine; */
+  background-color: aquamarine;
+} */
+
+.pageContent {
+  width: 80%;
+  margin: 0 auto;
+  height: 100vh;
+  background-color: white;
+  overflow: hidden;
 }
 
 .EmployeesList-area {
