@@ -3,12 +3,21 @@ import './Auth.component.css';
 // import { Link } from 'react-router-dom';
 import { Form, Text } from 'react-form';
 import history from '../../history';
+import { fetchServerData } from '../../redux/actions';
 
 class Auth extends Component {
     onSubmit = values => { 
-      this.props.auth(values);
-      history.push('/');
-      window.location.reload();
+      this.props.auth(values)
+        .then(() => {
+          // history.push('/');
+          console.log('auth props', this.props);
+          this.props.fetchServerData();
+          history.push('/');
+          // call server fetch action
+        })
+        .catch(e => {
+          console.info('login error', e);
+        });
     };
   
     render () {

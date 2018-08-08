@@ -149,6 +149,19 @@ export const setLocations = locations => ({
   data: { locations }
 });
 
+export const fetchServerData = () => dispatch => {
+  dispatch(fetchEmployees());
+  dispatch(fetchProjects());
+  dispatch(fetchSkills());
+  dispatch(fetchLevels());
+  dispatch(fetchPositions());
+  dispatch(fetchLocations());
+};
+
+const setServerData = () => ({
+  type: 'SET_DATA'
+});
+
 export const addEmployee =  data => dispatch => {
   if (data.avatar.length != 0 ){
     getBase64(data.avatar[0], function (dataUrl) {

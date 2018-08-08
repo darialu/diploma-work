@@ -17,14 +17,12 @@ class EmployeeItem extends Component {
   };
 
   deleteEmployee = (event) => {
-    console.log('del clicked');
     event.preventDefault;
     this.props.deleteEmployee(this.props.employee.id);
   }
 
   editEmployee = (event) => {
     event.preventDefault;
-    console.log('on click id', this.props.employee.id);
     this.props.editEmployee(this.props.employee.id);
   }
 

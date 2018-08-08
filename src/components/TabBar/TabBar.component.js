@@ -20,12 +20,13 @@ class TabBar extends Component {
 
   goToEmplPage = () =>{
     history.push('/');
-    window.location.reload();
+    // window.location.reload();
   }
 
   exitBut = () => {
     localStorage.setItem('TOKEN', 'null');
-    window.location.reload();
+    history.push('/auth');
+    // window.location.reload();
   }
 
   render () {

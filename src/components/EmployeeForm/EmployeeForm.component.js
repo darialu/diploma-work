@@ -104,6 +104,7 @@ class EmployeeForm extends Component {
                       <label for="birthday">Date of birthday:</label>
                       <Text 
                         field="birthday" 
+                        type="date"
                         defaultValue={this.props.defaultBirthday}
                         placeholder='YYYY-MM-DD'
                         required/>

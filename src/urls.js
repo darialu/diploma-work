@@ -1,4 +1,6 @@
-const apiUrl = 'http://localhost:8000';
+// const apiUrl = 'http://localhost:8000';
+
+const apiUrl = 'http://nodejs-app.cloudapp.net:8000';
 
 export const authUrl = () => `${apiUrl}/auth`;
 export const employeesListUrl = () => `${apiUrl}/employees`;

@@ -13,6 +13,7 @@ import {
   SET_LOCATIONS,
   SET_TASKS
 } from './actionTypes';
+import axios from 'axios';
 // import { getEmployee } from '../utils';
 
 const initialState = {
@@ -55,8 +56,14 @@ export default (state = initialState, action) => {
       const token = action.data.token;
       
       localStorage.setItem('TOKEN', token);
+      axios.defaults.headers.common['authtoken'] = token;
       
       return { ...state, token };
+    }
+
+    case 'SET_DATA': {
+      
+      return state ;
     }
 
     case SET_EMPLOYEES: {

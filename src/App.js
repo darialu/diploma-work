@@ -7,7 +7,7 @@ import AddEmplForm from './components/AddEmplForm/AddEmplForm.component';
 import EditEmplForm from './components/EditEmplForm/EditEmplForm.component';
 import EmployeeForm from './components/EmployeeForm/EmployeeForm.component';
 import TabBar from './components/TabBar/TabBar.component';
-import Auth from './components/Auth/Auth.component';
+import Auth from './components/Auth/Auth.container';
 import {
   setToken,
   fetchEmployees,
@@ -16,6 +16,7 @@ import {
   fetchTasks,
   fetchSkills,
   fetchLevels,
+  fetchServerData,
   currentId,
   addEmployee,
   fetchLocations,
@@ -46,13 +47,18 @@ class App extends Component {
     }
 
     this.props.dispatch(setToken(token));
-    axios.defaults.headers.common['authtoken'] = token;
-    this.props.dispatch(fetchPositions());
-    this.props.dispatch(fetchEmployees());
-    this.props.dispatch(fetchProjects());
-    this.props.dispatch(fetchLocations());
-    this.props.dispatch(fetchSkills());
-    this.props.dispatch(fetchLevels());
+    // axios.defaults.headers.common['authtoken'] = token; // move to setToken
+    this.props.dispatch(fetchServerData());
+
+    console.log('props are', this.props);
+    // Move to separate action
+    // this.props.dispatch(fetchPositions());
+    // this.props.dispatch(fetchEmployees());
+    // this.props.dispatch(fetchProjects());
+    // this.props.dispatch(fetchLocations());
+    // this.props.dispatch(fetchSkills());
+    // this.props.dispatch(fetchLevels());
+    //
   }
 
   emplClicked = id => {
@@ -103,7 +109,7 @@ class App extends Component {
   }
 
   auth = data => {
-    this.props.dispatch(authUser(data));
+    return this.props.dispatch(authUser(data));
   }
 
   renderEmployeesList = () =>
@@ -171,7 +177,7 @@ class App extends Component {
                   !this.props.levels.length ||
                   localStorage.getItem('TOKEN') === 'null' ||
                   !this.props.projects.length 
-                ? <p></p>
+                ? <div></div>
                 :  <TabBar
                   userID={localStorage.getItem('ID')}
                   employees={this.props.employees}/>}
