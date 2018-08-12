@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './EmployeeItem.component.css';
+import './TableItem.component.css';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 // import PropTypes from 'prop-types';
@@ -10,7 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 // import { employeesUrl } from '../../urls';
 import 'moment-timezone';
 
-class EmployeeItem extends Component {
+class TableItem extends Component {
   handleClick = (event) => {
     event.preventDefault;
     this.props.viewEmplPage(this.props.employee.id);
@@ -51,7 +51,7 @@ class EmployeeItem extends Component {
         <td key={id}>
           <Link 
             to={`${'/employee'}/${id}`} 
-            onClick={this.handleClick} 
+            // onClick={this.handleClick} 
             className='Link'>
             {name + ' ' + surname}
           </Link>
@@ -88,4 +88,4 @@ class EmployeeItem extends Component {
   }
 }
 
-export default EmployeeItem;
+export default TableItem;

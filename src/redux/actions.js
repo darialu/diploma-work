@@ -7,12 +7,15 @@ import {
   SET_POSITIONS,
   SET_SKILLS,
   SET_TASKS,
-  SET_CURRENTID,
+  // SET_CURRENTID,
   ON_CONTACT_DELETE,
   ADD_EMPLOYEE,
   ON_EDIT_EMPL,
   SET_LOCATIONS,
-  SET_LEVELS
+  SET_LEVELS,
+  ADD_PROJECT,
+  ON_PROJECT_DELETE,
+  ON_EDIT_POJECT
 } from './actionTypes';
 import { 
   authUrl,
@@ -23,7 +26,8 @@ import {
   locationsListUrl,
   skillsListUrl, 
   levelsListUrl,
-  employeesUrl 
+  employeesUrl ,
+  projectsUrl
 } from '../urls';
 
 let getBase64 = (file, callback) => {
@@ -158,10 +162,6 @@ export const fetchServerData = () => dispatch => {
   dispatch(fetchLocations());
 };
 
-const setServerData = () => ({
-  type: 'SET_DATA'
-});
-
 export const addEmployee =  data => dispatch => {
   if (data.avatar.length != 0 ){
     getBase64(data.avatar[0], function (dataUrl) {
@@ -209,9 +209,46 @@ export const deleteEmployee = id => dispatch => {
     }); 
 };
 
-export const currentId = id =>({
-  type: SET_CURRENTID,
-  data: { id }
+// export const currentId = id =>({
+//   type: SET_CURRENTID,
+//   data: { id }
+// });
+
+//projects actions:
+
+export const addProject = data => dispatch => {
+  return axios.post(projectsListUrl(), data)
+    .then(({ data }) => {
+      return dispatch(addProj(data));
+    });
+};
+
+export const addProj = project => ({
+  type: ADD_PROJECT,
+  data: { project }
 });
 
+export const deleteProject = id => dispatch => {
+  return axios.delete(projectsUrl(id))
+    .then(({ data }) => {
+      dispatch({
+        type: ON_PROJECT_DELETE,
+        data: {
+          projects: data
+        }
+      });
+      dispatch(setProjects(data));
+    });
+};
 
+export const editProject = (id, data) => dispatch => {
+  return axios.put(projectsUrl(id), data )
+    .then(({ data }) => {
+      return dispatch({
+        type: ON_EDIT_POJECT,
+        data: {
+          data: data
+        }
+      });
+    }); 
+};

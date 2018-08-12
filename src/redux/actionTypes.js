@@ -11,3 +11,6 @@ export const ON_CONTACT_DELETE = 'ON_CONTACT_DELETE';
 export const ADD_EMPLOYEE = 'ADD_EMPLOYEE';
 export const ON_EDIT_EMPL = 'ON_EDIT_EMPL';
 export const SET_TASKS = 'SET_TASKS';
+export const ADD_PROJECT = 'ADD_PROJECT';
+export const ON_PROJECT_DELETE = 'ON_PROJECT_DELETE';
+export const ON_EDIT_POJECT = 'ON_EDIT_POJECT';

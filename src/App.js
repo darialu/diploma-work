@@ -1,32 +1,31 @@
 import './App.css';
 import React, { Component } from 'react';
 import EmployeesList from './components/EmployeesList/EmployeesList.component';
-import EmployeePage from './components/EmployeePage/EmployeePage.component';
-import ProjectsList from './components/ProjectsList/ProjectsList.component';
+import EmployeePage from './components/EmployeePage/EmployeePage.container';
 import AddEmplForm from './components/AddEmplForm/AddEmplForm.component';
 import EditEmplForm from './components/EditEmplForm/EditEmplForm.component';
 import EmployeeForm from './components/EmployeeForm/EmployeeForm.component';
+import ProjectPage from './components/ProjectPage/ProjectPage.component';
+import ProjectsList from './components/ProjectsList/ProjectsList.component';
+import AddProjectForm from './components/AddProjectForm/AddProjectForm.component';
+import EditProjectForm from './components/EditProjectForm/EditProjectForm.component';
 import TabBar from './components/TabBar/TabBar.component';
 import Auth from './components/Auth/Auth.container';
 import {
   setToken,
-  fetchEmployees,
-  fetchPositions,
-  fetchProjects,
   fetchTasks,
-  fetchSkills,
-  fetchLevels,
   fetchServerData,
-  currentId,
+  // currentId,
+  deleteProject,
   addEmployee,
-  fetchLocations,
   deleteEmployee,
   editEmployee,
+  addProject,
+  editProject,
   authUser
 } from './redux/actions';
-import { employeesUrl } from './urls';
 import { connect } from 'react-redux';
-import { Switch, Route, Redirect, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import 'moment-timezone';
@@ -49,8 +48,6 @@ class App extends Component {
     this.props.dispatch(setToken(token));
     // axios.defaults.headers.common['authtoken'] = token; // move to setToken
     this.props.dispatch(fetchServerData());
-
-    console.log('props are', this.props);
     // Move to separate action
     // this.props.dispatch(fetchPositions());
     // this.props.dispatch(fetchEmployees());
@@ -65,12 +62,11 @@ class App extends Component {
     this.props.dispatch(fetchTasks(id));
   };
 
-  editEmployeeClicked = id => {
-    this.props.dispatch(currentId(id));
-  }
+  // editEmployeeClicked = id => {
+  //   this.props.dispatch(currentId(id));
+  // }
 
   addEmployee = data => {
-    
     this.props.dispatch(addEmployee(data));
   }
 
@@ -79,8 +75,27 @@ class App extends Component {
   }
 
   deleteEmployee = id => {
-
     this.props.dispatch(deleteEmployee(id));
+  }
+
+  deleteEmployeeFromTeam = () => {
+    console.log('delete from team');
+  }
+
+  addProject = data => {
+    // console.log('data add project', data);
+    this.props.dispatch(addProject(data));
+  }
+
+  deleteProject = id => {
+    // console.log('id for del project', id);
+    this.props.dispatch(deleteProject(id));
+
+  }
+
+  editProject = (data, id) => {
+    // console.log('id and data for edit project', id, data);
+    this.props.dispatch(editProject(id, data));
   }
 
   changeSkill = (skillName, levelName, emplId) => {
@@ -156,8 +171,17 @@ class App extends Component {
       { !this.props.projects.length
         ? <p>loading...</p>
         : <ProjectsList
-          projects={this.props.projects}/>
+          projects={this.props.projects}
+          deleteProject={this.deleteProject}
+          editProject={this.editProject}/>
       }
+    </div>
+
+  renderAddProjectForm = () =>
+    <div>
+      <AddProjectForm
+        projectFormSubmit={this.addProject}
+        employees={this.props.employees}/>
     </div>
 
   renderAuth = () =>
@@ -249,6 +273,38 @@ class App extends Component {
                 }/>
               
               <Route path='/projects' render={this.renderPtojectList} />
+              <Route path='/addProjectForm' render={this.renderAddProjectForm} />
+              <Route 
+                path={`${'/editProjectForm'}/:id`}
+                render={(props) =>
+                  <div>
+                    {!this.props.projects.length
+                      ? <p>loading...</p>
+                      : <EditProjectForm
+                        employees={this.props.employees}
+                        props={props}
+                        projectFormSubmit={this.editProject}
+                        projects={this.props.projects}/>
+                    } 
+                  </div>
+                }/>
+              <Route 
+                path={`${'/project'}/:id`}
+                render={(props) => 
+                  <div>
+                    { !this.props.projects.length ||
+                      !this.props.employees.length
+                      ? <p>loading...</p>
+                      : <ProjectPage 
+                        props={props}
+                        projects={this.props.projects}
+                        employees={this.props.employees}
+                        // deleteProject={this.deleteProject}
+                        // editProject={this.editProject}
+                        deleteEmployeeFromTeam={this.deleteEmployeeFromTeam}/>
+                    }
+                  </div>
+                }/>
               <Route path='/auth' render={this.renderAuth} />
           
             </Switch>

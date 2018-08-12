@@ -1,0 +1,10 @@
+.projectTextArea {
+    width: 232px;
+    height: 40px;
+    border-color: rgba(128, 128, 128, 0.317);
+}
+
+.selectTeam {
+    width: 200px;
+    margin-left: 20px;  
+}

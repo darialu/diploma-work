@@ -14,7 +14,6 @@ const AddEmplForm = function ({
 }){
   let result = <div>
     <EmployeeForm
-      id={0}
       employeeFormSubmit={employeeFormSubmit}
       locations={locations}
       positions={positions}/>

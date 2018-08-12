@@ -12,6 +12,12 @@ import TabBar from '../TabBar/TabBar.component';
 import { getEmployee } from '../../utils';
 
 class EmployeePage extends Component {
+
+  componentDidMount () {
+    let id = this.props.userID !== undefined ? this.props.userID.toString() : this.props.match.params.id;
+    
+    this.props.fetchTasks(id);
+  }
   
   onSubmit = values => {
     if (values.SkillId === undefined || values.LevelId === undefined) {
@@ -70,6 +76,7 @@ class EmployeePage extends Component {
     let skills = this.props.skills;
     let levels = this.props.levels;
     let currentProjects = getEmployee(projects, id);
+    let tasks = this.props.tasks;
 
     let skillsArr = skills.map(skill => {
       return skill.name;
@@ -100,18 +107,6 @@ class EmployeePage extends Component {
       item.value = i.toString();
       return item;
     });
-
-    // const skillLevel = () => currentEmployee.skills.map((skill) => {
-    //   return (
-    //     <Chip
-    //       key={skill.key}
-    //       color="secondary"
-    //       label={skill.skill + '  - ' + skill.level}
-    //       style={styles.chips}
-    //       onDelete={this.handleDelete}/>
-    //   );
-    // });
-
 
     return (
       <div>
@@ -185,13 +180,21 @@ class EmployeePage extends Component {
             </div> */}
         </div>
         <div className='projectsArea'>
-          <p>Projects:</p>
+          <h3>Projects:</h3>
           <div className='project'>
             {currentProjects !== undefined
               // ? getProjects()
               ? <div>
-                <p>{currentProjects.name}</p>
-                <p>{this.props.tasks[0].name}</p>
+                <p className='underlineParagraph'>{currentProjects.name}</p>
+                {tasks.length === 0
+                  ? <p>no tasks</p>
+                  : 
+                  tasks.map((task, index) => {
+                    return <div><li key={index}>{task.name}</li></div>;
+                      
+                  }
+                  )
+                }
               </div>
               : <p>no projects found</p>}
             {/* <p>{this.props.tasks[0].name}</p> */}

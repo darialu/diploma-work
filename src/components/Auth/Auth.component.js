@@ -3,7 +3,6 @@ import './Auth.component.css';
 // import { Link } from 'react-router-dom';
 import { Form, Text } from 'react-form';
 import history from '../../history';
-import { fetchServerData } from '../../redux/actions';
 
 class Auth extends Component {
     onSubmit = values => { 

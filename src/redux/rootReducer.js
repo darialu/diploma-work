@@ -11,7 +11,10 @@ import {
   ON_EDIT_EMPL,
   SET_LEVELS,
   SET_LOCATIONS,
-  SET_TASKS
+  SET_TASKS,
+  ADD_PROJECT,
+  ON_PROJECT_DELETE,
+  ON_EDIT_POJECT
 } from './actionTypes';
 import axios from 'axios';
 // import { getEmployee } from '../utils';
@@ -21,9 +24,7 @@ const initialState = {
   employees: [],
   employeesSkills: [],
   projects: [],
-  currentTasks: [{
-    name: 'no tasks'
-  }],
+  currentTasks: [],
   authId: '10',
   locations:[],
   positions:[],
@@ -40,15 +41,7 @@ export default (state = initialState, action) => {
 
       localStorage.setItem('TOKEN', token);
       localStorage.setItem('ID', authId);
-      
-      // if (action.data.user){
-      //   let authId = user.id;
-        
 
-      //   return { ...state, token, authId };
-      // } else {
-      //   return { ...state, token };
-      // }
       return { ...state, token };
     }
 
@@ -59,11 +52,6 @@ export default (state = initialState, action) => {
       axios.defaults.headers.common['authtoken'] = token;
       
       return { ...state, token };
-    }
-
-    case 'SET_DATA': {
-      
-      return state ;
     }
 
     case SET_EMPLOYEES: {
@@ -132,6 +120,26 @@ export default (state = initialState, action) => {
       const locations = action.data.locations;
 
       return { ...state, locations };
+    }
+
+    case ADD_PROJECT: {
+      let projects = state.projects.slice();
+
+      projects.push(action.data.project);
+
+      return { ...state, projects };
+    }
+
+    case ON_PROJECT_DELETE: {
+      let projects = action.data.projects;
+
+      return { ...state, projects };
+    }
+
+    case ON_EDIT_POJECT: {
+      let projects = action.data.data;
+
+      return { ...state, projects };
     }
       
     default:

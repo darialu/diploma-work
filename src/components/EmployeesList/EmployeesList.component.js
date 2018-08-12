@@ -2,31 +2,27 @@ import React, { Component } from 'react';
 import './EmployeesList.component.css';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import EmployeeItem from '../EmployeeItem/EmployeeItem.component';
+import TableItem from '../TableItem/TableItem.component';
 import TabBar from '../TabBar/TabBar.component';
 
 const EmployeesList = function (
   { employees, 
     viewEmplPage, 
     deleteEmployee, 
-    editEmployee,
-    userID }) {
+    editEmployee }) {
   let tableTemplate = employees.map((employee, index) => {
-    return <EmployeeItem
-      employee={employee}
-      viewEmplPage={viewEmplPage}
-      deleteEmployee={deleteEmployee}
-      editEmployee={editEmployee}
-      id={index}
+    return <TableItem
+      link={'/editEmployeeForm'}
+      item={employee}
+      viewPage={viewEmplPage}
+      deleteItem={deleteEmployee}
+      editItem={editEmployee}
       key={index}/>;
     
   }
   );
   let result = 
   <div>
-    {/* <TabBar
-      userID={userID}
-      employees={employees}/> */}
     <h3>Our team:</h3>
     <table  className='employeesTable'>
       <tr>
@@ -44,7 +40,7 @@ const EmployeesList = function (
       <Link 
         className='linkBut' 
         to="/addEmployeeForm">
-        Edd employee
+        Add employee
       </Link>
     </Button>
     {employees.length === 0 &&
