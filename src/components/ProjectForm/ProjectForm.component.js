@@ -14,9 +14,9 @@ class ProjectForm extends Component {
       history.push('/projects');
     };
 
-    addEmployeeToTeam = (event, employee) => {
-      event.preventDefault;
-      console.log('add to team');
+    addEmployeeToTeam = (empl, e) => {
+      // event.preventDefault;
+      console.log('add to team', empl);
     }
   
     render () {
@@ -84,8 +84,9 @@ class ProjectForm extends Component {
                         variant="fab" 
                         mini 
                         color="secondary" 
-                        aria-label="Add"
-                        onClick={this.addEmployeeToTeam}>
+                        onClick={() => this.addEmployeeToTeam(formApi.values.employees)}
+                        // onClick={(e) => {console.info('click', formApi.values.employees);}}
+                        aria-label="Add">
                         <AddIcon />
                       </Button>
                     </li>
