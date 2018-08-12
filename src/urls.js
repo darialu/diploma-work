@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:8000';
+const apiUrl = process.env.REACT_APP_API_HOST + ':8000';
 
 // const apiUrl = 'http://nodejs-app.cloudapp.net:8000';
 
