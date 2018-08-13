@@ -1,0 +1,73 @@
+.taskWrapper {
+    margin-top: 20px
+}
+
+.aboutProject {
+    /* border: 2px solid orange; */
+    width: 250px;
+    float: left;
+    margin-right: 40px;
+}
+
+.addTaskBut {
+    float: left;
+}
+
+.todosArea {
+    clear: both;
+    overflow: hidden;
+    display: inline-block;
+    /* border: 2px solid red;  */
+}
+
+.taskItem {
+    min-height: 55px;
+    width: 180px;
+    /* background-color: #2940bf; */
+    border: 5px solid #2940bf;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    padding-top: 5px;
+}
+
+.taskItem:hover {
+    background-color: #2940bf0d;
+}
+
+.emplName {
+    color: rgba(0, 0, 0, 0.473);
+}
+
+.todos {
+    /* overflow: hidden; */
+    display: inline-block;
+    border: 1px dotted rgba(14, 14, 14, 0.26);      
+    min-height: 100px;
+    width: 200px;
+    margin: 10px;
+    float: left;
+  }
+
+.inProgress {
+    float: left;
+    border: 1px dotted rgba(14, 14, 14, 0.26); 
+    min-height: 100px;
+    width: 200px;
+    margin: 10px;
+}
+
+.inTesting {
+    float: left;
+    border: 1px dotted rgba(14, 14, 14, 0.26); 
+    min-height: 100px;
+    width: 200px;
+    margin: 10px;
+}  
+  
+.completed {
+    float: left;
+    border: 1px dotted rgba(14, 14, 14, 0.26);
+    min-height: 100px;
+    width: 200px;
+    margin: 10px;
+}

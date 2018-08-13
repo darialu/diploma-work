@@ -22,7 +22,8 @@ import {
   employeesListUrl, 
   positionsListUrl, 
   projectsListUrl,
-  tasksUrl,
+  employeestasksUrl,
+  projectsTasksUrl,
   locationsListUrl,
   skillsListUrl, 
   levelsListUrl,
@@ -92,10 +93,14 @@ export const setProjects = projects => ({
 });
 
 export const fetchTasks = (id) => dispatch => {
-  return axios.get(tasksUrl(id))
+  return axios.get(employeestasksUrl(id))
     .then(({ data }) => {
       return dispatch(setTasks(data));
     });
+};
+
+export const fetchProjectsTasks = (id) => dispatch => {
+  return axios.get(projectsTasksUrl(id));
 };
 
 export const setTasks = tasks => ({

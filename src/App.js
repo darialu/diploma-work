@@ -4,12 +4,13 @@ import EmployeesList from './components/EmployeesList/EmployeesList.component';
 import EmployeePage from './components/EmployeePage/EmployeePage.container';
 import AddEmplForm from './components/AddEmplForm/AddEmplForm.component';
 import EditEmplForm from './components/EditEmplForm/EditEmplForm.component';
-import EmployeeForm from './components/EmployeeForm/EmployeeForm.component';
+// import EmployeeForm from './components/EmployeeForm/EmployeeForm.component';
 import ProjectPage from './components/ProjectPage/ProjectPage.component';
 import ProjectsList from './components/ProjectsList/ProjectsList.component';
 import AddProjectForm from './components/AddProjectForm/AddProjectForm.component';
 import EditProjectForm from './components/EditProjectForm/EditProjectForm.component';
 import TabBar from './components/TabBar/TabBar.component';
+import TaskManager from './components/TaskManager/TaskManager.container';
 import Auth from './components/Auth/Auth.container';
 import {
   setToken,
@@ -111,7 +112,7 @@ class App extends Component {
     else {
       currentEmployee.skills.push(skillObj);
     }
-    console.log('add skill', currentEmployee );
+    // console.log('add skill', currentEmployee );
     this.props.dispatch(editEmployee(emplId, currentEmployee));
   }
 
@@ -298,10 +299,23 @@ class App extends Component {
                       : <ProjectPage 
                         props={props}
                         projects={this.props.projects}
-                        employees={this.props.employees}
-                        // deleteProject={this.deleteProject}
-                        // editProject={this.editProject}
-                        deleteEmployeeFromTeam={this.deleteEmployeeFromTeam}/>
+                        employees={this.props.employees}/>
+                    }
+                  </div>
+                }/>
+              <Route 
+                path={`${'/taskManager'}/:id`}
+                render={(props) => 
+                  <div>
+                    { !this.props.projects.length ||
+                      !this.props.employees.length 
+                      // !this.props.currentTasks.length
+                      ? <p>loading...</p>
+                      : <TaskManager 
+                        {...props}
+                        tasks={this.props.currentTasks}
+                        projects={this.props.projects}
+                        employees={this.props.employees}/>
                     }
                   </div>
                 }/>

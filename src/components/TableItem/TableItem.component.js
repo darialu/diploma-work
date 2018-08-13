@@ -12,17 +12,17 @@ import 'moment-timezone';
 
 class TableItem extends Component {
   handleClick = (event) => {
-    event.preventDefault;
+    event.preventDefault();
     this.props.viewPage(this.props.item.id);
   };
 
   deleteItem = (event) => {
-    event.preventDefault;
+    event.preventDefault();
     this.props.deleteItem(this.props.item.id);
   }
 
   editItem = (event) => {
-    event.preventDefault;
+    event.preventDefault();
     this.props.editItem(this.props.item.id);
   }
 
@@ -73,6 +73,7 @@ class TableItem extends Component {
         {item.creationDate !== undefined &&
         <td><Moment format="DD.MM.YYYY">{item.creationDate}</Moment></td>
         }
+        {this.props.deleteItem !== undefined &&
         <td>
           <Button 
             variant="fab" 
@@ -82,8 +83,9 @@ class TableItem extends Component {
             <DeleteIcon />
           </Button>
         </td>
+        }
+        { this.props.link !== undefined &&
         <td>
-          { this.props.link !== undefined &&
           <Button 
             variant="fab" 
             mini
@@ -94,8 +96,8 @@ class TableItem extends Component {
               <EditIcon />
             </Link>
           </Button>
-          }
         </td>
+        }
       </tr>
 
     );

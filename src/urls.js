@@ -12,7 +12,8 @@ export const skillsListUrl = () => `${apiUrl}/skills`;
 export const levelsListUrl = () => `${apiUrl}/skillLevels`;
 export const employeesUrl = index => `${employeesListUrl()}/${index}`;
 export const projectsUrl = index => `${projectsListUrl()}/${index}`;
-export const tasksUrl = index => `${employeesListUrl()}/${index}/tasks`;
+export const employeestasksUrl = index => `${employeesListUrl()}/${index}/tasks`;
+export const projectsTasksUrl = index => `${projectsListUrl()}/${index}/tasks`;
 
 
 

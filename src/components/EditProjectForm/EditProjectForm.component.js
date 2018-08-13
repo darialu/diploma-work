@@ -6,7 +6,8 @@ import { getEmployee } from '../../utils';
 const EditProjectForm = function ({
   props,
   projectFormSubmit,
-  projects
+  projects,
+  employees
 }){
   let id = props.match.params.id;
   let project = getEmployee(projects, id);
@@ -15,6 +16,8 @@ const EditProjectForm = function ({
     <ProjectForm
       {...props}
       id={id}
+      team={project.employees}
+      employees={employees}
       defaultName ={project.name}
       defaultDescription={project.description}
       defaultCreationDate={project.creationDate}

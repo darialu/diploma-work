@@ -183,7 +183,6 @@ class EmployeePage extends Component {
           <h3>Projects:</h3>
           <div className='project'>
             {currentProjects !== undefined
-              // ? getProjects()
               ? <div>
                 <p className='underlineParagraph'>{currentProjects.name}</p>
                 {tasks.length === 0
@@ -192,8 +191,7 @@ class EmployeePage extends Component {
                   tasks.map((task, index) => {
                     return <div><li key={index}>{task.name}</li></div>;
                       
-                  }
-                  )
+                  })
                 }
               </div>
               : <p>no projects found</p>}

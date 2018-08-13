@@ -12,17 +12,17 @@ import 'moment-timezone';
 
 class TableItem extends Component {
   handleClick = (event) => {
-    event.preventDefault;
+    event.preventDefault();
     this.props.viewEmplPage(this.props.employee.id);
   };
 
   deleteEmployee = (event) => {
-    event.preventDefault;
+    event.preventDefault();
     this.props.deleteEmployee(this.props.employee.id);
   }
 
   editEmployee = (event) => {
-    event.preventDefault;
+    event.preventDefault();
     this.props.editEmployee(this.props.employee.id);
   }
 

@@ -6,17 +6,36 @@ import 'moment-timezone';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 import AddIcon from '@material-ui/icons/Add';
+import { getEmployee } from '../../utils';
 import history from '../../history';
 
 class ProjectForm extends Component {
+  state = {
+    projectTeam: []
+  }
+
     onSubmit = values => { 
+      values.employees = this.state.projectTeam;
       this.props.projectFormSubmit(values, this.props.id);
       history.push('/projects');
     };
 
     addEmployeeToTeam = (empl, e) => {
-      // event.preventDefault;
-      console.log('add to team', empl);
+      event.preventDefault();
+      let projectTeam = this.state.projectTeam;
+
+      projectTeam.push(empl);
+      this.setState(projectTeam);
+      // console.log('add to team', this.state.projectTeam);
+    }
+
+    handleDelete = (employee, id) => {
+      let projectTeam = this.props.team === undefined ? this.state.projectTeam : this.props.team;
+      let index = projectTeam.indexOf(id);
+
+      projectTeam.splice(index, 1);
+      this.setState(projectTeam);
+      // console.log(projectTeam);
     }
   
     render () {
@@ -32,6 +51,19 @@ class ProjectForm extends Component {
       };
 
       let employees = this.props.employees;
+      let projectTeam = this.props.team === undefined ? this.state.projectTeam : this.props.team;
+      
+      let makeChips = arr => {
+        let projectTeamChips = [];
+
+        for (var i = 0; i < arr.length; i++){
+          let currentEmployee = getEmployee(employees, arr[i]);
+
+          // let name = currentEmployee.name + ' ' + currentEmployee.surName;
+          projectTeamChips.push(currentEmployee);
+        }
+        return projectTeamChips;
+      };
     
       let employeesOptions = employees.map((employee) => {
         let item = {
@@ -90,21 +122,21 @@ class ProjectForm extends Component {
                         <AddIcon />
                       </Button>
                     </li>
-                    {/* <li className=''>
-                      {currentEmployee.skills === undefined
-                        ? <p>no skills</p>
-                        : currentEmployee.skills.map((skill) => {
+                    <li className=''>
+                      {projectTeam.length === 0
+                        ? <p>no team</p>
+                        : makeChips(projectTeam).map((employee, index) => {
                           return (
                             <Chip
-                              key={skill.key}
+                              key={index}
                               color="secondary"
-                              label={skill.skill + '  - ' + skill.level}
-                              style={styles.chips}
-                              onDelete={this.handleDelete(skill, currentEmployee.skills, id)}/>
+                              label={employee.name + ' ' + employee.surName}
+                              onDelete={() => this.handleDelete(employee, employee.id)}
+                              style={styles.chips}/>
                           );
                         })
                       }
-                    </li> */}
+                    </li>
                     {/* <li>
                       <label for="creationDate">Creation date:</label>
                       <Text 
