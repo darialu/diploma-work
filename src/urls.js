@@ -14,6 +14,10 @@ export const employeesUrl = index => `${employeesListUrl()}/${index}`;
 export const projectsUrl = index => `${projectsListUrl()}/${index}`;
 export const employeestasksUrl = index => `${employeesListUrl()}/${index}/tasks`;
 export const projectsTasksUrl = index => `${projectsListUrl()}/${index}/tasks`;
+export const putTaskUrl = id => `${apiUrl}/tasks/${id}`;
+export const tasksUrl = () => `${apiUrl}/tasks`;
+export const deleteTasksUrl = id => `${tasksUrl()}/${id}`;
+
 
 
 

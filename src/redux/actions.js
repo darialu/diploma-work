@@ -15,7 +15,10 @@ import {
   SET_LEVELS,
   ADD_PROJECT,
   ON_PROJECT_DELETE,
-  ON_EDIT_POJECT
+  ON_EDIT_POJECT,
+  SET_TASKS_STATUS,
+  SET_NEW_TASK,
+  DELETE_TASK
 } from './actionTypes';
 import { 
   authUrl,
@@ -28,7 +31,10 @@ import {
   skillsListUrl, 
   levelsListUrl,
   employeesUrl ,
-  projectsUrl
+  projectsUrl,
+  putTaskUrl,
+  tasksUrl,
+  deleteTasksUrl
 } from '../urls';
 
 let getBase64 = (file, callback) => {
@@ -90,22 +96,6 @@ export const fetchProjects = () => dispatch => {
 export const setProjects = projects => ({
   type: SET_PROJECTS,
   data: { projects }
-});
-
-export const fetchTasks = (id) => dispatch => {
-  return axios.get(employeestasksUrl(id))
-    .then(({ data }) => {
-      return dispatch(setTasks(data));
-    });
-};
-
-export const fetchProjectsTasks = (id) => dispatch => {
-  return axios.get(projectsTasksUrl(id));
-};
-
-export const setTasks = tasks => ({
-  type: SET_TASKS,
-  data: { tasks }
 });
 
 export const fetchSkills = () => dispatch => {
@@ -257,3 +247,52 @@ export const editProject = (id, data) => dispatch => {
       });
     }); 
 };
+
+export const fetchTasks = (id) => dispatch => {
+  return axios.get(employeestasksUrl(id))
+    .then(({ data }) => {
+      return dispatch(setTasks(data));
+    });
+};
+
+export const fetchProjectsTasks = (id) => dispatch => {
+  return axios.get(projectsTasksUrl(id));
+};
+
+export const setTasks = tasks => ({
+  type: SET_TASKS,
+  data: { tasks }
+});
+
+export const addStatusToTask = (id, data) => dispatch => {
+  return axios.put(putTaskUrl(id), data)
+    .then (({ data }) => {
+      return dispatch(setTaskStatus(data));
+    });
+};
+
+export const setTaskStatus = task => ({
+  type: SET_TASKS_STATUS,
+  data: { task }
+});
+
+export const addTask = data => dispatch => {
+  return axios.post(tasksUrl(), data)
+    .then (({ data }) => {
+      return dispatch(setNewTask(data));
+    });
+};
+
+export const setNewTask = task => ({
+  type: SET_NEW_TASK,
+  data: { task }
+});
+
+export const deleteTask = id => {
+  return axios.delete(deleteTasksUrl(id));
+};
+
+// export const delTask = id => ({
+//   type: DELETE_TASK,
+//   data: { id }
+// });

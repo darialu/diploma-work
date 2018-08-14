@@ -1,5 +1,6 @@
 .taskWrapper {
-    margin-top: 20px
+    margin-top: 20px;
+    overflow: scroll;
 }
 
 .aboutProject {
@@ -14,6 +15,8 @@
 }
 
 .todosArea {
+    /* overflow: scroll; */
+    width: 900px;
     clear: both;
     overflow: hidden;
     display: inline-block;
@@ -23,6 +26,8 @@
 .taskItem {
     min-height: 55px;
     width: 180px;
+    text-align: left;
+    padding-left: 3px;
     /* background-color: #2940bf; */
     border: 5px solid #2940bf;
     margin: 0 auto;

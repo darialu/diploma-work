@@ -14,10 +14,13 @@ import {
   SET_TASKS,
   ADD_PROJECT,
   ON_PROJECT_DELETE,
-  ON_EDIT_POJECT
+  ON_EDIT_POJECT,
+  SET_TASKS_STATUS,
+  SET_NEW_TASK,
+  DELETE_TASK
 } from './actionTypes';
 import axios from 'axios';
-// import { getEmployee } from '../utils';
+import { getEmployee } from '../utils';
 
 const initialState = {
   token: '',
@@ -84,9 +87,37 @@ export default (state = initialState, action) => {
       return { ...state, currentTasks };
     }
 
+    case SET_TASKS_STATUS: {
+      const currentTasks = state.currentTasks.slice();
+      const putTask = action.data.task;
+      let changedTask = getEmployee(currentTasks, putTask.id);
+      let index = currentTasks.indexOf(changedTask);
+
+      currentTasks.splice(index, 1, putTask);
+      return { ...state, currentTasks };
+    }
+
+    case SET_NEW_TASK: {
+      const currentTasks = state.currentTasks.slice();
+
+      currentTasks.push(action.data.task);
+      return { ...state, currentTasks };
+    }
+
+    case DELETE_TASK: {
+      let currentTasks = state.currentTasks.slice();
+      let id = action.data.id;
+
+      const remainingTasks = currentTasks.filter(task => task.id !== id);
+
+      // console.info('currentTasks', currentTasks);
+      // console.info('remainingTasks', remainingTasks);
+      return { ...state, currentTasks: remainingTasks };
+    }
+
     case ON_CONTACT_DELETE: {
       let employees = action.data.employees;
-
+      
       return { ...state, employees };
     }
 

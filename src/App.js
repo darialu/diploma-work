@@ -11,12 +11,13 @@ import AddProjectForm from './components/AddProjectForm/AddProjectForm.component
 import EditProjectForm from './components/EditProjectForm/EditProjectForm.component';
 import TabBar from './components/TabBar/TabBar.component';
 import TaskManager from './components/TaskManager/TaskManager.container';
+import AddTaskForm from './components/AddTaskForm/AddTaskForm.component';
 import Auth from './components/Auth/Auth.container';
 import {
   setToken,
   fetchTasks,
   fetchServerData,
-  // currentId,
+  addTask,
   deleteProject,
   addEmployee,
   deleteEmployee,
@@ -49,23 +50,11 @@ class App extends Component {
     this.props.dispatch(setToken(token));
     // axios.defaults.headers.common['authtoken'] = token; // move to setToken
     this.props.dispatch(fetchServerData());
-    // Move to separate action
-    // this.props.dispatch(fetchPositions());
-    // this.props.dispatch(fetchEmployees());
-    // this.props.dispatch(fetchProjects());
-    // this.props.dispatch(fetchLocations());
-    // this.props.dispatch(fetchSkills());
-    // this.props.dispatch(fetchLevels());
-    //
   }
 
   emplClicked = id => {
     this.props.dispatch(fetchTasks(id));
   };
-
-  // editEmployeeClicked = id => {
-  //   this.props.dispatch(currentId(id));
-  // }
 
   addEmployee = data => {
     this.props.dispatch(addEmployee(data));
@@ -97,6 +86,11 @@ class App extends Component {
   editProject = (data, id) => {
     // console.log('id and data for edit project', id, data);
     this.props.dispatch(editProject(id, data));
+  }
+
+  addTask = data => {
+    // console.log('data add project', data);
+    this.props.dispatch(addTask(data));
   }
 
   changeSkill = (skillName, levelName, emplId) => {
@@ -314,6 +308,22 @@ class App extends Component {
                       : <TaskManager 
                         {...props}
                         tasks={this.props.currentTasks}
+                        projects={this.props.projects}
+                        employees={this.props.employees}/>
+                    }
+                  </div>
+                }/>
+              <Route 
+                path={`${'/addTask'}/:id`}
+                render={(props) => 
+                  <div>
+                    { !this.props.projects.length ||
+                      !this.props.employees.length 
+                      // !this.props.currentTasks.length
+                      ? <p>loading...</p>
+                      : <AddTaskForm 
+                        props={props}
+                        projectFormSubmit={this.addTask}
                         projects={this.props.projects}
                         employees={this.props.employees}/>
                     }

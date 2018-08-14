@@ -14,3 +14,6 @@ export const SET_TASKS = 'SET_TASKS';
 export const ADD_PROJECT = 'ADD_PROJECT';
 export const ON_PROJECT_DELETE = 'ON_PROJECT_DELETE';
 export const ON_EDIT_POJECT = 'ON_EDIT_POJECT';
+export const SET_TASKS_STATUS = 'SET_TASKS_STATUS';
+export const SET_NEW_TASK = 'SET_NEW_TASK';
+export const DELETE_TASK = 'DELETE_TASK';
