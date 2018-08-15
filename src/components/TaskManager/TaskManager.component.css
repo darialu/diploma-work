@@ -16,7 +16,7 @@
 
 .todosArea {
     /* overflow: scroll; */
-    width: 900px;
+    width: 1100px;
     clear: both;
     overflow: hidden;
     display: inline-block;
@@ -35,6 +35,13 @@
     padding-top: 5px;
 }
 
+.aboutTodo {
+    /* width: 150px; */
+    /* background-color: aquamarine; */
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
 .taskItem:hover {
     background-color: #2940bf0d;
 }
@@ -48,7 +55,7 @@
     display: inline-block;
     border: 1px dotted rgba(14, 14, 14, 0.26);      
     min-height: 100px;
-    width: 200px;
+    width: 250px;
     margin: 10px;
     float: left;
   }
@@ -57,7 +64,7 @@
     float: left;
     border: 1px dotted rgba(14, 14, 14, 0.26); 
     min-height: 100px;
-    width: 200px;
+    width: 250px;
     margin: 10px;
 }
 
@@ -65,7 +72,7 @@
     float: left;
     border: 1px dotted rgba(14, 14, 14, 0.26); 
     min-height: 100px;
-    width: 200px;
+    width: 250px;
     margin: 10px;
 }  
   
@@ -73,6 +80,11 @@
     float: left;
     border: 1px dotted rgba(14, 14, 14, 0.26);
     min-height: 100px;
-    width: 200px;
+    width: 250px;
     margin: 10px;
 }
+
+.linkToEditTask {
+ text-decoration: none;
+ color: rgba(0, 0, 0, 0.54);;
+};

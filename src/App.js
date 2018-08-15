@@ -13,6 +13,7 @@ import TabBar from './components/TabBar/TabBar.component';
 import TaskManager from './components/TaskManager/TaskManager.container';
 import AddTaskForm from './components/AddTaskForm/AddTaskForm.component';
 import Auth from './components/Auth/Auth.container';
+import history from './history';
 import {
   setToken,
   fetchTasks,
@@ -32,7 +33,7 @@ import { withRouter } from 'react-router';
 import axios from 'axios';
 import 'moment-timezone';
 import 'typeface-roboto';
-import { getEmployee } from './utils';
+import { getElementById } from './utils';
 import './App.css';
 
 
@@ -65,6 +66,10 @@ class App extends Component {
   }
 
   deleteEmployee = id => {
+    if (id === '0'){
+      alert('You cant delete Andy - he is admin!');
+      return;
+    }
     this.props.dispatch(deleteEmployee(id));
   }
 
@@ -88,13 +93,20 @@ class App extends Component {
     this.props.dispatch(editProject(id, data));
   }
 
-  addTask = data => {
-    // console.log('data add project', data);
-    this.props.dispatch(addTask(data));
+  addTask = (data, id) => {
+    console.log('data add project', data);
+    this.props.dispatch(addTask(data))
+      .then(() => {
+        history.push(`${'/taskManager'}/${id}`);
+      });
+  }
+
+  editTask = id => {
+    console.log('edit tasl!', id);
   }
 
   changeSkill = (skillName, levelName, emplId) => {
-    let currentEmployee = getEmployee(this.props.employees, emplId);
+    let currentEmployee = getElementById(this.props.employees, emplId);
     let skillObj = {};
 
     skillObj.skill = skillName;
@@ -111,7 +123,7 @@ class App extends Component {
   }
 
   deleteSkill = (currentEmployeeSkills, id) => {
-    let currentEmployee = getEmployee(this.props.employees, id);
+    let currentEmployee = getElementById(this.props.employees, id);
 
     currentEmployee.skills = currentEmployeeSkills;
     this.props.dispatch(editEmployee(id, currentEmployee));

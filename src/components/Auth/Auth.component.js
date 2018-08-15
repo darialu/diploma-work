@@ -5,15 +5,22 @@ import { Form, Text } from 'react-form';
 import history from '../../history';
 
 class Auth extends Component {
+  componentDidMount () {
+    const token = localStorage.getItem('TOKEN');
+
+    if (token && token !== 'null') {
+      // redirect
+      history.push('/');
+      return;
+    }
+  }
+
     onSubmit = values => { 
       this.props.auth(values)
         .then(() => {
-          // history.push('/');
-          console.log('auth props', this.props);
-          this.props.fetchServerData();
-          history.push('/');
-          // call server fetch action
+          return this.props.fetchServerData();
         })
+        .then(() => history.push('/'))
         .catch(e => {
           console.info('login error', e);
         });

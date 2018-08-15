@@ -52,6 +52,9 @@ let getBase64 = (file, callback) => {
 
 export const authUser = data => dispatch => {
   return axios.post(authUrl(), data)
+    .catch(error => {
+      alert('Wrong email or password. Try again.'); // Error: Not Found
+    })
     .then(({ data }) => {
       return dispatch(setAuthData(data));
     });
@@ -288,7 +291,7 @@ export const setNewTask = task => ({
   data: { task }
 });
 
-export const deleteTask = id => {
+export const deleteTask = id => dispatch => {
   return axios.delete(deleteTasksUrl(id));
 };
 

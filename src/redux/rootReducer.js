@@ -20,7 +20,7 @@ import {
   DELETE_TASK
 } from './actionTypes';
 import axios from 'axios';
-import { getEmployee } from '../utils';
+import { getElementById } from '../utils';
 
 const initialState = {
   token: '',
@@ -44,6 +44,8 @@ export default (state = initialState, action) => {
 
       localStorage.setItem('TOKEN', token);
       localStorage.setItem('ID', authId);
+
+      axios.defaults.headers.common['authtoken'] = token;
 
       return { ...state, token };
     }
@@ -90,7 +92,7 @@ export default (state = initialState, action) => {
     case SET_TASKS_STATUS: {
       const currentTasks = state.currentTasks.slice();
       const putTask = action.data.task;
-      let changedTask = getEmployee(currentTasks, putTask.id);
+      let changedTask = getElementById(currentTasks, putTask.id);
       let index = currentTasks.indexOf(changedTask);
 
       currentTasks.splice(index, 1, putTask);

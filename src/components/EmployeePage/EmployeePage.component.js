@@ -9,7 +9,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import { Form, Text, Select } from 'react-form';
 import TabBar from '../TabBar/TabBar.component';
-import { getEmployee } from '../../utils';
+import { getElementById } from '../../utils';
 
 class EmployeePage extends Component {
 
@@ -27,10 +27,10 @@ class EmployeePage extends Component {
 
     let skillId = values.SkillId; //skill id in array
     let levelId = values.LevelId;
-    // let indexOfCurrentEmployee = this.props.employees.indexOf(getEmployee(this.props.employees, this.props.match.params.id));
+    // let indexOfCurrentEmployee = this.props.employees.indexOf(getElementById(this.props.employees, this.props.match.params.id));
     let id = this.props.userID !== undefined ? this.props.userID.toString() : this.props.match.params.id;
-    let skillName = getEmployee(this.props.skills, skillId).name;
-    let levelName = getEmployee(this.props.levels, levelId).name;
+    let skillName = getElementById(this.props.skills, skillId).name;
+    let levelName = getElementById(this.props.levels, levelId).name;
 
     // console.log(' index', indexOfCurrentEmployee, skillName);
     this.props.changeSkill(skillName, levelName, id);
@@ -66,7 +66,7 @@ class EmployeePage extends Component {
     // let id = this.props.userID.toString();
     let id = this.props.match === undefined ? localStorage.getItem('ID') : this.props.match.params.id;
 
-    let currentEmployee = getEmployee(employees, id);
+    let currentEmployee = getElementById(employees, id);
     let name = currentEmployee.name;
     let surname = currentEmployee.surName;
     let position = currentEmployee.position.name;
@@ -75,8 +75,18 @@ class EmployeePage extends Component {
     let avatar = currentEmployee.avatar;
     let skills = this.props.skills;
     let levels = this.props.levels;
-    let currentProjects = getEmployee(projects, id);
+    // let currentProjects = getElementById(projects.employees, id);
     let tasks = this.props.tasks;
+    let currentProjects = [];
+
+    for (var i = 0; i < projects.length; i++){
+      let team = projects[i].employees;
+      let hasId = team.indexOf(id) !== -1;
+
+      if (hasId){
+        currentProjects.push(projects[i]);
+      }
+    }
 
     let skillsArr = skills.map(skill => {
       return skill.name;
@@ -110,9 +120,6 @@ class EmployeePage extends Component {
 
     return (
       <div>
-        {/* <TabBar 
-          userID={id}
-          employees={this.props.employees}/> */}
         <div className='Content'>
           <div className='avatarArea'>
             {!avatar.length
@@ -182,20 +189,22 @@ class EmployeePage extends Component {
         <div className='projectsArea'>
           <h3>Projects:</h3>
           <div className='project'>
-            {currentProjects !== undefined
-              ? <div>
-                <p className='underlineParagraph'>{currentProjects.name}</p>
-                {tasks.length === 0
-                  ? <p>no tasks</p>
-                  : 
-                  tasks.map((task, index) => {
-                    return <div><li key={index}>{task.name}</li></div>;
+            { currentProjects.length !== 0
+              ? currentProjects.map((project, index) => {
+                return <div key={index}>
+                  <p className='underlineParagraph'>{project.name}</p>
+                  {tasks.length === 0
+                    ? <p>no tasks</p>
+                    : 
+                    tasks.map((task, index) => {
+                      return <div><li key={index}>{task.name}</li></div>;
                       
-                  })
-                }
-              </div>
-              : <p>no projects found</p>}
-            {/* <p>{this.props.tasks[0].name}</p> */}
+                    })
+                  }
+                </div>
+              })
+              : <p>no projects found</p>
+            }
           </div>
         </div>
         

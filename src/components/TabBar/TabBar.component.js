@@ -3,7 +3,7 @@ import './TabBar.component.css';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { getEmployee } from '../../utils';
+import { getElementById } from '../../utils';
 import Button from '@material-ui/core/Button';
 import history from '../../history';
 
@@ -24,7 +24,7 @@ class TabBar extends Component {
   }
 
   exitBut = () => {
-    localStorage.setItem('TOKEN', 'null');
+    localStorage.setItem('TOKEN', null);
     history.push('/auth');
     // window.location.reload();
   }
@@ -40,7 +40,7 @@ class TabBar extends Component {
 
     let id = this.props.userID.toString();
     let employees = this.props.employees;
-    let employee = getEmployee(employees, id);
+    let employee = getElementById(employees, id);
     let name = employee.name;
     let surname = employee.surName;
 

@@ -1,21 +1,23 @@
 import React from 'react';
 import ProjectForm from '../ProjectForm/ProjectForm.component';
-import { getEmployee } from '../../utils';
+import { getElementById } from '../../utils';
 
 
 const EditProjectForm = function ({
   props,
   projectFormSubmit,
   projects,
-  employees
+  employees,
+  link
 }){
   let id = props.match.params.id;
-  let project = getEmployee(projects, id);
+  let project = getElementById(projects, id);
 
   let result = <div>
     <ProjectForm
       {...props}
       id={id}
+      link={link}
       team={project.employees}
       employees={employees}
       defaultName ={project.name}

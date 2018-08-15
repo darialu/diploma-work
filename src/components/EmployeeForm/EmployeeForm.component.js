@@ -6,7 +6,7 @@ import { Form, Text, Select } from 'react-form';
 import 'moment-timezone';
 import Button from '@material-ui/core/Button';
 import history from '../../history';
-import { getEmployee } from '../../utils';
+import { getElementById } from '../../utils';
 
 class EmployeeForm extends Component {
     onSubmit = values => { 

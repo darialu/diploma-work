@@ -57,8 +57,7 @@
     "start": "node scripts/start.js",
     "startRemoteBackend": "sh -ac '. .env.remoteBackend; npm start'",
     "build": "node scripts/build.js",
-    "deploy": "sh scripts/deploy",
-    "test": "node scripts/test.js --env=jsdom"
+    "deploy": "sh scripts/deploy"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

@@ -5,14 +5,14 @@ import Button from '@material-ui/core/Button';
 import Moment from 'react-moment';
 import TableItem from '../TableItem/TableItem.component';
 // import 'moment-timezone';
-import { getEmployee } from '../../utils';
+import { getElementById } from '../../utils';
 
 const ProjectPage = function (
   { props,
     projects,
     employees }) {
   let projectID = props.match.params.id;
-  let currentProject = getEmployee(projects, projectID);
+  let currentProject = getElementById(projects, projectID);
   let employeesID = currentProject.employees;
   let styles = {
     button: {
@@ -20,15 +20,12 @@ const ProjectPage = function (
     }
   };
   let tableTemplate = employeesID.map((id, index) => {
-    let currentEmployee = getEmployee(employees, id);
+    let currentEmployee = getElementById(employees, id);
 
     return <TableItem
       {...props}
       //   link={'/editEmployeeForm'}
       item={currentEmployee}
-      //   viewPage={viewEmplPage}
-      // deleteItem={deleteEmployeeFromTeam}
-      //   editItem={editEmployee}
       key={index}/>;
   }
   );
@@ -56,21 +53,24 @@ const ProjectPage = function (
         </Link>
       </Button>
     </div>
-    <div className='projectTeamWrapper'>
-      <h3>Project team:</h3>
-      <table  className=''>
-        <tr>
-          <th>NAME</th>
-          <th>POSITION</th>
-          <th>LOCATION</th>
-          <th>BIRTHDAY</th>
-        </tr>
-        {tableTemplate}
-      </table>
-      {projects.length === 0 &&
+    {employeesID.length === 0 
+      ? <h3>Project team </h3>
+      : <div className='projectTeamWrapper'>
+        <h3>Project team:</h3>
+        <table  className=''>
+          <tr>
+            <th>NAME</th>
+            <th>POSITION</th>
+            <th>LOCATION</th>
+            <th>BIRTHDAY</th>
+          </tr>
+          {tableTemplate}
+        </table>
+        {projects.length === 0 &&
       <p>nothing found</p>
-      }
-    </div>
+        }
+      </div>
+    }
   </div>;
 
   return result;

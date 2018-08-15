@@ -6,12 +6,12 @@ import 'moment-timezone';
 import Button from '@material-ui/core/Button';
 import Chip from '@material-ui/core/Chip';
 import AddIcon from '@material-ui/icons/Add';
-import { getEmployee } from '../../utils';
+import { getElementById } from '../../utils';
 import history from '../../history';
 
 class ProjectForm extends Component {
   state = {
-    projectTeam: []
+    projectTeam: this.props.team === undefined ? [] : this.props.team
   }
 
     onSubmit = values => { 
@@ -25,16 +25,17 @@ class ProjectForm extends Component {
       let projectTeam = this.state.projectTeam;
 
       projectTeam.push(empl);
-      this.setState(projectTeam);
+      this.setState({ projectTeam });
+      // console.log('state', this.state);
       // console.log('add to team', this.state.projectTeam);
     }
 
     handleDelete = (employee, id) => {
-      let projectTeam = this.props.team === undefined ? this.state.projectTeam : this.props.team;
+      let projectTeam = this.state.projectTeam;
       let index = projectTeam.indexOf(id);
 
       projectTeam.splice(index, 1);
-      this.setState(projectTeam);
+      this.setState({ projectTeam });
       // console.log(projectTeam);
     }
   
@@ -51,13 +52,18 @@ class ProjectForm extends Component {
       };
 
       let employees = this.props.employees;
-      let projectTeam = this.props.team === undefined ? this.state.projectTeam : this.props.team;
+      // let projectTeam = this.props.team === undefined ? [] : this.props.team;
       
+      // this.setState({ projectTeam });
+
+      let projectTeam = this.state.projectTeam;
+      // let teamEmployees = employees.filter(employee => employee.id !== id);
+
       let makeChips = arr => {
         let projectTeamChips = [];
 
         for (var i = 0; i < arr.length; i++){
-          let currentEmployee = getEmployee(employees, arr[i]);
+          let currentEmployee = getElementById(employees, arr[i]);
 
           // let name = currentEmployee.name + ' ' + currentEmployee.surName;
           projectTeamChips.push(currentEmployee);

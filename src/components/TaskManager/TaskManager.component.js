@@ -5,7 +5,8 @@ import Moment from 'react-moment';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
-import { getEmployee } from '../../utils';
+import EditIcon from '@material-ui/icons/Edit';
+import { getElementById } from '../../utils';
 
 class TaskManager extends Component {
 
@@ -33,29 +34,30 @@ class TaskManager extends Component {
 
         for (var i = 0; i < tasksArr.length; i++){
           let task = tasksArr[i];
-          let statusKey = task.status;
+          let statusKey = task.status == undefined ? 'todos' : task.status;
 
           this.setState({ [statusKey]: [...this.state[statusKey], task] });
         }
-
-        // this.setState( { todos: data.data });
       });
   }
 
   taskEmpl = id => {
     event.preventDefault();
-    let employee = getEmployee(this.props.employees, id);
+    let employee = getElementById(this.props.employees, id);
     let name = employee.name + ' ' + employee.surName;
 
     return name;
   }
 
-  deleteTask = (event, id) => {
+  deleteTask = (event, id, taskKey) => {
     event.preventDefault();
-    console.info('delete task', id);
+    // console.info('delete task', id);
     this.props.deleteTask(id)
       .then(() => {
-        
+        // console.log(data);
+        this.setState({
+          [taskKey]: [...this.state[taskKey].filter(task => task.id !== id)],
+        });
       });
   }
 
@@ -102,7 +104,7 @@ class TaskManager extends Component {
     };
     let id = this.props.match.params.id;
     let projects = this.props.projects;
-    let currentProject = getEmployee(projects, id);
+    let currentProject = getElementById(projects, id);
     const { todos, completedTasks, inProgressTasks, inTestingTasks } = this.state;
     
     return (
@@ -136,12 +138,15 @@ class TaskManager extends Component {
                   draggable
                   onDrag={(event) => this.onDrag(event, todo, 'todos')}
                   key={todo.id}>
-                  <IconButton onClick={(event) => this.deleteTask(event, todo.id)} style={styles.delBut} mini aria-label="Delete">
-                    <DeleteIcon />
-                  </IconButton>
-                  <p>{todo.name}</p>
-                  <p>{todo.description}</p>
-                  <p className='emplName'>{this.taskEmpl(todo.employeeId)}</p>
+                  <div className='aboutTodo'>
+                    <p>{todo.name}</p>
+                    <p>{todo.description}</p>
+                    <p className='emplName'>{this.taskEmpl(todo.employeeId)}</p>
+                    <IconButton onClick={(event) => this.deleteTask(event, todo.id, 'todos')} style={styles.delBut} mini aria-label="Delete">
+                      <DeleteIcon />
+                    </IconButton>
+                  </div>
+                  
                   
                 </div>  
               )
@@ -161,7 +166,7 @@ class TaskManager extends Component {
                   draggable
                   onDrag={(event) => this.onDrag(event, todo, 'inProgressTasks')}
                   key={todo.id}>
-                  <IconButton style={styles.delBut} mini aria-label="Delete">
+                  <IconButton onClick={(event) => this.deleteTask(event, todo.id, 'inProgressTasks')} style={styles.delBut} mini aria-label="Delete">
                     <DeleteIcon />
                   </IconButton>
                   <p>{todo.name}</p>
@@ -185,9 +190,9 @@ class TaskManager extends Component {
                   draggable
                   onDrag={(event) => this.onDrag(event, todo, 'inTestingTasks')}
                   key={todo.id}>
-                  {/* <IconButton onClick={this.deleteTask(todo.id)} style={styles.delBut} mini aria-label="Delete">
+                  <IconButton onClick={(event) => this.deleteTask(event, todo.id, 'inTestingTasks')} style={styles.delBut} mini aria-label="Delete">
                     <DeleteIcon />
-                  </IconButton> */}
+                  </IconButton>
                   <p>{todo.name}</p>
                   <p>{todo.description}</p>
                   <p className='emplName'>{this.taskEmpl(todo.employeeId)}</p>
@@ -209,7 +214,7 @@ class TaskManager extends Component {
                   className='taskItem'
                   draggable
                   onDrag={(event) => this.onDrag(event, todo, 'completedTasks')}>
-                  <IconButton style={styles.delBut} mini aria-label="Delete">
+                  <IconButton onClick={(event) => this.deleteTask(event, todo.id, 'completedTasks')} style={styles.delBut} mini aria-label="Delete">
                     <DeleteIcon />
                   </IconButton>
                   <p>{todo.name}</p>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Form, Text, TextArea, Select } from 'react-form';
 import 'moment-timezone';
 import Button from '@material-ui/core/Button';
-import { getEmployee } from '../../utils';
+import { getElementById } from '../../utils';
 import history from '../../history';
 
 class TaskForm extends Component {
@@ -16,7 +16,9 @@ class TaskForm extends Component {
       values.projectId = this.props.match.params.id;
       values.status = 'todos';
       this.props.projectFormSubmit(values, this.props.match.params.id);
-      history.push(`${'/taskManager'}/${this.props.match.params.id}`);
+      // .then(() => {
+      //   history.push(`${'/taskManager'}/${this.props.match.params.id}`);
+      // });
     };
   
     render () {
@@ -31,13 +33,13 @@ class TaskForm extends Component {
         }
       };
 
-      let project = getEmployee(this.props.projects, this.props.match.params.id);
+      let project = getElementById(this.props.projects, this.props.match.params.id);
       let team = project.employees;
       let employees = this.props.employees;
       let projectTeam = [];
 
       for (let i = 0; i < team.length; i++){
-        let employee = getEmployee(employees, team[i]);
+        let employee = getElementById(employees, team[i]);
 
         projectTeam.push(employee);
         console.log('projectTeam', projectTeam);
@@ -85,6 +87,7 @@ class TaskForm extends Component {
                     <li>
                       <label for="employeeId">Employee:</label>
                       <Select 
+                        defaultValue={this.props.userId}
                         field="employeeId" 
                         id="select-employee" 
                         options={employeesOptions}  

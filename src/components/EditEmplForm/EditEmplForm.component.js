@@ -4,7 +4,7 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 import { Form, Text, Select } from 'react-form';
 import EmployeeForm from '../EmployeeForm/EmployeeForm.component';
-import { getEmployee } from '../../utils';
+import { getElementById } from '../../utils';
 
 const EditEmplForm = function ({
   props,
@@ -15,7 +15,7 @@ const EditEmplForm = function ({
 }){
 
   let id = props.match.params.id;
-  let employee = getEmployee(employees, id);
+  let employee = getElementById(employees, id);
   // let index = employees.indexOf(employee);
 
   let result = <div>
