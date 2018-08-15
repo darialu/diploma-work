@@ -197,11 +197,14 @@ class EmployeePage extends Component {
                     ? <p>no tasks</p>
                     : 
                     tasks.map((task, index) => {
-                      return <div><li key={index}>{task.name}</li></div>;
+                      if (task.projectId === project.id){
+                        return <div><li key={index}>{task.name}</li></div>;
+                      }
+                      return;
                       
                     })
                   }
-                </div>
+                </div>;
               })
               : <p>no projects found</p>
             }
