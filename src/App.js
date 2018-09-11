@@ -67,7 +67,7 @@ class App extends Component {
 
   deleteEmployee = id => {
     if (id === '0'){
-      alert('You cant delete Andy - he is admin!');
+      alert('You can\'t delete Andy - he is admin!');
       return;
     }
     this.props.dispatch(deleteEmployee(id));
@@ -84,6 +84,10 @@ class App extends Component {
 
   deleteProject = id => {
     // console.log('id for del project', id);
+    if (id === '0'){
+      alert('Sorry, You can\'t delete our main project. Try to create/delete your own project');
+      return;
+    }
     this.props.dispatch(deleteProject(id));
 
   }
