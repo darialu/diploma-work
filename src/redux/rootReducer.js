@@ -23,7 +23,7 @@ import axios from 'axios';
 import { getElementById } from '../utils';
 
 const initialState = {
-  token: '',
+  token: 'tttoken',
   employees: [],
   employeesSkills: [],
   projects: [],

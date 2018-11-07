@@ -42,6 +42,8 @@ class App extends Component {
   componentDidMount () {
     const token = localStorage.getItem('TOKEN');
 
+    console.log('TOKEN current', this.props.token);
+
     if (!token || token === 'null') {
       // redirect
       this.props.history.push('/auth');
@@ -357,7 +359,7 @@ class App extends Component {
 
 function mapStateToProps (state) {
   return {
-    // token: state.token,
+    token: state.token,
     employees: state.employees,
     employeesSkills: state.employeesSkills,
     projects: state.projects,
